@@ -12,3 +12,11 @@ $link-color: #00a3ff;
 	justify-content: $justify;
 	align-items: $align;
 }
+
+@mixin background-color-hover-effect($color, $text-color: null) {
+	transition: background-color 500ms ease-out, color 300ms ease-out;
+	&:hover {
+		background-color: $color;
+		color: $text-color;
+	}
+}

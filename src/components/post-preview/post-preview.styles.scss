@@ -1,74 +1,75 @@
 @import './../../shared/scss/shared';
 
 .post-preview {
-	@include flex-box(column, space-between, flex-start);
-	width: 300px;
-	height: 400px;
-	box-shadow: 0px 5px 5px rgba(0, 0, 0, .1);
-	background-color: white;
-	transition: box-shadow 500ms ease-out;
+  @include flex-box(column, space-between, flex-start);
+  width: 300px;
+  height: 400px;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, .1);
+  background-color: white;
+  transition: box-shadow 500ms ease-out;
 
-	&:hover {
-		box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, .3),
-			0px 5px 10px rgba(0, 0, 0, .1);
-	}
+  &:hover {
+    box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, .3),
+      0px 5px 10px rgba(0, 0, 0, .1);
+  }
 
-	&:hover &__content-container img {
-		top: -200%;
-	}
+  &:hover &__content-container img {
+    transition: top 5s linear;
+    top: -200%;
+  }
 
-	&__content-container {
-		@include flex-box(column, flex-end, flex-start);
-		width: 100%;
-		flex: 1;
-		overflow: hidden;
-		position: relative;
+  &__content-container {
+    @include flex-box(column, flex-end, flex-start);
+    width: 100%;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
 
-		img {
-			transition: top 5s linear;
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-		}
-	}
+    img {
+      transition: top 2s linear;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+  }
 
-	&__content {
-		@include flex-box(row, space-between, center);
-		z-index: 1;
-		width: 100%;
-		background-color: rgba(255, 255, 255, .8);
-		padding: 20px;
-	}
+  &__content {
+    @include flex-box(row, space-between, center);
+    z-index: 1;
+    width: 100%;
+    background-color: rgba(255, 255, 255, .8);
+    padding: 20px;
+  }
 
-	&__info {
-		@include flex-box(column, flex-start, flex-start);
-	}
+  &__info {
+    @include flex-box(column, flex-start, flex-start);
+  }
 
-	&__title {
-		font-weight: bold;
-	}
+  &__title {
+    font-weight: bold;
+  }
 
-	&__detail {
-		font-size: .8em;
-	}
-	&__author {
-		font-weight: bold;
-		color: $link-color;
-	}
+  &__detail {
+    font-size: .8em;
+  }
+  &__author {
+    font-weight: bold;
+    color: $link-color;
+  }
 
-	&__additional {
-		@include flex-box(row, space-between, center);
-		width: 100%;
-		padding: 10px 20px;
-		height: 50px;
-	}
+  &__additional {
+    @include flex-box(row, space-between, center);
+    width: 100%;
+    padding: 10px 20px;
+    height: 50px;
+  }
 
-	&__comments {
-		@include flex-box(row, flex-start, center);
+  &__comments {
+    @include flex-box(row, flex-start, center);
 
-		span {
-			margin-left: 10px;
-		}
-	}
+    span {
+      margin-left: 10px;
+    }
+  }
 }

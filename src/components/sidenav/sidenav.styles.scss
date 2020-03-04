@@ -1,34 +1,51 @@
 @import './../../shared/scss/shared';
 
-aside {
-	@include flex-box(column, space-between, flex-start);
-	position: fixed;
-	left: 0;
-	top: 0;
-	height: 100vh;
-	background-color: $primary-color;
-	width: 55px;
-	transition: width 250ms ease-out, background-color 250ms ease-in;
-	overflow: hidden;
-	box-shadow: 0px 0px 5px rgba(0, 0, 0, .1);
-	z-index: 99;
+.sidenav {
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: $primary-color;
+  width: 55px;
+  height: 100vh;
+  transition: width 250ms ease-out, background-color 250ms ease-in;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, .1);
+  z-index: 99;
+  overflow: hidden;
 
-	&:hover {
-		width: 200px;
-	}
+  &__logo {
+    margin: 10px 0px;
+  }
 
-	> div,
-	ul li {
-		@include flex-box(row, flex-start, center);
-		padding: 10px 14px;
-		width: 200px;
+  &:hover {
+    width: 200px;
+    //FIXME: cek bagusan mana ini ato color accent
+    background-color: $text-color-lighten;
 
-		&:hover {
-			background-color: $primary-color-darken;
-		}
+    ul li span {
+      color: white;
+    }
+  }
 
-		span {
-			margin-left: 20px;
-		}
-	}
+  ul {
+    @include flex-box(column, flex-start, flex-start);
+    height: 100%;
+  }
+
+  ul li {
+    @include flex-box(row, flex-start, center);
+    padding: 10px 14px;
+    width: 200px;
+
+    &:hover {
+      background-color: $accent-color;
+    }
+
+    span {
+      margin-left: 20px;
+    }
+
+    &:last-child {
+      margin-top: auto;
+    }
+  }
 }

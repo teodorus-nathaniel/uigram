@@ -1,0 +1,34 @@
+@import './../../shared/scss/shared';
+
+aside {
+	@include flex-box(column, space-between, flex-start);
+	position: fixed;
+	left: 0;
+	top: 0;
+	height: 100vh;
+	background-color: $primary-color;
+	width: 55px;
+	transition: width 250ms ease-out, background-color 250ms ease-in;
+	overflow: hidden;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, .1);
+	z-index: 99;
+
+	&:hover {
+		width: 200px;
+	}
+
+	> div,
+	ul li {
+		@include flex-box(row, flex-start, center);
+		padding: 10px 14px;
+		width: 200px;
+
+		&:hover {
+			background-color: $primary-color-darken;
+		}
+
+		span {
+			margin-left: 20px;
+		}
+	}
+}

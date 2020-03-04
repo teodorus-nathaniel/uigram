@@ -1,26 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import Navbar from './components/navbar/navbar.component';
+import Sidenav from './components/sidenav/sidenav.component';
+import PostPreview from './components/post-preview/post-preview.component';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<div className="App">
+			<Sidenav />
+			<div className="content">
+				<Navbar />
+
+				<main>
+					<PostPreview />
+				</main>
+			</div>
+		</div>
+	);
 }
 
 export default App;

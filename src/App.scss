@@ -1,0 +1,11 @@
+@import './shared/scss/shared';
+
+.content {
+	background-color: $background-color;
+	margin-left: 55px;
+	min-height: 100vh;
+
+	main {
+		padding: 40px 50px;
+	}
+}

@@ -56,4 +56,39 @@
 			margin-top: auto;
 		}
 	}
+
+	@media screen and (max-width: $breakpoint) {
+		width: 100%;
+		bottom: 0;
+		top: auto;
+		height: 55px;
+
+		&:hover {
+			width: 100%;
+		}
+
+		&__logo {
+			opacity: 1;
+			transition: none;
+
+			&.hide {
+				opacity: 1;
+				transform: translateY(0px);
+			}
+		}
+
+		ul {
+			flex-direction: row;
+			align-items: center;
+
+			li {
+				@include flex-box(row, center, center);
+				height: 100%;
+				margin: 0;
+				span {
+					display: none;
+				}
+			}
+		}
+	}
 }

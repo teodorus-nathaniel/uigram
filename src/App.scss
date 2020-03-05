@@ -5,4 +5,8 @@ main {
 	min-height: calc(100vh - 67px);
 	padding: 50px;
 	margin-left: 55px;
+
+	@media screen and (max-width: $breakpoint) {
+		margin-left: 0;
+	}
 }

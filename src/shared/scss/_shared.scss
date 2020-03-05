@@ -6,6 +6,8 @@ $text-color: black;
 $text-color-lighten: rgb(37, 37, 37);
 $link-color: #00a3ff;
 
+$breakpoint: 500px;
+
 @mixin flex-box ($direction, $justify, $align) {
 	display: flex;
 	flex-direction: $direction;

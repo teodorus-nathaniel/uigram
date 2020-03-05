@@ -6,6 +6,11 @@
 	--box-shadow-rgb: 50, 50, 50;
 }
 
+a {
+	color: currentColor;
+	text-decoration: none;
+}
+
 * {
 	box-sizing: border-box;
 	margin: 0;

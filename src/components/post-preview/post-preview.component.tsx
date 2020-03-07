@@ -1,6 +1,6 @@
 import React from 'react';
 import Page from './../../assets/images/Capture.png';
-// import Page from './../../assets/ima ges/page.jpg';
+// import Page from './../../assets/images/page.jpg';
 
 import './post-preview.styles.scss';
 import CommentIcon from '../icons/comment/comment.component';

@@ -13,17 +13,26 @@
 			0px 5px 10px rgba(0, 0, 0, .1);
 	}
 
-	&__content-container img:hover {
-		transition: top 15s linear;
-		top: -200%;
-	}
-
 	&__content-container {
 		@include flex-box(column, flex-end, flex-start);
 		width: 100%;
 		flex: 1;
 		overflow: hidden;
 		position: relative;
+
+		.img-hover-hitbox {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			z-index: 2;
+
+			&:hover + img {
+				transition: top 15s linear;
+				top: -200%;
+			}
+		}
 
 		img {
 			transition: top 3s linear;

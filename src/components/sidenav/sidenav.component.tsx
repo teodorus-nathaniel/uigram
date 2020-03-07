@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import IconImage from '../icons/icon-image.component';
-
-import Logo from './../../assets/images/logo.png';
-import BookmarkIcon from '../icons/bookmark/bookmark.component';
 import './sidenav.styles.scss';
-import SunIcon from '../icons/sun/sun.component';
-import FollowingIcon from '../icons/following/following.component';
+
+import React, { useEffect, useState } from 'react';
+
+import Logo from '../../assets/images/logo.png';
+import BookmarkIcon from '../icons/bookmark/bookmark.component';
 import FollowersIcon from '../icons/followers/followers.component';
+import FollowingIcon from '../icons/following/following.component';
+import IconImage from '../icons/icon-image.component';
+import SunIcon from '../icons/sun/sun.component';
 
 export default function Sidenav() {
 	const [ isHovered, setIsHovered ] = useState(false);

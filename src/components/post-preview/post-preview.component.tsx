@@ -12,6 +12,7 @@ export default function PostPreview() {
 		<div className="post-preview">
 			<div className="post-preview__content-container">
 				<Link to="/detail">
+					<div className="img-hover-hitbox" />
 					<img src={Page} alt="page" />
 				</Link>
 				<div className="post-preview__content">

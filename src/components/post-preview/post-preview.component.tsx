@@ -14,7 +14,7 @@ import useAnimation from '../../effects/useAnimation.effect';
 export default function PostPreview (){
   const [ ref, , entry ] = useInView({
     triggerOnce: true,
-    threshold: 0.5
+    threshold: 0.3
   });
 
   useAnimation(entry!, { opacity: 1 }, 0.5);

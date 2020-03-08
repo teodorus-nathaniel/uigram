@@ -9,16 +9,16 @@ $link-color: #00a3ff;
 $breakpoint: 500px;
 
 @mixin flex-box ($direction, $justify, $align) {
-	display: flex;
-	flex-direction: $direction;
-	justify-content: $justify;
-	align-items: $align;
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
 }
 
 @mixin background-color-hover-effect($color, $text-color: null) {
-	transition: background-color 500ms ease-out, color 300ms ease-out;
-	&:hover {
-		background-color: $color;
-		color: $text-color;
-	}
+  transition: background-color 500ms ease-out, color 300ms ease-out;
+  &:hover {
+    background-color: $color;
+    color: $text-color;
+  }
 }

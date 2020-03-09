@@ -11,15 +11,20 @@ import useAnimation from '../../effects/useAnimation.effect';
 import moment from 'moment';
 import { GlobalState } from '../../redux/root-reducer';
 import { connect } from 'react-redux';
-import { addOrRemovePost } from '../../redux/saved-posts/saved-posts.actions';
+import {
+  addOrRemovePost,
+  IAddOrRemovePostPayload
+} from '../../redux/saved-posts/saved-posts.actions';
 import { selectIsSaved } from '../../redux/saved-posts/saved-posts.selectors';
+import { Dispatch } from 'redux';
 
 interface IProps {
   post: Post;
-  saved?: boolean;
+  saved: boolean;
+  addOrRemovePost: (payload: IAddOrRemovePostPayload) => void;
 }
 
-function PostPreviewPlain ({ post, saved }: IProps){
+function PostPreviewPlain ({ post, saved, addOrRemovePost }: IProps){
   const [ ref, , entry ] = useInView({
     triggerOnce: true,
     threshold: 0.3
@@ -27,6 +32,7 @@ function PostPreviewPlain ({ post, saved }: IProps){
 
   // FIXME: ini gimana saved nya dari mana, ini aneh savednya musti ? ama kalo gini musti fetch saved dl dari awal
   const handleBookmarkAddClick = () => {
+    console.log(saved);
     if (saved) {
       addOrRemovePost({ type: 'remove', post: post });
     } else {
@@ -77,7 +83,11 @@ function PostPreviewPlain ({ post, saved }: IProps){
             <CommentIcon size={1.2} />
             <span>{commentsCount} comments</span>
           </div>
-          <BookmarkAddIcon onClick={handleBookmarkAddClick} size={1.2} />
+          <BookmarkAddIcon
+            onClick={handleBookmarkAddClick}
+            size={1.2}
+            color={saved ? '#00a3ff' : undefined}
+          />
         </div>
         <span>{moment(timestamp).fromNow()}</span>
       </div>
@@ -85,9 +95,19 @@ function PostPreviewPlain ({ post, saved }: IProps){
   );
 }
 
-const mapStateToProps = (state: GlobalState, ownProps: IProps) => ({
+const mapStateToProps = (
+  state: GlobalState,
+  ownProps: Pick<IProps, 'post'>
+) => ({
   saved: selectIsSaved(ownProps.post.id)(state)
 });
 
-const PostPreview = connect(mapStateToProps)(PostPreviewPlain);
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  addOrRemovePost: (payload: IAddOrRemovePostPayload) =>
+    dispatch(addOrRemovePost(payload))
+});
+
+const PostPreview = connect(mapStateToProps, mapDispatchToProps)(
+  PostPreviewPlain
+);
 export default PostPreview;

@@ -4,7 +4,6 @@ import {
   savedPostFailure,
   loadSavedPosts,
   ADD_OR_REMOVE_POST,
-  addOrRemovePost,
   IAddOrRemovePostPayload
 } from './saved-posts.actions';
 import { all, call, takeLatest, put, takeEvery } from 'redux-saga/effects';
@@ -19,7 +18,6 @@ function* fetchSavedPostsAsync (){
 function* addOrRemovePostAsync ({ type, post }: IAddOrRemovePostPayload){
   // TODO: API CALL, pake type ama id buat remove ato add yang di db
   yield new Promise((resolve) => setTimeout(resolve, 500));
-  yield put(addOrRemovePost({ type, post }));
 }
 
 function* watchAddOrRemoveSavedPost (){

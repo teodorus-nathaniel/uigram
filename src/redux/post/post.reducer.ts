@@ -2,48 +2,50 @@ import { Post } from '../../@types/post.interfaces';
 import PostActionType from './post.actions';
 
 interface IState {
-	posts: Post[];
-	post: Post | null;
-	isFetching: boolean;
-	error: Error | null;
+  explore: Post[];
+  feeds: Post[];
+  isFetching: boolean;
+  error: Error | null;
 }
 
 const INITIAL_STATE = {
-	posts: [],
-	post: null,
-	isFetching: false,
-	error: null
+  explore: [],
+  feeds: [],
+  isFetching: false,
+  error: null
 };
 
-export default function postReducer(
-	state: IState = INITIAL_STATE,
-	action: PostActionType
-): IState {
-	switch (action.type) {
-		case 'FETCH_FEEDS_POSTS':
-		case 'FETCH_EXPLORE_POSTS':
-			return {
-				...state,
-				isFetching: true
-			};
-		case 'FETCH_POST_FAILURE':
-			return {
-				...state,
-				isFetching: false,
-				error: action.payload
-			};
-		case 'LOAD_POSTS':
-			return {
-				...state,
-				posts: action.payload,
-				isFetching: false
-			};
-		case 'LOAD_POST':
-			return {
-				...state,
-				post: action.payload
-			};
-		default:
-			return state;
-	}
+export default function postReducer (
+  state: IState = INITIAL_STATE,
+  action: PostActionType
+): IState{
+  switch (action.type) {
+    case 'FETCH_POSTS':
+      return {
+        ...state,
+        isFetching: true
+      };
+    case 'FETCH_POST_FAILURE':
+      return {
+        ...state,
+        isFetching: false,
+        error: action.payload
+      };
+    case 'LOAD_FEEDS_POSTS':
+      return {
+        ...state,
+        feeds: action.payload,
+        isFetching: false,
+        error: null
+      };
+    case 'LOAD_EXPLORE_POSTS':
+      return {
+        ...state,
+        explore: action.payload,
+        isFetching: false,
+        error: null
+      };
+    default:
+      return state;
+  }
 }

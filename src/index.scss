@@ -1,51 +1,51 @@
 @import './shared/scss/shared';
 
 :root {
-	font-size: 14px;
-	--icon-color: $text-color;
-	--box-shadow-rgb: 50, 50, 50;
+  font-size: 14px;
+  --icon-color: $text-color;
+  --box-shadow-rgb: 50, 50, 50;
 }
 
 a {
-	color: currentColor;
-	text-decoration: none;
+  color: currentColor;
+  text-decoration: none;
 }
 
 * {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	line-height: 1.5em;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  line-height: 1.5em;
 }
 
 body {
-	margin: 0;
-	font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-		'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-		'Helvetica Neue', sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-y: scroll;
 
-	&::-webkit-scrollbar {
-		width: 5px;
-	}
-	&::-webkit-scrollbar-track {
-		//FIXME: cek bagusan mana ini ato color accent
-		background-color: $text-color-lighten;
-	}
-	&::-webkit-scrollbar-thumb {
-		background: $link-color;
-	}
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: $text-color-lighten;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $link-color;
+  }
 }
 
 .opacity-hover-effect {
-	transition: opacity 250ms ease-out;
-	&:hover {
-		opacity: .75;
-	}
+  transition: opacity 250ms ease-out;
+  &:hover {
+    opacity: .75;
+  }
 }
 
 .not-visible {
-	opacity: 0;
+  opacity: 0;
 }

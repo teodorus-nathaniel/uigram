@@ -1,34 +1,25 @@
 import { action, payload } from 'ts-action';
 import { Post } from '../../@types/post.interfaces';
-import { IFetchStart, IFetchFailure } from '../utilities.interfaces';
 
-export const FETCH_POST_FAILURE = 'FETCH_POST_FAILURE';
-export const fetchPostFailure = action(FETCH_POST_FAILURE, payload<Error>());
-
-export const FETCH_FEEDS_POSTS = 'FETCH_FEEDS_POSTS';
-export const fetchFeedsPosts = action(FETCH_FEEDS_POSTS);
-export const FETCH_EXPLORE_POSTS = 'FETCH_EXPLORE_POSTS';
-export const fetchExplorePosts = action(FETCH_EXPLORE_POSTS);
-
-export const LOAD_POSTS = 'LOAD_POSTS';
-export const loadPosts = action(LOAD_POSTS, payload<Post[]>());
-interface ILoadAllPosts {
-	type: typeof LOAD_POSTS;
-	payload: Post[];
+export interface IFetchPostsPayload {
+  type: 'explore' | 'feeds';
+  sort?: string;
 }
 
-export const LOAD_POST = 'LOAD_POST';
-export const loadPost = action(LOAD_POST, payload<Post>());
-export interface ILoadPost {
-	type: typeof LOAD_POST;
-	payload: Post;
-}
+export const FETCH_POSTS_FAILURE = 'FETCH_POST_FAILURE';
+export const FETCH_POSTS = 'FETCH_POSTS';
+export const LOAD_FEEDS_POSTS = 'LOAD_FEEDS_POSTS';
+export const LOAD_EXPLORE_POSTS = 'LOAD_EXPLORE_POSTS';
+
+export const fetchPostFailure = action(FETCH_POSTS_FAILURE, payload<Error>());
+export const fetchPosts = action(FETCH_POSTS, payload<IFetchPostsPayload>());
+export const loadFeedsPosts = action(LOAD_FEEDS_POSTS, payload<Post[]>());
+export const loadExplorePosts = action(LOAD_EXPLORE_POSTS, payload<Post[]>());
 
 type PostActionType =
-	| ILoadAllPosts
-	| ILoadPost
-	| IFetchStart<typeof FETCH_EXPLORE_POSTS>
-	| IFetchStart<typeof FETCH_FEEDS_POSTS>
-	| IFetchFailure<typeof FETCH_POST_FAILURE>;
+  | ReturnType<typeof fetchPostFailure>
+  | ReturnType<typeof fetchPosts>
+  | ReturnType<typeof loadExplorePosts>
+  | ReturnType<typeof loadFeedsPosts>;
 
 export default PostActionType;

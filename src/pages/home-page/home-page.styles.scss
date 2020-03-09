@@ -3,8 +3,4 @@
 .home-page {
   @include flex-box(column, flex-start, flex-start);
   width: 100%;
-
-  .post-preview-container {
-    padding: 35px 50px;
-  }
 }

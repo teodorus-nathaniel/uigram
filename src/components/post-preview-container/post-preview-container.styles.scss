@@ -1,6 +1,13 @@
+@import './../../shared/scss/shared';
+
 .post-preview-container {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 50px;
+  padding: 35px 50px;
+
+  @media screen and (max-width: $breakpoint) {
+    padding: 35px 0px;
+  }
 }

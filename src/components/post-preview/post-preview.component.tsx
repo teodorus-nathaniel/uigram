@@ -16,7 +16,7 @@ export default function PostPreview({ post }: { post: Post }) {
 		threshold: 0.3
 	});
 
-	useAnimation(entry!, { opacity: 1 }, 0.5);
+	useAnimation(entry!, { opacity: 1 }, 0.8);
 
 	const {
 		id,

@@ -45,7 +45,8 @@
       width: inherit;
       height: 48px;
 
-      a {
+      > a,
+      > div {
         @include flex-box(row, flex-start, center);
         padding: 10px 14px;
         width: inherit;

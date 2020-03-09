@@ -1,5 +1,11 @@
 import { Post } from '../../@types/post.interfaces';
-import PostActionType from './post.actions';
+import PostActionType, {
+  FETCH_POSTS,
+  FETCH_POSTS_FAILURE,
+  LOAD_FEEDS_POSTS,
+  LOAD_EXPLORE_POSTS,
+  CHANGE_SAVED
+} from './post.actions';
 
 interface IState {
   explore: Post[];
@@ -20,25 +26,25 @@ export default function postReducer (
   action: PostActionType
 ): IState{
   switch (action.type) {
-    case 'FETCH_POSTS':
+    case FETCH_POSTS:
       return {
         ...state,
         isFetching: true
       };
-    case 'FETCH_POST_FAILURE':
+    case FETCH_POSTS_FAILURE:
       return {
         ...state,
         isFetching: false,
         error: action.payload
       };
-    case 'LOAD_FEEDS_POSTS':
+    case LOAD_FEEDS_POSTS:
       return {
         ...state,
         feeds: action.payload,
         isFetching: false,
         error: null
       };
-    case 'LOAD_EXPLORE_POSTS':
+    case LOAD_EXPLORE_POSTS:
       return {
         ...state,
         explore: action.payload,

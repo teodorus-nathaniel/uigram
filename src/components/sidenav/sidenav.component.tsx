@@ -8,11 +8,13 @@ import FollowersIcon from '../icons/followers/followers.component';
 import FollowingIcon from '../icons/following/following.component';
 import IconImage from '../icons/icon-image.component';
 import SunIcon from '../icons/sun/sun.component';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Sidenav (){
   const [ isHovered, setIsHovered ] = useState(false);
   const [ isScrolled, setIsScrolled ] = useState(false);
+
+  const location = useLocation();
 
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);
@@ -31,6 +33,24 @@ export default function Sidenav (){
     [ isScrolled ]
   );
 
+  const navigations = [
+    {
+      path: '/saved',
+      name: 'Saved',
+      icon: BookmarkIcon
+    },
+    {
+      path: '/following',
+      name: 'Following',
+      icon: FollowingIcon
+    },
+    {
+      path: '/followers',
+      name: 'Followers',
+      icon: FollowersIcon
+    }
+  ];
+
   return (
     <aside
       onMouseEnter={handleMouseEnter}
@@ -43,29 +63,30 @@ export default function Sidenav (){
             <span>Home</span>
           </Link>
         </li>
+        {navigations.map(({ icon: Icon, name, path }) => (
+          <li key={path}>
+            <Link to={path}>
+              <Icon
+                noHover
+                color={
+                  isHovered ? (
+                    'white'
+                  ) : location.pathname === path ? (
+                    '#00a3ff'
+                  ) : (
+                    undefined
+                  )
+                }
+              />
+              <span>{name}</span>
+            </Link>
+          </li>
+        ))}
         <li>
-          <Link to='/'>
-            <BookmarkIcon noHover color={isHovered ? 'white' : undefined} />
-            <span>Saved</span>
-          </Link>
-        </li>
-        <li>
-          <Link to='/'>
-            <FollowingIcon noHover color={isHovered ? 'white' : undefined} />
-            <span>Following</span>
-          </Link>
-        </li>
-        <li>
-          <Link to='/'>
-            <FollowersIcon noHover color={isHovered ? 'white' : undefined} />
-            <span>Followers</span>
-          </Link>
-        </li>
-        <li>
-          <Link to='/'>
+          <div>
             <SunIcon noHover color={isHovered ? 'white' : undefined} />
             <span>Color Mode</span>
-          </Link>
+          </div>
         </li>
       </ul>
     </aside>

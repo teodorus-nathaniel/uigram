@@ -5,4 +5,14 @@
     width: inherit;
     height: inherit;
   }
+
+  @keyframes scale {
+    50% {
+      transform: scale(1.1);
+    }
+  }
+
+  &#bookmark.animate {
+    animation: scale 500ms ease-in-out;
+  }
 }

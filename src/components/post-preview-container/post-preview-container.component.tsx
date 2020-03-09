@@ -4,13 +4,13 @@ import './post-preview-container.styles.scss';
 import { Post } from '../../@types/post.interfaces';
 
 interface IProps {
-	posts: Post[];
+  posts: Post[];
 }
 
-export default function PostPreviewContainer({ posts }: IProps) {
-	return (
-		<div className="post-preview-container">
-			{posts.map((post: Post) => <PostPreview key={post.id} post={post} />)}
-		</div>
-	);
+export default function PostPreviewContainer ({ posts }: IProps){
+  return (
+    <div className='post-preview-container'>
+      {posts.map((post: Post) => <PostPreview key={post.id} post={post} />)}
+    </div>
+  );
 }

@@ -4,13 +4,13 @@
 	@include flex-box(column, space-between, flex-start);
 	width: 100%;
 	height: 400px;
-	box-shadow: 0px 5px 5px rgba(0, 0, 0, .1);
+	box-shadow: 0px 5px 5px rgba(100, 100, 100, .1);
 	background-color: white;
 	transition: box-shadow 500ms ease-out;
 
 	&:hover {
-		box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, .3),
-			0px 5px 10px rgba(0, 0, 0, .1);
+		box-shadow: 0px 2px 5px 2px rgba(150, 150, 150, .3),
+			0px 5px 10px rgba(100, 100, 100, .1);
 	}
 
 	&__content-container {
@@ -20,35 +20,39 @@
 		overflow: hidden;
 		position: relative;
 
-		.img-hover-hitbox {
+		.image-container {
 			position: absolute;
 			top: 0;
 			left: 0;
-			height: 100%;
-			width: 100%;
-			z-index: 2;
 
-			&:hover + img {
-				transition: top 15s linear;
-				top: -200%;
+			.img-hover-hitbox {
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 100%;
+				width: 100%;
+				z-index: 2;
+
+				&:hover + img {
+					transition: transform 3s linear;
+					transform: translateY(-75%);
+				}
 			}
-		}
 
-		img {
-			transition: top 3s linear;
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
+			img {
+				transition: transform .5s ease-out;
+				position: relative;
+				width: 100%;
+			}
 		}
 	}
 
 	&__content {
 		@include flex-box(row, space-between, center);
-		z-index: 1;
+		z-index: 3;
 		width: 100%;
-		background-color: rgba(255, 255, 255, .8);
-		padding: 20px;
+		background-color: rgba(255, 255, 255, .95);
+		padding: 10px 20px;
 	}
 
 	&__info {
@@ -62,6 +66,7 @@
 	&__detail {
 		font-size: .8em;
 	}
+
 	&__author {
 		font-weight: bold;
 		color: $link-color;
@@ -73,17 +78,29 @@
 	}
 
 	&__additional {
-		@include flex-box(row, space-between, center);
+		@include flex-box(column, flex-start, flex-start);
 		width: 100%;
 		padding: 10px 20px;
-		height: 50px;
-	}
+		padding-top: 5px;
 
-	&__comments {
-		@include flex-box(row, flex-start, center);
+		> span {
+			font-size: 0.7em;
+			color: $text-color-lighten;
+		}
 
-		span {
-			margin-left: 10px;
+		&__container {
+			@include flex-box(row, space-between, center);
+			width: inherit;
+			height: 32px;
+
+			&__comments {
+				@include flex-box(row, flex-start, center);
+				font-size: .9em;
+
+				span {
+					margin-left: 10px;
+				}
+			}
 		}
 	}
 }

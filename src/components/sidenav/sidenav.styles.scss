@@ -1,94 +1,106 @@
 @import './../../shared/scss/shared';
 
 .sidenav {
-	position: fixed;
-	left: 0;
-	top: 0;
-	background-color: $primary-color;
-	width: 55px;
-	height: 100vh;
-	transition: width 250ms ease-out, background-color 250ms ease-in;
-	box-shadow: 0px 0px 5px rgba(var(--box-shadow-rgb), .1);
-	z-index: 99;
-	overflow: hidden;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: $primary-color;
+  width: 55px;
+  height: 100vh;
+  transition: width 250ms ease-out, background-color 250ms ease-in;
+  box-shadow: 0px 0px 5px rgba(var(--box-shadow-rgb), .1);
+  z-index: 99;
+  overflow: hidden;
 
-	&__logo {
-		margin: 10px 0px;
-		opacity: 1;
-		transform: translateY(0);
-		transition: opacity 300ms ease, transform 250ms ease;
+  &__logo {
+    margin: 10px 0px;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 300ms ease, transform 250ms ease;
 
-		&.hide {
-			opacity: 0;
-			transform: translateY(-20px);
-		}
-	}
+    &.hide {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+  }
 
-	&:hover {
-		width: 200px;
-		//FIXME: cek bagusan mana ini ato color accent
-		background-color: $text-color-lighten;
+  &:hover {
+    width: 225px;
+    background-color: $text-color-lighten;
 
-		ul li span {
-			color: white;
-		}
-	}
+    ul li span {
+      color: white;
+      opacity: 1;
+      transition-delay: 300ms;
+      transition: opacity 200ms ease-out;
+    }
+  }
 
-	ul {
-		@include flex-box(column, flex-start, flex-start);
-		height: 100%;
-	}
+  ul {
+    @include flex-box(column, flex-start, flex-start);
+    height: inherit;
+    width: inherit;
 
-	ul li {
-		@include flex-box(row, flex-start, center);
-		padding: 10px 14px;
-		width: 200px;
+    li {
+      width: inherit;
+      height: 48px;
 
-		&:hover {
-			background-color: $accent-color;
-		}
+      a {
+        @include flex-box(row, flex-start, center);
+        padding: 10px 14px;
+        width: inherit;
+        height: inherit;
+      }
 
-		span {
-			margin-left: 20px;
-		}
+      &:hover {
+        background-color: $accent-color;
+      }
 
-		&:last-child {
-			margin-top: auto;
-		}
-	}
+      span {
+        opacity: 0;
+        margin-left: 20px;
+        transition: opacity 100ms ease-out;
+      }
 
-	@media screen and (max-width: $breakpoint) {
-		width: 100%;
-		bottom: 0;
-		top: auto;
-		height: 55px;
+      &:last-child {
+        margin-top: auto;
+      }
+    }
+  }
 
-		&:hover {
-			width: 100%;
-		}
+  @media screen and (max-width: $breakpoint) {
+    width: 100%;
+    bottom: 0;
+    top: auto;
+    height: 55px;
 
-		&__logo {
-			opacity: 1;
-			transition: none;
+    &:hover {
+      width: 100%;
+    }
 
-			&.hide {
-				opacity: 1;
-				transform: translateY(0px);
-			}
-		}
+    &__logo {
+      opacity: 1;
+      transition: none;
 
-		ul {
-			flex-direction: row;
-			align-items: center;
+      &.hide {
+        opacity: 1;
+        transform: translateY(0px);
+      }
+    }
 
-			li {
-				@include flex-box(row, center, center);
-				height: 100%;
-				margin: 0;
-				span {
-					display: none;
-				}
-			}
-		}
-	}
+    ul {
+      flex-direction: row;
+      align-items: center;
+
+      li {
+        a {
+          @include flex-box(row, center, center);
+          margin: 0;
+          span {
+            display: none;
+          }
+        }
+      }
+    }
+  }
 }

@@ -1,5 +1,5 @@
 import { Post, LikeStatus } from '../@types/post.interfaces';
-import PostImage from './../assets/images/page.jpg';
+import PostImage from './../assets/images/Capture.png';
 
 export const dummyPost: Post = {
 	id: '1',

@@ -1,108 +1,109 @@
 @import './../../shared/scss/shared';
 
 .post-preview {
-  @include flex-box(column, space-between, flex-start);
-  width: 100%;
-  height: 400px;
+	@include flex-box(column, space-between, flex-start);
+	width: 100%;
+	height: 400px;
 
-  box-shadow: 0px 5px 5px rgba(100, 100, 100, .1);
-  background-color: white;
-  transition: box-shadow 500ms ease-out;
+	box-shadow: 0px 5px 5px rgba(100, 100, 100, .1);
+	background-color: var(--primary-color);
+	color: var(--text-color);
+	transition: box-shadow 500ms ease-out;
 
-  &:hover {
-    box-shadow: 0px 2px 5px 2px rgba(150, 150, 150, .3),
-      0px 5px 10px rgba(100, 100, 100, .1);
-  }
+	&:hover {
+		box-shadow: 0px 2px 5px 2px rgba(150, 150, 150, .3),
+			0px 5px 10px rgba(100, 100, 100, .1);
+	}
 
-  &__content-container {
-    @include flex-box(column, flex-end, flex-start);
-    width: 100%;
-    flex: 1;
-    overflow: hidden;
-    position: relative;
+	&__content-container {
+		@include flex-box(column, flex-end, flex-start);
+		width: 100%;
+		flex: 1;
+		overflow: hidden;
+		position: relative;
 
-    .image-container {
-      width: inherit;
-      position: absolute;
-      top: 0;
-      left: 0;
+		.image-container {
+			width: inherit;
+			position: absolute;
+			top: 0;
+			left: 0;
 
-      .img-hover-hitbox {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        z-index: 2;
+			.img-hover-hitbox {
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 100%;
+				width: 100%;
+				z-index: 2;
 
-        &:hover + img {
-          transition: transform 3s linear;
-          transform: translateY(-75%);
-        }
-      }
+				&:hover + img {
+					transition: transform 3s linear;
+					transform: translateY(-75%);
+				}
+			}
 
-      img {
-        transition: transform .5s ease-out;
-        position: relative;
-        width: 100%;
-      }
-    }
-  }
+			img {
+				transition: transform .5s ease-out;
+				position: relative;
+				width: 100%;
+			}
+		}
+	}
 
-  &__content {
-    @include flex-box(row, space-between, center);
-    z-index: 3;
-    width: 100%;
-    background-color: rgba(255, 255, 255, .95);
-    padding: 10px 20px;
-  }
+	&__content {
+		@include flex-box(row, space-between, center);
+		z-index: 3;
+		width: 100%;
+		background-color: rgba(var(--primary-color-rgb), .9);
+		padding: 10px 20px;
+	}
 
-  &__info {
-    @include flex-box(column, flex-start, flex-start);
-  }
+	&__info {
+		@include flex-box(column, flex-start, flex-start);
+	}
 
-  &__title {
-    font-weight: bold;
-  }
+	&__title {
+		font-weight: bold;
+	}
 
-  &__detail {
-    font-size: .8em;
-  }
+	&__detail {
+		font-size: .8em;
+	}
 
-  &__author {
-    font-weight: bold;
-    color: $link-color;
-    text-decoration: none;
+	&__author {
+		font-weight: bold;
+		color: var(--link-color);
+		text-decoration: none;
 
-    &:hover {
-      text-decoration: underline;
-    }
-  }
+		&:hover {
+			text-decoration: underline;
+		}
+	}
 
-  &__additional {
-    @include flex-box(column, flex-start, flex-start);
-    width: 100%;
-    padding: 10px 20px;
-    padding-top: 5px;
+	&__additional {
+		@include flex-box(column, flex-start, flex-start);
+		width: 100%;
+		padding: 10px 20px;
+		padding-top: 5px;
 
-    > span {
-      font-size: 0.7em;
-      color: $text-color-lighten;
-    }
+		> span {
+			font-size: 0.7em;
+			color: var(--text-color-lighten);
+		}
 
-    &__container {
-      @include flex-box(row, space-between, center);
-      width: inherit;
-      height: 32px;
+		&__container {
+			@include flex-box(row, space-between, center);
+			width: inherit;
+			height: 32px;
 
-      &__comments {
-        @include flex-box(row, flex-start, center);
-        font-size: .9em;
+			&__comments {
+				@include flex-box(row, flex-start, center);
+				font-size: .9em;
 
-        span {
-          margin-left: 10px;
-        }
-      }
-    }
-  }
+				span {
+					margin-left: 10px;
+				}
+			}
+		}
+	}
 }

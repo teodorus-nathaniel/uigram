@@ -1,24 +1,24 @@
-$primary-color: #ffffff;
-$accent-color: #4a4a4a;
-$primary-color-darken: #f3f2f2;
-$background-color: #f6f6f6;
-$text-color: black;
-$text-color-lighten: rgb(37, 37, 37);
-$link-color: #00a3ff;
+// $primary-color: #ffffff;
+// $accent-color: #4a4a4a;
+// $primary-color-darken: #f3f2f2;
+// $background-color: #f6f6f6;
+// $text-color: black;
+// $text-color-lighten: rgb(37, 37, 37);
+// $link-color: #00a3ff;
 
 $breakpoint: 500px;
 
 @mixin flex-box ($direction, $justify, $align) {
-  display: flex;
-  flex-direction: $direction;
-  justify-content: $justify;
-  align-items: $align;
+	display: flex;
+	flex-direction: $direction;
+	justify-content: $justify;
+	align-items: $align;
 }
 
 @mixin background-color-hover-effect($color, $text-color: null) {
-  transition: background-color 500ms ease-out, color 300ms ease-out;
-  &:hover {
-    background-color: $color;
-    color: $text-color;
-  }
+	transition: background-color 500ms ease-out, color 300ms ease-out;
+	&:hover {
+		background-color: $color;
+		color: $text-color;
+	}
 }

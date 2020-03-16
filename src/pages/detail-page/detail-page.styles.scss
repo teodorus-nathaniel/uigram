@@ -1,0 +1,104 @@
+@import "./../../shared/scss/shared";
+
+.detail-page {
+    @include flex-box(column, flex-start, flex-start);
+    width: 100%;
+    padding: 5%;
+
+    hr {
+        width: 65%;
+        border: 0px;
+        height: 1px;
+        margin: 2% 0px;
+        background-image: linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0),
+            rgba(0, 0, 0, 0.75),
+            rgba(0, 0, 0, 0)
+        );
+    }
+
+    &__content-container {
+        width: 65%;
+        height: 50vh;
+        overflow-y: scroll;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    &__description-container {
+        @include flex-box(row, space-between, flex-start);
+        width: 65%;
+        height: auto;
+        margin-top: 3%;
+
+        &-1 {
+            @include flex-box(column, flex-start, flex-start);
+            width: 50%;
+            height: auto;
+            &__title {
+                font-weight: bold;
+                font-size: 1.5em;
+            }
+            &__timestamp {
+                font-size: 1em;
+            }
+        }
+        &-2 {
+            @include flex-box(row, flex-start, flex-start);
+            &__like-dislike {
+                line-height: 100px;
+            }
+        }
+    }
+
+    &__owner {
+        @include flex-box(row, space-between, flex-start);
+        width: 65%;
+        height: 7vh;
+
+        &__info {
+            @include flex-box(row, flex-start, flex-start);
+            height: 100%;
+
+            &__profile-pic {
+                width: 10%;
+                height: 100%;
+                border-radius: 100%;
+                background-attachment: cover;
+            }
+
+            &__username {
+                width: 50%;
+                height: 100%;
+                padding: 0px 30px;
+                font-weight: 600;
+                line-height: 7vh;
+            }
+        }
+
+        &__follow {
+            width: 10%;
+            &__button {
+                width: 100%;
+            }
+        }
+
+        &__link {
+            line-height: 7vh;
+        }
+    }
+
+    &__description {
+        margin-left: 6%;
+        padding: 0px 30px;
+    }
+
+    &__commentar {
+        @include flex-box(row, space-between, flex-start);
+        width: 65%;
+        font-size: 1.2em;
+    }
+}

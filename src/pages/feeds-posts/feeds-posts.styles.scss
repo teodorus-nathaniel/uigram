@@ -1,17 +1,18 @@
 @import './../../shared/scss/shared';
 
 .feeds-posts {
-  width: 100%;
+	width: 100%;
 
-  h2 {
-    height: 50px;
-    font-weight: normal;
-    padding: 25px 50px 0px 50px;
+	h2 {
+		height: 50px;
+		font-weight: normal;
+		padding: 25px 50px 0px 50px;
+		color: var(--text-color);
 
-    @media screen and (max-width: $breakpoint) {
-      padding: 0;
-      padding-top: 25px;
-      text-align: center;
-    }
-  }
+		@media screen and (max-width: $breakpoint) {
+			padding: 0;
+			padding-top: 25px;
+			text-align: center;
+		}
+	}
 }

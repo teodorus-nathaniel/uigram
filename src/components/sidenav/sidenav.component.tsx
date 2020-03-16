@@ -2,15 +2,22 @@ import './sidenav.styles.scss';
 
 import React, { useEffect, useState } from 'react';
 
-import Logo from '../../assets/images/logo.png';
+import Logo from '../../assets/images/logo.svg';
 import BookmarkIcon from '../icons/bookmark/bookmark.component';
 import FollowersIcon from '../icons/followers/followers.component';
 import FollowingIcon from '../icons/following/following.component';
 import IconImage from '../icons/icon-image.component';
 import SunIcon from '../icons/sun/sun.component';
 import { Link, useLocation } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { changeColorMode } from '../../redux/color-mode/color-mode.actions';
 
-export default function Sidenav (){
+interface IProps {
+  changeColorMode: () => void;
+}
+
+function SidenavPlain ({ changeColorMode }: IProps){
   const [ isHovered, setIsHovered ] = useState(false);
   const [ isScrolled, setIsScrolled ] = useState(false);
 
@@ -82,7 +89,11 @@ export default function Sidenav (){
             </Link>
           </li>
         ))}
-        <li>
+        <li
+          onClick={() => {
+            changeColorMode();
+            document.body.classList.toggle('dark');
+          }}>
           <div>
             <SunIcon noHover color={isHovered ? 'white' : undefined} />
             <span>Color Mode</span>
@@ -92,3 +103,10 @@ export default function Sidenav (){
     </aside>
   );
 }
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  changeColorMode: () => dispatch(changeColorMode())
+});
+
+const Sidenav = connect(null, mapDispatchToProps)(SidenavPlain);
+export default Sidenav;

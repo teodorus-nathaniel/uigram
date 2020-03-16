@@ -8,6 +8,8 @@
     @include flex-box(row, flex-end, center);
     height: 50px;
     padding: 25px 50px 0px 50px;
+    color: var(--text-color);
+
     span {
       margin-right: 10px;
     }
@@ -16,16 +18,18 @@
       padding: 5px 8px;
       border: none;
       font-size: 1em;
+      background-color: var(--primary-color);
+      color: var(--text-color);
       border-radius: 5px;
       transition: box-shadow 300ms ease-out;
 
       box-shadow: 3px 3px 1px 0px rgba(100, 100, 100, .1) inset,
-        -2px -2px 1px 0px rgba(255, 255, 255, 1) inset;
+        -2px -2px 1px 0px var(--primary-color) inset;
 
       &:hover,
       &:focus {
         box-shadow: 3px 3px 2px 0px rgba(100, 100, 100, .2) inset,
-          -2px -2px 2px 0px rgba(255, 255, 255, 1) inset;
+          -2px -2px 2px 0px var(--primary-color) inset;
       }
     }
   }

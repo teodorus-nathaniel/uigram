@@ -1,4 +1,5 @@
 import { Post } from "../../@types/post.interfaces";
+import { CHANGE_SAVED } from "./post.actions";
 import PostActionType, {
     FETCH_POSTS,
     FETCH_POSTS_FAILURE,
@@ -49,6 +50,21 @@ export default function postReducer(
                 explore: action.payload,
                 isFetching: false,
                 error: null
+            };
+        case CHANGE_SAVED:
+            const exploreItem = state.explore.find(
+                el => el.id === action.payload.id
+            );
+            const feedsItem = state.feeds.find(
+                el => el.id === action.payload.id
+            );
+            if (exploreItem) exploreItem.saved = action.payload.saved;
+            if (feedsItem) feedsItem.saved = action.payload.saved;
+
+            return {
+                ...state,
+                explore: state.explore.map(el => ({ ...el })),
+                feeds: state.feeds.map(el => ({ ...el }))
             };
         default:
             return state;

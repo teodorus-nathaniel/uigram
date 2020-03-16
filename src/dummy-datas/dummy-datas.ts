@@ -14,7 +14,8 @@ export const dummyPost: Post = {
     dislikeCount: 10,
     likeStatus: LikeStatus.liked,
     commentsCount: 120,
-    timestamp: new Date()
+    timestamp: new Date(),
+    saved: true
 };
 
 export const dummyArrayPost: Post[] = Array.from({
@@ -23,6 +24,7 @@ export const dummyArrayPost: Post[] = Array.from({
     const data = { ...dummyPost };
     data.id = idx + "";
     data.likeStatus = Math.floor(Math.random() * 3);
+    data.saved = Boolean(Math.floor(Math.random() * 2));
     return data;
 });
 
@@ -35,11 +37,14 @@ export const dummyPostDetail: PostDetail = {
         username: "Teodorus",
         profilePic: AvatarImage
     },
+    likeCount: 0,
+    dislikeCount: 0,
+    likes: [],
+    dislikes: [],
+    saved: true,
     likeStatus: LikeStatus.liked,
     commentsCount: 120,
     timestamp: new Date(),
     description: "baki kabur menyelamatkan kota",
-    link: "google.com",
-    likeCount: 12,
-    dislikeCount: 10
+    link: "google.com"
 };

@@ -9,30 +9,25 @@ import { Post } from "../../@types/post.interfaces";
 import { useInView } from "react-intersection-observer";
 import useAnimation from "../../effects/useAnimation.effect";
 import moment from "moment";
-import { GlobalState } from "../../redux/root-reducer";
 import { connect } from "react-redux";
 import {
     addOrRemovePost,
     IAddOrRemovePostPayload
 } from "../../redux/saved-posts/saved-posts.actions";
-import { selectIsSaved } from "../../redux/saved-posts/saved-posts.selectors";
 import { Dispatch } from "redux";
 
 interface IProps {
     post: Post;
-    saved: boolean;
     addOrRemovePost: (payload: IAddOrRemovePostPayload) => void;
 }
 
-function PostPreviewPlain({ post, saved, addOrRemovePost }: IProps) {
+function PostPreviewPlain({ post, addOrRemovePost }: IProps) {
     const [ref, , entry] = useInView({
         triggerOnce: true,
         threshold: 0.3
     });
 
-    // FIXME: ini gimana saved nya dari mana, ini aneh savednya musti ? ama kalo gini musti fetch saved dl dari awal
     const handleBookmarkAddClick = () => {
-        console.log(saved);
         if (saved) {
             addOrRemovePost({ type: "remove", post: post });
         } else {
@@ -51,9 +46,9 @@ function PostPreviewPlain({ post, saved, addOrRemovePost }: IProps) {
         dislikeCount,
         commentsCount,
         likeStatus,
-        timestamp
+        timestamp,
+        saved
     } = post;
-
     return (
         <div className="post-preview not-visible" ref={ref}>
             <div className="post-preview__content-container">
@@ -96,20 +91,10 @@ function PostPreviewPlain({ post, saved, addOrRemovePost }: IProps) {
     );
 }
 
-const mapStateToProps = (
-    state: GlobalState,
-    ownProps: Pick<IProps, "post">
-) => ({
-    saved: selectIsSaved(ownProps.post.id)(state)
-});
-
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     addOrRemovePost: (payload: IAddOrRemovePostPayload) =>
         dispatch(addOrRemovePost(payload))
 });
 
-const PostPreview = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PostPreviewPlain);
+const PostPreview = connect(null, mapDispatchToProps)(PostPreviewPlain);
 export default PostPreview;

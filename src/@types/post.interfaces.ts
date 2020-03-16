@@ -18,9 +18,14 @@ export interface Post {
     commentsCount: number;
     likeStatus: LikeStatus;
     timestamp: Date;
+    saved: boolean;
 }
 
 export interface PostDetail extends Post {
+    likeCount: never;
+    dislikeCount: never;
+    likes: string[];
+    dislikes: string[];
     description: string;
     link: string;
 }

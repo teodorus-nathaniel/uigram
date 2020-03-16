@@ -22,8 +22,6 @@ export interface Post {
 }
 
 export interface PostDetail extends Post {
-    likeCount: never;
-    dislikeCount: never;
     likes: string[];
     dislikes: string[];
     description: string;

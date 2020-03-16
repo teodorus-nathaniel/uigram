@@ -1,10 +1,29 @@
 @import "./shared/scss/shared";
 
 :root {
-<<<<<<< HEAD
     font-size: 14px;
-    --icon-color: $text-color;
+    --icon-color: var(--text-color);
     --box-shadow-rgb: 50, 50, 50;
+
+    --primary-color: #ffffff;
+    --primary-color-rgb: 255, 255, 255;
+    --accent-color: #4a4a4a;
+    --accent-color-darken: rgb(37, 37, 37);
+    --primary-color-darken: #f3f2f2;
+    --background-color: #f6f6f6;
+    --text-color: black;
+    --text-color-lighten: rgb(37, 37, 37);
+    --link-color: #00a3ff;
+}
+
+body.dark {
+    --primary-color: #505050;
+    --primary-color-rgb: 50, 50, 50;
+    --accent-color-darken: rgb(37, 37, 37);
+    --primary-color-darken: #656565;
+    --background-color: #191919;
+    --text-color: white;
+    --text-color-lighten: rgb(200, 200, 200);
 }
 
 a {
@@ -28,16 +47,6 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-y: scroll;
-
-    &::-webkit-scrollbar {
-        width: 5px;
-    }
-    &::-webkit-scrollbar-track {
-        background-color: $text-color-lighten;
-    }
-    &::-webkit-scrollbar-thumb {
-        background: $link-color;
-    }
 }
 
 .scrollbar {
@@ -45,10 +54,10 @@ body {
         width: 5px;
     }
     &::-webkit-scrollbar-track {
-        background-color: $text-color-lighten;
+        background-color: var(--text-color-lighten);
     }
     &::-webkit-scrollbar-thumb {
-        background: $link-color;
+        background: var(--link-color);
     }
 }
 
@@ -61,73 +70,4 @@ body {
 
 .not-visible {
     opacity: 0;
-=======
-	font-size: 14px;
-	--icon-color: var(--text-color);
-	--box-shadow-rgb: 50, 50, 50;
-
-	--primary-color: #ffffff;
-	--primary-color-rgb: 255, 255, 255;
-	--accent-color: #4a4a4a;
-	--accent-color-darken: rgb(37, 37, 37);
-	--primary-color-darken: #f3f2f2;
-	--background-color: #f6f6f6;
-	--text-color: black;
-	--text-color-lighten: rgb(37, 37, 37);
-	--link-color: #00a3ff;
-}
-
-body.dark {
-	--primary-color: #505050;
-	--primary-color-rgb: 50, 50, 50;
-	--accent-color-darken: rgb(37, 37, 37);
-	--primary-color-darken: #656565;
-	--background-color: #191919;
-	--text-color: white;
-	--text-color-lighten: rgb(200, 200, 200);
-}
-
-a {
-	color: currentColor;
-	text-decoration: none;
-}
-
-* {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	line-height: 1.5em;
-}
-
-body {
-	margin: 0;
-	font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-		'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-		'Helvetica Neue', sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	overflow-y: scroll;
-
-	&::-webkit-scrollbar {
-		width: 5px;
-	}
-	&::-webkit-scrollbar-track {
-		background-color: var(--text-color-lighten);
-	}
-	&::-webkit-scrollbar-thumb {
-		background: var(--link-color);
-	}
-}
-
-.opacity-hover-effect {
-	transition: opacity 250ms ease-out;
-	&:hover {
-		opacity: .75;
-	}
-}
-
-.not-visible {
-	opacity: 0;
->>>>>>> 8f71183ae532a2a9623b7b715a8cf452db7d517b
 }

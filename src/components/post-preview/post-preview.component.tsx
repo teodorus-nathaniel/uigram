@@ -57,7 +57,7 @@ function PostPreviewPlain ({ post, addOrRemovePost }: IProps){
       <div className='post-preview__content-container'>
         <Link to={`/post-detail/${id}`} className='image-container'>
           <div className='img-hover-hitbox' />
-          <img src={img} alt='page' />
+          <img src={img[0]} alt='page' />
         </Link>
         <div className='post-preview__content'>
           <div className='post-preview__info'>

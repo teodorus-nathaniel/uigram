@@ -5,7 +5,7 @@ import AvatarImage from './../assets/images/avatar.jpg';
 export const dummyPost: Post = {
   id: '1',
   title: 'Figma UI',
-  img: PostImage,
+  img: [ PostImage ],
   owner: {
     id: '2',
     username: 'Teodorus'
@@ -33,7 +33,7 @@ export const dummyArrayPost: Post[] = Array.from({
 export const dummyPostDetail: PostDetail = {
   id: '1',
   title: 'Figma UI',
-  img: PostImage,
+  img: [ PostImage ],
   owner: {
     id: '2',
     username: 'Teodorus',

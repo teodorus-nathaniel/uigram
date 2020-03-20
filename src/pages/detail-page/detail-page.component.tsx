@@ -41,10 +41,11 @@ function DetailPagePlain ({ post, fetchPostDetail, match }: IProps){
   } = post;
 
   // TODO: comments nya bkin ada id nya, supaya nanti kalo comment icon yang di home dipencet, dia sesuai hash pindah ke comments (#comments)
+  // TODO: image carousel / grid (when clicked it becomes the biggest)
   return (
     <div className='detail-page'>
       <div className='detail-page__content-container scrollbar'>
-        <img src={img} alt='page' />
+        <img src={img[0]} alt='page' />
       </div>
       <div className='detail-page__description-container'>
         <div className='detail-page__description-container-1'>

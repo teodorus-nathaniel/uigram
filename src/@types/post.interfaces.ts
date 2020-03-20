@@ -12,7 +12,7 @@ export interface Post {
     username: string;
     profilePic?: string;
   };
-  img: string;
+  img: string[];
   likeCount: number;
   dislikeCount: number;
   commentsCount: number;

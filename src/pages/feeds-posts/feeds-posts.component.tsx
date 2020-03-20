@@ -31,7 +31,7 @@ function FeedsPostsPlain ({
 
   return (
     <div className='feeds-posts'>
-      <h2>Welcome, User</h2>
+      <h2 className='heading'>Welcome, User</h2>
       {isFetching ? (
         <Loading />
       ) : error ? (

@@ -3,4 +3,10 @@
 .home-page {
   @include flex-box(column, flex-start, flex-start);
   width: 100%;
+
+  .tab-layout {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
 }

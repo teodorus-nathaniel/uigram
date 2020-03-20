@@ -4,7 +4,7 @@ import './post-preview.styles.scss';
 import CommentIcon from '../icons/comment/comment.component';
 import BookmarkAddIcon from '../icons/bookmark-add/bookmark-add.component';
 import LikeDislike from '../like-dislike/like-dislike.component';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Post } from '../../@types/post.interfaces';
 import { useInView } from 'react-intersection-observer';
 import useAnimation from '../../effects/useAnimation.effect';
@@ -34,6 +34,8 @@ function PostPreviewPlain ({ post, addOrRemovePost }: IProps){
       addOrRemovePost({ type: 'add', post: post });
     }
   };
+
+  const history = useHistory();
 
   useAnimation(entry!, { opacity: 1 }, 0.8);
 
@@ -79,7 +81,10 @@ function PostPreviewPlain ({ post, addOrRemovePost }: IProps){
       <div className='post-preview__additional'>
         <div className='post-preview__additional__container'>
           <div className='post-preview__additional__container__comments'>
-            <CommentIcon size={1.2} />
+            <CommentIcon
+              size={1.2}
+              onClick={() => history.push(`/post-detail/${id}#comments`)}
+            />
             <span>{commentsCount} comments</span>
           </div>
           <BookmarkAddIcon

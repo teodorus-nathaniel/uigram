@@ -16,7 +16,6 @@ interface IProps {
 }
 
 function DetailPagePlain ({ post, fetchPostDetail, match }: IProps){
-  console.log('object');
   useEffect(
     () => {
       fetchPostDetail(match.params.id);

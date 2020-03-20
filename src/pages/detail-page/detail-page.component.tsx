@@ -40,6 +40,7 @@ function DetailPagePlain ({ post, fetchPostDetail, match }: IProps){
     link
   } = post;
 
+  // TODO: comments nya bkin ada id nya, supaya nanti kalo comment icon yang di home dipencet, dia sesuai hash pindah ke comments (#comments)
   return (
     <div className='detail-page'>
       <div className='detail-page__content-container scrollbar'>

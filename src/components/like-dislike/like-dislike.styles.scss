@@ -1,14 +1,15 @@
-@import './../../shared/scss/shared';
+@import "./../../shared/scss/shared";
 
 .like-dislike {
-	@include flex-box(row, flex-end, center);
+    @include flex-box(row, flex-end, center);
 
-	&__item {
-		@include flex-box(row, center, center);
-		margin-left: 15px;
+    &__item {
+        @include flex-box(row, center, center);
+        margin-left: 15px;
 
-		& *:first-child {
-			margin-right: 5px;
-		}
-	}
+        & *:first-child {
+            margin-right: 5px;
+            cursor: pointer;
+        }
+    }
 }

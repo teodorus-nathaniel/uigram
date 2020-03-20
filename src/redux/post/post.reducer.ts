@@ -74,9 +74,17 @@ export default function postReducer (
       );
     case CHANGE_LIKES_OR_DISLIKES:
       return updateExploreAndFeeds(action.payload.id, (item) => {
-        const { likesChange, dislikesChange } = action.payload;
-        if (likesChange) item.likeCount += likesChange;
-        if (dislikesChange) item.dislikeCount += dislikesChange;
+        const { like, dislike } = action.payload;
+        item.likeCount -= +!!item.liked;
+        item.dislikeCount -= +!!item.disliked;
+        item.liked = undefined;
+        item.disliked = undefined;
+
+        item.liked = !!like;
+        item.disliked = !!dislike;
+
+        item.likeCount += +!!like;
+        item.dislikeCount += +!!dislike;
       });
     default:
       return state;

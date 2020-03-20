@@ -2,40 +2,61 @@ import React from 'react';
 import LikeIcon from '../icons/like/like.component';
 
 import './like-dislike.styles.scss';
-import { LikeStatus } from '../../@types/post.interfaces';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import {
+  IChangeLikesOrDislikesPayload,
+  updateLikesOrDislikes
+} from '../../redux/post/post.actions';
 
-export default function LikeDislike ({
+function LikeDislikePlain ({
+  id,
   likeCount,
   dislikeCount,
-  likeStatus,
-  likeClickHandler,
-  dislikeClickHandler
+  liked,
+  disliked,
+  className,
+  size = 1.2,
+  updateLikesOrDislikes
 }: {
+  id: string;
   likeCount: number;
   dislikeCount: number;
-  likeStatus: LikeStatus;
-  likeClickHandler: () => void;
-  dislikeClickHandler: () => void;
+  disliked?: boolean;
+  liked?: boolean;
+  className?: string;
+  size?: number;
+  updateLikesOrDislikes: (payload: IChangeLikesOrDislikesPayload) => void;
 }){
+  const spanSize = size - size / 4;
+
   return (
-    <div className='like-dislike'>
+    <div className={`like-dislike ${className}`}>
       <div className='like-dislike__item'>
         <LikeIcon
-          size={1.2}
-          color={likeStatus === LikeStatus.liked ? '#00a3ff' : undefined}
-          onClick={likeClickHandler}
+          size={size}
+          color={liked ? '#00a3ff' : undefined}
+          onClick={() => updateLikesOrDislikes({ like: !liked, id: id })}
         />
-        <span>{likeCount}</span>
+        <span style={{ fontSize: `${spanSize}em` }}>{likeCount}</span>
       </div>
       <div className='like-dislike__item'>
         <LikeIcon
           rotate={180}
-          size={1.2}
-          color={likeStatus === LikeStatus.disliked ? '#00a3ff' : undefined}
-          onClick={dislikeClickHandler}
+          size={size}
+          color={disliked ? '#00a3ff' : undefined}
+          onClick={() => updateLikesOrDislikes({ dislike: !disliked, id: id })}
         />
-        <span>{dislikeCount}</span>
+        <span style={{ fontSize: `${spanSize}em` }}>{dislikeCount}</span>
       </div>
     </div>
   );
 }
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  updateLikesOrDislikes: (payload: IChangeLikesOrDislikesPayload) =>
+    dispatch(updateLikesOrDislikes(payload))
+});
+
+const LikeDislike = connect(null, mapDispatchToProps)(LikeDislikePlain);
+export default LikeDislike;

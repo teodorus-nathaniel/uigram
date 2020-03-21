@@ -15,6 +15,7 @@ import {
   IAddOrRemovePostPayload
 } from '../../redux/saved-posts/saved-posts.actions';
 import { Dispatch } from 'redux';
+import getAddToSavedListener from '../../utils/get-add-to-saved-listener';
 
 interface IProps {
   post: Post;
@@ -27,13 +28,7 @@ function PostPreviewPlain ({ post, addOrRemovePost }: IProps){
     threshold: 0.3
   });
 
-  const handleBookmarkAddClick = () => {
-    if (saved) {
-      addOrRemovePost({ type: 'remove', post: post });
-    } else {
-      addOrRemovePost({ type: 'add', post: post });
-    }
-  };
+  const handleBookmarkAddClick = getAddToSavedListener(post, addOrRemovePost);
 
   const history = useHistory();
 
@@ -43,7 +38,7 @@ function PostPreviewPlain ({ post, addOrRemovePost }: IProps){
     id,
     title,
     owner,
-    img,
+    images,
     likeCount,
     dislikeCount,
     commentsCount,
@@ -57,7 +52,7 @@ function PostPreviewPlain ({ post, addOrRemovePost }: IProps){
       <div className='post-preview__content-container'>
         <Link to={`/post-detail/${id}`} className='image-container'>
           <div className='img-hover-hitbox' />
-          <img src={img[0]} alt='page' />
+          <img src={images[0]} alt='page' />
         </Link>
         <div className='post-preview__content'>
           <div className='post-preview__info'>

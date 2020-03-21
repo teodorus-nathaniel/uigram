@@ -4,6 +4,11 @@
   @include flex-box(column, flex-start, flex-start);
   width: 100%;
 
+  & > *:last-child {
+    max-width: $max-width;
+    margin: 0px auto;
+  }
+
   .tab-layout {
     position: sticky;
     top: 0;

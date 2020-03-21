@@ -13,6 +13,7 @@ import {
   IChangeLikesOrDislikesPayload
 } from './post.actions';
 import catchAsync from '../utils/catch-async';
+import { changeLikesOrDislikesSavedPosts } from '../saved-posts/saved-posts.actions';
 
 function* fetchExplorePosts (sort: string = 'date'){
   console.log({ sort });
@@ -46,6 +47,7 @@ function* updateLikesOrDislikes ({
 }){
   // TODO: API CALL
   yield put(changeLikesOrDislikes({ like, dislike, id }));
+  yield put(changeLikesOrDislikesSavedPosts({ like, dislike, id }));
 }
 
 function* watchFetchFeeds (){

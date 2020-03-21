@@ -6,6 +6,7 @@ import PostActionType, {
   LOAD_FEEDS_POSTS,
   LOAD_EXPLORE_POSTS
 } from './post.actions';
+import updateLikesAndDislikes from '../../utils/update-likes-and-dislikes';
 
 interface IState {
   explore: Post[];
@@ -29,15 +30,20 @@ export default function postReducer (
     id: string,
     operationCb: (item: Post) => void
   ){
-    const exploreItem = state.explore.find((el) => el.id === id);
-    const feedsItem = state.feeds.find((el) => el.id === id);
-    if (exploreItem) operationCb(exploreItem);
-    if (feedsItem) operationCb(feedsItem);
-
     return {
       ...state,
-      explore: state.explore.map((el) => ({ ...el })),
-      feeds: state.feeds.map((el) => ({ ...el }))
+      explore: state.explore.map((post) => {
+        if (post.id === id) {
+          operationCb(post);
+        }
+        return { ...post };
+      }),
+      feeds: state.feeds.map((post) => {
+        if (post.id === id) {
+          operationCb(post);
+        }
+        return { ...post };
+      })
     };
   }
 
@@ -75,16 +81,7 @@ export default function postReducer (
     case CHANGE_LIKES_OR_DISLIKES:
       return updateExploreAndFeeds(action.payload.id, (item) => {
         const { like, dislike } = action.payload;
-        item.likeCount -= +!!item.liked;
-        item.dislikeCount -= +!!item.disliked;
-        item.liked = undefined;
-        item.disliked = undefined;
-
-        item.liked = !!like;
-        item.disliked = !!dislike;
-
-        item.likeCount += +!!like;
-        item.dislikeCount += +!!dislike;
+        return updateLikesAndDislikes(item, like, dislike);
       });
     default:
       return state;

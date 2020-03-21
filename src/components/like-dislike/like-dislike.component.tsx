@@ -9,6 +9,7 @@ import {
   updateLikesOrDislikes
 } from '../../redux/post/post.actions';
 
+// TODO: kasih props buat kasi tau kalo itu comment, yang dilakuin beda
 function LikeDislikePlain ({
   id,
   likeCount,
@@ -28,8 +29,6 @@ function LikeDislikePlain ({
   size?: number;
   updateLikesOrDislikes: (payload: IChangeLikesOrDislikesPayload) => void;
 }){
-  const spanSize = size - size / 4;
-
   return (
     <div className={`like-dislike ${className}`}>
       <div className='like-dislike__item'>
@@ -38,7 +37,7 @@ function LikeDislikePlain ({
           color={liked ? '#00a3ff' : undefined}
           onClick={() => updateLikesOrDislikes({ like: !liked, id: id })}
         />
-        <span style={{ fontSize: `${spanSize}em` }}>{likeCount}</span>
+        <span>{likeCount}</span>
       </div>
       <div className='like-dislike__item'>
         <LikeIcon
@@ -47,7 +46,7 @@ function LikeDislikePlain ({
           color={disliked ? '#00a3ff' : undefined}
           onClick={() => updateLikesOrDislikes({ dislike: !disliked, id: id })}
         />
-        <span style={{ fontSize: `${spanSize}em` }}>{dislikeCount}</span>
+        <span>{dislikeCount}</span>
       </div>
     </div>
   );

@@ -1,0 +1,18 @@
+@import './../../shared/scss/shared';
+
+.user-info {
+  @include flex-box(row, flex-start, center);
+
+  > * {
+    margin: 5px 0px;
+  }
+  img {
+    width: 40px;
+    border-radius: 50%;
+  }
+  span {
+    margin-left: 15px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+}

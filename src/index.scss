@@ -14,6 +14,9 @@
   --text-color: black;
   --text-color-lighten: rgb(37, 37, 37);
   --link-color: #00a3ff;
+
+  --box-shadow-light: white;
+  --box-shadow-dark: rgba(0, 0, 0, .2);
 }
 
 body.dark {
@@ -24,6 +27,9 @@ body.dark {
   --background-color: #191919;
   --text-color: white;
   --text-color-lighten: rgb(200, 200, 200);
+
+  --box-shadow-dark: rgba(0, 0, 0, .6);
+  --box-shadow-light: rgba(255, 255, 255, .1);
 }
 
 a {
@@ -83,4 +89,25 @@ h2.heading {
     padding-top: 25px;
     text-align: center;
   }
+}
+
+.flex-box {
+  width: 100%;
+}
+
+.flex-row {
+  @include flex-box(row, flex-start, center);
+  @extend .flex-box;
+}
+.flex-row-space-between {
+  @include flex-box(row, space-between, center);
+  @extend .flex-box;
+}
+.flex-column {
+  @include flex-box(column, flex-start, flex-start);
+  @extend .flex-box;
+}
+.flex-column-start-end {
+  @include flex-box(column, flex-start, flex-end);
+  @extend .flex-box;
 }

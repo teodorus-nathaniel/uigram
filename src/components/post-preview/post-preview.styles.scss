@@ -50,6 +50,10 @@
     }
   }
 
+  .like-dislike {
+    @include flex-box(row, flex-end, center);
+  }
+
   &__content {
     @include flex-box(row, space-between, center);
     z-index: 3;

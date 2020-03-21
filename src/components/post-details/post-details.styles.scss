@@ -1,0 +1,118 @@
+@import './../../shared/scss/shared';
+
+.details {
+  @include flex-box(column, flex-start, flex-start);
+  padding: 70px 50px;
+  width: 50%;
+  color: var(--text-color);
+
+  h1 {
+    position: relative;
+    font-size: 4.5em;
+    font-weight: normal;
+    margin-bottom: 10px;
+
+    &::after {
+      content: '';
+      width: 20%;
+      height: 3px;
+      background-color: var(--text-color);
+      border-radius: 100px;
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      animation: appear-from-right 500ms;
+    }
+
+    @keyframes appear-from-right {
+      0% {
+        transform: translateX(500px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  }
+
+  a {
+    color: var(--link-color);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  > * {
+    width: 100%;
+    padding: 25px 0px;
+  }
+  > *:first-child {
+    padding-top: 0px;
+  }
+
+  > div > * {
+    margin: 5px 0px;
+  }
+
+  &__info > * {
+    margin: 10px 0px !important;
+  }
+
+  &__timestamp {
+    color: rgb(150, 150, 150);
+  }
+
+  &__title {
+    font-weight: bold;
+  }
+
+  &__owner .user-info span {
+    color: var(--link-color);
+  }
+
+  .comments {
+    > * {
+      margin: 10px 0px;
+    }
+
+    &__comments-count span {
+      margin-left: 10px;
+    }
+
+    .insert-comment {
+      textarea {
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        width: 100%;
+        font-family: 'Open Sans';
+        resize: none;
+        background-color: var(--background-color);
+        box-shadow: -3px -3px 2px var(--box-shadow-light) inset,
+          3px 3px 2px var(--box-shadow-dark) inset;
+      }
+      button {
+        background-color: var(--link-color);
+        color: white;
+        padding: 7px 15px;
+        border-radius: 5px;
+        border: none;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+    }
+
+    &__container {
+      @include flex-box(column, flex-start, flex-start);
+      padding: 15px 0px;
+
+      .show-comments {
+        color: var(--link-color);
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+  }
+}

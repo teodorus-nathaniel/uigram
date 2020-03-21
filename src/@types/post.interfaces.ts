@@ -1,18 +1,10 @@
-// export enum LikeStatus {
-//     liked,
-//     disliked,
-//     noStatus
-// }
+import { UserBasicInfo } from './user.interfaces';
 
 export interface Post {
   id: string;
   title: string;
-  owner: {
-    id: string;
-    username: string;
-    profilePic?: string;
-  };
-  img: string[];
+  owner: UserBasicInfo;
+  images: string[];
   likeCount: number;
   dislikeCount: number;
   commentsCount: number;

@@ -3,8 +3,10 @@ import SavedPostsActionType, {
   FETCH_SAVED_POSTS,
   LOAD_SAVED_POSTS,
   SAVED_POST_FAILURE,
-  ADD_OR_REMOVE_POST
+  ADD_OR_REMOVE_POST,
+  CHANGE_LIKES_OR_DISLIKES_SAVED_POSTS
 } from './saved-posts.actions';
+import updateLikesAndDislikes from '../../utils/update-likes-and-dislikes';
 
 interface IState {
   savedPosts: Post[];
@@ -52,6 +54,17 @@ export default function savedPostsReducer (
         ...state,
         error: action.payload,
         isFetching: false
+      };
+    case CHANGE_LIKES_OR_DISLIKES_SAVED_POSTS:
+      const newPosts = state.savedPosts.map((post) => {
+        if (post.id !== action.payload.id) return { ...post };
+
+        const { like, dislike } = action.payload;
+        return updateLikesAndDislikes(post, like, dislike);
+      });
+      return {
+        ...state,
+        savedPosts: newPosts
       };
     default:
       return state;

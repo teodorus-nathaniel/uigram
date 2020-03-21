@@ -1,4 +1,5 @@
 export interface IProps {
+  className?: string;
   color?: string;
   rotate?: number;
   size?: number;

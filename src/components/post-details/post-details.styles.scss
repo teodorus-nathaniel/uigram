@@ -2,9 +2,21 @@
 
 .details {
   @include flex-box(column, flex-start, flex-start);
-  padding: 70px 50px;
+  padding: 50px;
   width: 50%;
   color: var(--text-color);
+  position: relative;
+  max-width: 800px;
+  margin: 0px auto;
+
+  .back-icon {
+    position: absolute;
+    top: 25px;
+    right: 50px;
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+  }
 
   h1 {
     position: relative;
@@ -60,10 +72,6 @@
     margin: 10px 0px !important;
   }
 
-  &__timestamp {
-    color: rgb(150, 150, 150);
-  }
-
   &__title {
     font-weight: bold;
   }
@@ -79,29 +87,6 @@
 
     &__comments-count span {
       margin-left: 10px;
-    }
-
-    .insert-comment {
-      textarea {
-        border: none;
-        padding: 5px 10px;
-        border-radius: 5px;
-        width: 100%;
-        font-family: 'Open Sans';
-        resize: none;
-        background-color: var(--background-color);
-        box-shadow: -3px -3px 2px var(--box-shadow-light) inset,
-          3px 3px 2px var(--box-shadow-dark) inset;
-      }
-      button {
-        background-color: var(--link-color);
-        color: white;
-        padding: 7px 15px;
-        border-radius: 5px;
-        border: none;
-        font-weight: bold;
-        margin-top: 10px;
-      }
     }
 
     &__container {

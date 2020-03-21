@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { Comment } from '../../@types/comment.interfaces';
 import Loading from '../loading/loading.component';
 import ErrorMessage from '../error-message/error-message.component';
-import CommentView from '../comment-view/comment-view.component';
+import CommentParent from '../comment-parent/comment-parent.component';
 import './comments-container.styles.scss';
 
 interface IProps {
@@ -42,12 +42,12 @@ function CommentsContainerPlain ({
   return (
     <div className='comments-container'>
       {isFetching ? (
-        <Loading />
+        <Loading size={75} />
       ) : error ? (
         <ErrorMessage message={error.message} />
       ) : (
         comments.map((comment) => (
-          <CommentView key={comment.id} comment={comment} />
+          <CommentParent key={comment.id} comment={comment} />
         ))
       )}
     </div>

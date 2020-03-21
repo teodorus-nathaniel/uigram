@@ -49,7 +49,8 @@ export const dummyPostDetail: PostDetail = {
   liked: true,
   commentsCount: 120,
   timestamp: new Date(),
-  description: 'baki kabur menyelamatkan kota',
+  description:
+    'baki kabur menyelamatkan kota lorem ipsum baki kabur bos menyelamatkan kota baktown dengan baju dari bakstore',
   link: 'google.com'
 };
 

@@ -1,0 +1,20 @@
+@import './../../shared/scss/shared';
+
+.comment-textarea {
+  @include flex-box(column, flex-start, flex-start);
+
+  textarea {
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    width: 100%;
+    font-family: 'Open Sans';
+    resize: none;
+    background-color: var(--background-color);
+    box-shadow: -3px -3px 2px var(--box-shadow-light) inset,
+      3px 3px 2px var(--box-shadow-dark) inset;
+  }
+  button {
+    margin-top: 10px;
+  }
+}

@@ -1,12 +1,7 @@
 @import './../../shared/scss/shared';
 
 .loading {
-	@include flex-box(row, center, center);
-	padding: 100px 0px;
-	width: 100%;
-
-	svg {
-		width: 150px;
-		height: 150px;
-	}
+  @include flex-box(row, center, center);
+  padding: 100px 0px;
+  width: 100%;
 }

@@ -90,11 +90,6 @@
     padding: 10px 20px;
     padding-top: 5px;
 
-    > span {
-      font-size: 0.7em;
-      color: var(--text-color-lighten);
-    }
-
     &__container {
       @include flex-box(row, space-between, center);
       width: inherit;

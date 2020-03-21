@@ -1,0 +1,46 @@
+@import './../../shared/scss/shared';
+
+.comment {
+  width: 100%;
+
+  > * {
+    margin: 4px 0px;
+  }
+
+  &.fade-in {
+    opacity: 0;
+    animation: fade-in 800ms ease-out 1 forwards;
+
+    @keyframes fade-in {
+      100% {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__info {
+    @include flex-box(row, flex-start, center);
+
+    &__timestamp {
+      margin-left: 10px;
+    }
+  }
+
+  &__additional-data {
+    @include flex-box(row, flex-start, flex-start);
+    margin: 10px 0px;
+
+    > *:first-child {
+      margin-right: 20px;
+    }
+
+    > *:last-child {
+      @include flex-box(row, flex-start, center);
+      cursor: pointer;
+
+      .icon {
+        margin-right: 5px;
+      }
+    }
+  }
+}

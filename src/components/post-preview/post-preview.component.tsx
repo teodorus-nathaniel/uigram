@@ -8,7 +8,6 @@ import { Link, useHistory } from 'react-router-dom';
 import { Post } from '../../@types/post.interfaces';
 import { useInView } from 'react-intersection-observer';
 import useAnimation from '../../effects/useAnimation.effect';
-import moment from 'moment';
 import { connect } from 'react-redux';
 import {
   addOrRemovePost,
@@ -16,6 +15,7 @@ import {
 } from '../../redux/saved-posts/saved-posts.actions';
 import { Dispatch } from 'redux';
 import getAddToSavedListener from '../../utils/get-add-to-saved-listener';
+import Timestamp from '../timestamp/timestamp.component';
 
 interface IProps {
   post: Post;
@@ -88,7 +88,7 @@ function PostPreviewPlain ({ post, addOrRemovePost }: IProps){
             color={saved ? '#00a3ff' : undefined}
           />
         </div>
-        <span>{moment(timestamp).fromNow()}</span>
+        <Timestamp timestamp={timestamp} />
       </div>
     </div>
   );

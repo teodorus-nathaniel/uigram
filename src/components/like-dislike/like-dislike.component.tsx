@@ -30,7 +30,7 @@ function LikeDislikePlain ({
   updateLikesOrDislikes: (payload: IChangeLikesOrDislikesPayload) => void;
 }){
   return (
-    <div className={`like-dislike ${className}`}>
+    <div className={`like-dislike ${className || ''}`}>
       <div className='like-dislike__item'>
         <LikeIcon
           size={size}

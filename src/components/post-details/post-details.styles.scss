@@ -82,7 +82,10 @@
 
   .comments {
     > * {
-      margin: 10px 0px;
+      margin: 15px 0px;
+    }
+    > *:first-child {
+      margin-top: 0px;
     }
 
     &__comments-count span {

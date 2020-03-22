@@ -1,0 +1,11 @@
+@import './../../shared/scss/shared';
+
+.profile-page {
+  @include flex-box(row, flex-start, flex-start);
+
+  > *:first-child {
+    position: sticky;
+    width: 350px;
+    height: 100vh;
+  }
+}

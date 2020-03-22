@@ -3,3 +3,11 @@ export interface UserBasicInfo {
   username: string;
   profilePic?: string;
 }
+
+export interface User extends UserBasicInfo {
+  fullname: string;
+  email: string;
+  followingCount: number;
+  followersCount: number;
+  status: string;
+}

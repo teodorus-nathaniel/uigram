@@ -1,0 +1,43 @@
+@import './../../shared/scss/shared';
+
+.user-profile {
+  @include flex-box(column, flex-start, center);
+  padding: 20px 50px;
+
+  background-color: var(--profile-background-color);
+  box-shadow: 3px 0px 2px rgba(0, 0, 0, .1);
+
+  img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 25px 0px;
+  }
+
+  &__username {
+    font-size: 2.5em;
+  }
+
+  &__fullname {
+    margin-bottom: 25px;
+  }
+
+  &__status {
+    margin-bottom: 5px;
+  }
+
+  &__follow {
+    @include flex-box(row, center, center);
+    margin-bottom: 20px;
+
+    color: rgb(150, 150, 150);
+    > * {
+      margin: 0px 5px;
+    }
+  }
+
+  button {
+    width: 100%;
+  }
+}

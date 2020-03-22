@@ -14,6 +14,7 @@
   --text-color: black;
   --text-color-lighten: rgb(37, 37, 37);
   --link-color: #00a3ff;
+  --profile-background-color: white;
 
   --box-shadow-light: white;
   --box-shadow-dark: rgba(0, 0, 0, .2);
@@ -27,6 +28,7 @@ body.dark {
   --background-color: #191919;
   --text-color: white;
   --text-color-lighten: rgb(200, 200, 200);
+  --profile-background-color: #191919;
 
   --box-shadow-dark: rgba(0, 0, 0, .6);
   --box-shadow-light: rgba(255, 255, 255, .1);
@@ -53,6 +55,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-y: scroll;
+  color: var(--text-color);
 }
 
 .scrollbar {

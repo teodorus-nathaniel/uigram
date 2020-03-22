@@ -34,7 +34,7 @@ function FeedsPostsPlain ({
         posts={feeds}
         isFetching={isFetching}
         error={error}
-        noDataMessage={`There is no one that you follow\nExplore others' works through explore tab`}
+        noDataMessage={`There is no one that you follow yet\nExplore others' works through explore tab`}
       />
     </div>
   );

@@ -1,3 +1,4 @@
+import { User } from './../@types/user.interfaces';
 import { Comment } from './../@types/comment.interfaces';
 import { Post, PostDetail } from '../@types/post.interfaces';
 import PostImage from './../assets/images/page.jpg';
@@ -81,3 +82,13 @@ export const dummyArrayComments: Comment[] = Array.from({
 
   return comment;
 });
+
+export const dummyUser: User = {
+  email: 'nathankurnia26@gmail.com',
+  followersCount: 10,
+  followingCount: 100,
+  fullname: 'Teodorus Nathaniel',
+  id: 'asdf',
+  status: 'Front end developer',
+  username: 'Teodorus'
+};

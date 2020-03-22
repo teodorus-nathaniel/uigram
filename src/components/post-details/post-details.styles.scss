@@ -103,4 +103,8 @@
       }
     }
   }
+
+  @media screen and (max-width: $large-breakpoint) {
+    width: 100%;
+  }
 }

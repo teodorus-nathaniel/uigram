@@ -17,4 +17,15 @@
       object-fit: cover;
     }
   }
+
+  @media screen and (max-width: $large-breakpoint) {
+    flex-direction: column;
+    .images-container {
+      position: relative;
+      z-index: 9;
+      width: 100%;
+      direction: unset;
+      height: 500px;
+    }
+  }
 }

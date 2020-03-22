@@ -38,7 +38,7 @@ function IconPlain ({
     <div
       onMouseEnter={noHover ? undefined : handleMouseEnter}
       onMouseLeave={noHover ? undefined : handleMouseLeave}
-      className={`icon ${className || ''}`}
+      className={`icon cursor ${className || ''}`}
       style={{
         width: `${size}em`,
         height: `${size}em`,

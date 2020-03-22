@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Dispatch } from 'redux';
 import { GlobalState } from '../../redux/root-reducer';
 import { connect } from 'react-redux';
@@ -8,6 +8,7 @@ import ErrorMessage from '../error-message/error-message.component';
 import CommentParent from '../comment-parent/comment-parent.component';
 import './comments-container.styles.scss';
 import CommentActionAPI from '../../redux/comments/comments.actions';
+import { useLocation } from 'react-router-dom';
 
 interface IProps {
   postId: string;
@@ -26,6 +27,25 @@ function CommentsContainerPlain ({
   fetchComments,
   clearComments
 }: IProps){
+  const commentsRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+
+  useEffect(
+    () => {
+      if (
+        comments.length !== 0 &&
+        location.hash === '#comments' &&
+        commentsRef.current
+      ) {
+        window.scrollTo({
+          behavior: 'smooth',
+          top: commentsRef.current.getBoundingClientRect().top
+        });
+      }
+    },
+    [ commentsRef, location, comments ]
+  );
+
   useEffect(
     () => {
       fetchComments(postId);
@@ -37,7 +57,7 @@ function CommentsContainerPlain ({
   );
 
   return (
-    <div className='comments-container'>
+    <div className='comments-container' ref={commentsRef}>
       {isFetching ? (
         <Loading size={75} />
       ) : error ? (

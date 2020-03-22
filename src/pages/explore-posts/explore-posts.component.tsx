@@ -6,8 +6,6 @@ import { Dispatch } from 'redux';
 import PostPreviewContainer from '../../components/post-preview-container/post-preview-container.component';
 import { Post } from '../../@types/post.interfaces';
 import './explore-posts.styles.scss';
-import ErrorMessage from '../../components/error-message/error-message.component';
-import Loading from '../../components/loading/loading.component';
 import usePrevious from '../../effects/usePrevious.effect';
 
 interface IProps {
@@ -42,13 +40,12 @@ function ExplorePostsPlain ({
           <option value='like'>Most Liked</option>
         </select>
       </div>
-      {isFetching ? (
-        <Loading />
-      ) : error ? (
-        <ErrorMessage message={error.message} />
-      ) : (
-        <PostPreviewContainer posts={explore} />
-      )}
+      <PostPreviewContainer
+        posts={explore}
+        error={error}
+        isFetching={isFetching}
+        noDataMessage={`No one have posted :(`}
+      />
     </div>
   );
 }

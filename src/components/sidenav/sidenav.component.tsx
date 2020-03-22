@@ -96,7 +96,7 @@ function SidenavPlain ({ changeColorMode }: IProps){
           }}>
           <div>
             <SunIcon noHover color={isHovered ? 'white' : undefined} />
-            <span>Color Mode</span>
+            <span className='cursor'>Color Mode</span>
           </div>
         </li>
       </ul>

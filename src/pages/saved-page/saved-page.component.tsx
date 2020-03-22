@@ -6,7 +6,6 @@ import { Post } from '../../@types/post.interfaces';
 import './saved-page.styles.scss';
 import { Dispatch } from 'redux';
 import SavedPostActionAPI from '../../redux/saved-posts/saved-posts.actions';
-import Loading from '../../components/loading/loading.component';
 
 interface IProps {
   savedPosts: Post[];
@@ -25,7 +24,11 @@ function SavedPagePlain ({ savedPosts, isFetching, fetchSavedPosts }: IProps){
   return (
     <div className='saved-page'>
       <h2 className='heading'>Saved posts</h2>
-      {isFetching ? <Loading /> : <PostPreviewContainer posts={savedPosts} />}
+      <PostPreviewContainer
+        isFetching={isFetching}
+        posts={savedPosts}
+        noDataMessage={`When you post your design, it will appear on your profile`}
+      />
     </div>
   );
 }

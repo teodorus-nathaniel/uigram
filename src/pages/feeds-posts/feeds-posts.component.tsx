@@ -6,8 +6,6 @@ import { Dispatch } from 'redux';
 import './feeds-posts.styles.scss';
 import { connect } from 'react-redux';
 import { Post } from '../../@types/post.interfaces';
-import ErrorMessage from '../../components/error-message/error-message.component';
-import Loading from '../../components/loading/loading.component';
 
 interface IProps {
   feeds: Post[];
@@ -32,13 +30,12 @@ function FeedsPostsPlain ({
   return (
     <div className='feeds-posts'>
       <h2 className='heading'>Welcome, User</h2>
-      {isFetching ? (
-        <Loading />
-      ) : error ? (
-        <ErrorMessage message={error.message} />
-      ) : (
-        <PostPreviewContainer posts={feeds} />
-      )}
+      <PostPreviewContainer
+        posts={feeds}
+        isFetching={isFetching}
+        error={error}
+        noDataMessage={`There is no one that you follow\nExplore others' works through explore tab`}
+      />
     </div>
   );
 }

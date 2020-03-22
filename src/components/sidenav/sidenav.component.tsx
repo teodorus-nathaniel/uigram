@@ -11,7 +11,7 @@ import SunIcon from '../icons/sun/sun.component';
 import { Link, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { changeColorMode } from '../../redux/color-mode/color-mode.actions';
+import ColorModeActionAPI from '../../redux/color-mode/color-mode.actions';
 
 interface IProps {
   changeColorMode: () => void;
@@ -105,7 +105,7 @@ function SidenavPlain ({ changeColorMode }: IProps){
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  changeColorMode: () => dispatch(changeColorMode())
+  changeColorMode: () => dispatch(ColorModeActionAPI.changeColorMode())
 });
 
 const Sidenav = connect(null, mapDispatchToProps)(SidenavPlain);

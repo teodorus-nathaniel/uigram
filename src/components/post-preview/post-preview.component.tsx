@@ -9,26 +9,26 @@ import { Post } from '../../@types/post.interfaces';
 import { useInView } from 'react-intersection-observer';
 import useAnimation from '../../effects/useAnimation.effect';
 import { connect } from 'react-redux';
-import {
-  addOrRemovePost,
-  IAddOrRemovePostPayload
-} from '../../redux/saved-posts/saved-posts.actions';
 import { Dispatch } from 'redux';
 import getAddToSavedListener from '../../utils/get-add-to-saved-listener';
 import Timestamp from '../timestamp/timestamp.component';
+import {
+  GlobalPostActionAPI,
+  IChangeSavedPayload
+} from '../../redux/global-post-actions/global-post-actions';
 
 interface IProps {
   post: Post;
-  addOrRemovePost: (payload: IAddOrRemovePostPayload) => void;
+  updateSaved: (payload: IChangeSavedPayload) => void;
 }
 
-function PostPreviewPlain ({ post, addOrRemovePost }: IProps){
+function PostPreviewPlain ({ post, updateSaved }: IProps){
   const [ ref, , entry ] = useInView({
     triggerOnce: true,
     threshold: 0.3
   });
 
-  const handleBookmarkAddClick = getAddToSavedListener(post, addOrRemovePost);
+  const handleBookmarkAddClick = getAddToSavedListener(post, updateSaved);
 
   const history = useHistory();
 
@@ -95,8 +95,8 @@ function PostPreviewPlain ({ post, addOrRemovePost }: IProps){
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  addOrRemovePost: (payload: IAddOrRemovePostPayload) =>
-    dispatch(addOrRemovePost(payload))
+  updateSaved: (payload: IChangeSavedPayload) =>
+    dispatch(GlobalPostActionAPI.updateSaved(payload))
 });
 
 const PostPreview = connect(null, mapDispatchToProps)(PostPreviewPlain);

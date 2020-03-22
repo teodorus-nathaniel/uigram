@@ -1,12 +1,16 @@
 import { PostDetail } from '../../@types/post.interfaces';
-import PostDetailActionType, {
-  CHANGE_POST_DETAIL_SAVED
-} from './post-detail.actions';
 import {
+  PostDetailActionType,
   FETCH_POST_DETAIL,
   FETCH_POST_DETAIL_FAILURE,
   LOAD_POST_DETAIL
 } from './post-detail.actions';
+import {
+  GlobalPostActionType,
+  CHANGE_SAVED,
+  CHANGE_LIKES_OR_DISLIKES
+} from '../global-post-actions/global-post-actions';
+import { changePostLikesOrDislikes } from '../global-post-actions/global-post-reducer-helper';
 
 interface IState {
   postDetail: PostDetail | null;
@@ -22,7 +26,7 @@ const INITIAL_STATE: IState = {
 
 export default function postDetailReducer (
   state: IState = INITIAL_STATE,
-  action: PostDetailActionType
+  action: PostDetailActionType | GlobalPostActionType
 ): IState{
   switch (action.type) {
     case FETCH_POST_DETAIL:
@@ -43,16 +47,24 @@ export default function postDetailReducer (
         error: null,
         isFetching: false
       };
-    case CHANGE_POST_DETAIL_SAVED:
+    case CHANGE_SAVED:
       if (!state.postDetail) return state;
+      if (state.postDetail.id !== action.payload.post.id) return state;
 
-      if (state.postDetail.id === action.payload.id) {
-        state.postDetail.saved = action.payload.saved;
-      }
+      const newPostDetail = { ...state.postDetail };
+      newPostDetail.saved = action.payload.saved;
 
       return {
         ...state,
-        postDetail: { ...state.postDetail }
+        postDetail: newPostDetail
+      };
+    case CHANGE_LIKES_OR_DISLIKES:
+      if (!state.postDetail) return state;
+      if (state.postDetail.id !== action.payload.id) return state;
+
+      return {
+        ...state,
+        postDetail: changePostLikesOrDislikes(state.postDetail, action.payload)
       };
     default:
       return state;

@@ -3,17 +3,11 @@ import {
   loadExplorePosts,
   fetchPostFailure,
   IFetchPostsPayload,
-  loadFeedsPosts,
-  changeLikesOrDislikes
+  loadFeedsPosts
 } from './post.actions';
 import { dummyArrayPost } from '../../dummy-datas/dummy-datas';
-import {
-  FETCH_POSTS,
-  UPDATE_LIKES_OR_DISLIKES,
-  IChangeLikesOrDislikesPayload
-} from './post.actions';
+import { FETCH_POSTS } from './post.actions';
 import catchAsync from '../utils/catch-async';
-import { changeLikesOrDislikesSavedPosts } from '../saved-posts/saved-posts.actions';
 
 function* fetchExplorePosts (sort: string = 'date'){
   console.log({ sort });
@@ -40,28 +34,10 @@ function* fetchPosts ({
   }
 }
 
-function* updateLikesOrDislikes ({
-  payload: { like, dislike, id }
-}: {
-  payload: IChangeLikesOrDislikesPayload;
-}){
-  // TODO: API CALL
-  yield put(changeLikesOrDislikes({ like, dislike, id }));
-  yield put(changeLikesOrDislikesSavedPosts({ like, dislike, id }));
-}
-
 function* watchFetchFeeds (){
   yield takeLatest(FETCH_POSTS, catchAsync(fetchPosts, fetchPostFailure));
 }
 
-function* watchUpdateLikesOrDislikes (){
-  yield takeLatest(
-    UPDATE_LIKES_OR_DISLIKES,
-    // TODO: ERROR HANDLING
-    catchAsync(updateLikesOrDislikes, function (err){})
-  );
-}
-
 export function* postSagas (){
-  yield all([ call(watchFetchFeeds), call(watchUpdateLikesOrDislikes) ]);
+  yield all([ call(watchFetchFeeds) ]);
 }

@@ -5,7 +5,7 @@ import PostPreviewContainer from '../../components/post-preview-container/post-p
 import { Post } from '../../@types/post.interfaces';
 import './saved-page.styles.scss';
 import { Dispatch } from 'redux';
-import { fetchSavedPosts } from '../../redux/saved-posts/saved-posts.actions';
+import SavedPostActionAPI from '../../redux/saved-posts/saved-posts.actions';
 import Loading from '../../components/loading/loading.component';
 
 interface IProps {
@@ -37,7 +37,7 @@ const mapStateToProps = ({
   isFetching
 });
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchSavedPosts: () => dispatch(fetchSavedPosts())
+  fetchSavedPosts: () => dispatch(SavedPostActionAPI.fetchSavedPosts())
 });
 
 const SavedPage = connect(mapStateToProps, mapDispatchToProps)(SavedPagePlain);

@@ -1,9 +1,5 @@
 import React, { useEffect } from 'react';
 import { Dispatch } from 'redux';
-import {
-  fetchComments,
-  clearComments
-} from '../../redux/comments/comments.actions';
 import { GlobalState } from '../../redux/root-reducer';
 import { connect } from 'react-redux';
 import { Comment } from '../../@types/comment.interfaces';
@@ -11,6 +7,7 @@ import Loading from '../loading/loading.component';
 import ErrorMessage from '../error-message/error-message.component';
 import CommentParent from '../comment-parent/comment-parent.component';
 import './comments-container.styles.scss';
+import CommentActionAPI from '../../redux/comments/comments.actions';
 
 interface IProps {
   postId: string;
@@ -64,8 +61,8 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   fetchComments: (postId: string, page: number = 1, limit: number = 5) =>
-    dispatch(fetchComments({ postId, page, limit })),
-  clearComments: () => dispatch(clearComments())
+    dispatch(CommentActionAPI.fetchComments({ postId, page, limit })),
+  clearComments: () => dispatch(CommentActionAPI.clearComments())
 });
 
 const CommentsContainer = connect(mapStateToProps, mapDispatchToProps)(

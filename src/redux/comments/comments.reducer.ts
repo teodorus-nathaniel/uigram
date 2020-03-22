@@ -1,5 +1,6 @@
 import { Comment } from './../../@types/comment.interfaces';
-import CommentsActionType, {
+import {
+  CommentsActionType,
   ADD_COMMENTS,
   FETCH_COMMENTS,
   FETCH_COMMENTS_FAILURE,

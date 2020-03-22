@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PostPreviewContainer from '../../components/post-preview-container/post-preview-container.component';
 import { GlobalState } from '../../redux/root-reducer';
-import { fetchPosts } from '../../redux/post/post.actions';
+import PostActionAPI from '../../redux/post/post.actions';
 import { Dispatch } from 'redux';
 import './feeds-posts.styles.scss';
 import { connect } from 'react-redux';
@@ -52,7 +52,7 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchFeedsPosts: () => dispatch(fetchPosts({ type: 'feeds' }))
+  fetchFeedsPosts: () => dispatch(PostActionAPI.fetchPosts({ type: 'feeds' }))
 });
 
 const FeedsPosts = connect(mapStateToProps, mapDispatchToProps)(

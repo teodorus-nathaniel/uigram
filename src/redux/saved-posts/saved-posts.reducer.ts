@@ -1,12 +1,16 @@
 import { Post } from './../../@types/post.interfaces';
-import SavedPostsActionType, {
+import {
+  SavedPostsActionType,
   FETCH_SAVED_POSTS,
   LOAD_SAVED_POSTS,
-  SAVED_POST_FAILURE,
-  ADD_OR_REMOVE_POST,
-  CHANGE_LIKES_OR_DISLIKES_SAVED_POSTS
+  SAVED_POST_FAILURE
 } from './saved-posts.actions';
-import updateLikesAndDislikes from '../../utils/update-likes-and-dislikes';
+import {
+  GlobalPostActionType,
+  CHANGE_SAVED,
+  CHANGE_LIKES_OR_DISLIKES
+} from '../global-post-actions/global-post-actions';
+import { changePostLikesOrDislikes } from '../global-post-actions/global-post-reducer-helper';
 
 interface IState {
   savedPosts: Post[];
@@ -22,7 +26,7 @@ const INITIAL_STATE: IState = {
 
 export default function savedPostsReducer (
   state: IState = INITIAL_STATE,
-  action: SavedPostsActionType
+  action: SavedPostsActionType | GlobalPostActionType
 ): IState{
   switch (action.type) {
     case FETCH_SAVED_POSTS:
@@ -37,10 +41,10 @@ export default function savedPostsReducer (
         isFetching: false,
         error: null
       };
-    case ADD_OR_REMOVE_POST:
-      const { type, post } = action.payload;
+    case CHANGE_SAVED:
+      const { saved, post } = action.payload;
       let newSavedPosts = [ ...state.savedPosts ];
-      if (type === 'add') {
+      if (saved) {
         newSavedPosts.push(post);
       } else {
         newSavedPosts = newSavedPosts.filter((el) => el.id !== post.id);
@@ -55,12 +59,9 @@ export default function savedPostsReducer (
         error: action.payload,
         isFetching: false
       };
-    case CHANGE_LIKES_OR_DISLIKES_SAVED_POSTS:
+    case CHANGE_LIKES_OR_DISLIKES:
       const newPosts = state.savedPosts.map((post) => {
-        if (post.id !== action.payload.id) return { ...post };
-
-        const { like, dislike } = action.payload;
-        return updateLikesAndDislikes(post, like, dislike);
+        return changePostLikesOrDislikes(post, action.payload);
       });
       return {
         ...state,

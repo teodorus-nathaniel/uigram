@@ -23,10 +23,15 @@ export const fetchComments = action(
 export const addComments = action(ADD_COMMENTS, payload<Comment[]>());
 export const clearComments = action(CLEAR_COMMENTS);
 
-type CommentsActionType =
+export type CommentsActionType =
   | ReturnType<typeof fetchCommentsFailure>
   | ReturnType<typeof fetchComments>
   | ReturnType<typeof addComments>
   | ReturnType<typeof clearComments>;
 
-export default CommentsActionType;
+const CommentActionAPI = {
+  clearComments,
+  fetchComments
+};
+
+export default CommentActionAPI;

@@ -1,15 +1,11 @@
 import { Post } from './../@types/post.interfaces';
-import { IAddOrRemovePostPayload } from '../redux/saved-posts/saved-posts.actions';
+import { IChangeSavedPayload } from '../redux/global-post-actions/global-post-actions';
 
 export default function getAddToSavedListener (
   post: Post,
-  dispatchAction: (payload: IAddOrRemovePostPayload) => void
+  dispatchAction: (payload: IChangeSavedPayload) => void
 ){
   return () => {
-    if (post.saved) {
-      dispatchAction({ type: 'remove', post: post });
-    } else {
-      dispatchAction({ type: 'add', post: post });
-    }
+    dispatchAction({ saved: !post.saved, post: post });
   };
 }

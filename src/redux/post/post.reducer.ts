@@ -1,12 +1,20 @@
-import { Post } from '../../@types/post.interfaces';
-import { CHANGE_SAVED, CHANGE_LIKES_OR_DISLIKES } from './post.actions';
-import PostActionType, {
+import { Post } from './../../@types/post.interfaces';
+import { CHANGE_LIKES_OR_DISLIKES } from './../global-post-actions/global-post-actions';
+import {
+  PostActionType,
   FETCH_POSTS,
   FETCH_POSTS_FAILURE,
   LOAD_FEEDS_POSTS,
   LOAD_EXPLORE_POSTS
 } from './post.actions';
-import updateLikesAndDislikes from '../../utils/update-likes-and-dislikes';
+import {
+  GlobalPostActionType,
+  CHANGE_SAVED
+} from '../global-post-actions/global-post-actions';
+import {
+  changePostLikesOrDislikes,
+  changePostSaved
+} from '../global-post-actions/global-post-reducer-helper';
 
 interface IState {
   explore: Post[];
@@ -24,25 +32,16 @@ const INITIAL_STATE = {
 
 export default function postReducer (
   state: IState = INITIAL_STATE,
-  action: PostActionType
+  action: PostActionType | GlobalPostActionType
 ): IState{
-  function updateExploreAndFeeds (
-    id: string,
-    operationCb: (item: Post) => void
-  ){
+  function updateExploreAndFeeds (operationCb: (item: Post) => Post){
     return {
       ...state,
       explore: state.explore.map((post) => {
-        if (post.id === id) {
-          operationCb(post);
-        }
-        return { ...post };
+        return operationCb(post);
       }),
       feeds: state.feeds.map((post) => {
-        if (post.id === id) {
-          operationCb(post);
-        }
-        return { ...post };
+        return operationCb(post);
       })
     };
   }
@@ -74,14 +73,17 @@ export default function postReducer (
         error: null
       };
     case CHANGE_SAVED:
-      return updateExploreAndFeeds(
-        action.payload.id,
-        (item) => (item.saved = action.payload.saved)
+      return updateExploreAndFeeds((item) =>
+        changePostSaved(item, action.payload)
       );
     case CHANGE_LIKES_OR_DISLIKES:
-      return updateExploreAndFeeds(action.payload.id, (item) => {
+      return updateExploreAndFeeds((item) => {
         const { like, dislike } = action.payload;
-        return updateLikesAndDislikes(item, like, dislike);
+        return changePostLikesOrDislikes(item, {
+          like,
+          dislike,
+          id: action.payload.id
+        });
       });
     default:
       return state;

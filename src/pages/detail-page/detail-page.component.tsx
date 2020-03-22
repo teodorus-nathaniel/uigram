@@ -5,7 +5,7 @@ import { PostDetail } from '../../@types/post.interfaces';
 import { GlobalState } from '../../redux/root-reducer';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { fetchPostDetail } from '../../redux/post-detail/post-detail.actions';
+import PostDetailActionAPI from '../../redux/post-detail/post-detail.actions';
 import Loading from '../../components/loading/loading.component';
 import PostDetailContainer from '../../components/post-detail-container/post-detail-container.component';
 
@@ -43,9 +43,8 @@ const mapStateToProps = (state: GlobalState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchPostDetail: (id: string) => {
-    dispatch(fetchPostDetail(id));
-  }
+  fetchPostDetail: (id: string) =>
+    dispatch(PostDetailActionAPI.fetchPostDetail(id))
 });
 
 const DetailPage = connect(mapStateToProps, mapDispatchToProps)(

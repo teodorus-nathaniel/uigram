@@ -12,15 +12,14 @@ export const fetchPostDetailFailure = action(
 );
 export const fetchPostDetail = action(FETCH_POST_DETAIL, payload<string>());
 export const loadPostDetail = action(LOAD_POST_DETAIL, payload<PostDetail>());
-export const changePostDetailSaved = action(
-  CHANGE_POST_DETAIL_SAVED,
-  payload<{ id: string; saved: boolean }>()
-);
 
-type PostDetailActionType =
+export type PostDetailActionType =
   | ReturnType<typeof fetchPostDetailFailure>
   | ReturnType<typeof fetchPostDetail>
-  | ReturnType<typeof loadPostDetail>
-  | ReturnType<typeof changePostDetailSaved>;
+  | ReturnType<typeof loadPostDetail>;
 
-export default PostDetailActionType;
+const PostDetailActionAPI = {
+  fetchPostDetail
+};
+
+export default PostDetailActionAPI;

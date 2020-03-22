@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import {
   IChangeLikesOrDislikesPayload,
-  updateLikesOrDislikes
-} from '../../redux/post/post.actions';
+  GlobalPostActionAPI
+} from '../../redux/global-post-actions/global-post-actions';
 
 // TODO: kasih props buat kasi tau kalo itu comment, yang dilakuin beda
 function LikeDislikePlain ({
@@ -54,7 +54,7 @@ function LikeDislikePlain ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   updateLikesOrDislikes: (payload: IChangeLikesOrDislikesPayload) =>
-    dispatch(updateLikesOrDislikes(payload))
+    dispatch(GlobalPostActionAPI.updateLikesOrDislikes(payload))
 });
 
 const LikeDislike = connect(null, mapDispatchToProps)(LikeDislikePlain);

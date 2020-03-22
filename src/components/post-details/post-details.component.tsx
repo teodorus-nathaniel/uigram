@@ -5,10 +5,6 @@ import BookmarkIcon from '../icons/bookmark/bookmark.component';
 import BookmarkAddIcon from '../icons/bookmark-add/bookmark-add.component';
 import CommentIcon from '../icons/comment/comment.component';
 import getAddToSavedListener from '../../utils/get-add-to-saved-listener';
-import {
-  addOrRemovePost,
-  IAddOrRemovePostPayload
-} from '../../redux/saved-posts/saved-posts.actions';
 import './post-details.styles.scss';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
@@ -18,14 +14,18 @@ import ArrowIcon from '../icons/arrow/arrow.component';
 import { useHistory } from 'react-router-dom';
 import CommentTextArea from '../comment-textarea/comment-textarea.component';
 import Timestamp from '../timestamp/timestamp.component';
+import {
+  GlobalPostActionAPI,
+  IChangeSavedPayload
+} from '../../redux/global-post-actions/global-post-actions';
 
 interface IProps {
   post: PostDetail;
-  addOrRemovePost: (payload: IAddOrRemovePostPayload) => void;
+  updateSaved: (payload: IChangeSavedPayload) => void;
 }
 
-function PostDetailsPlain ({ post, addOrRemovePost }: IProps){
-  const handleBookmarkAddClick = getAddToSavedListener(post, addOrRemovePost);
+function PostDetailsPlain ({ post, updateSaved }: IProps){
+  const handleBookmarkAddClick = getAddToSavedListener(post, updateSaved);
   const history = useHistory();
 
   const {
@@ -98,8 +98,8 @@ function PostDetailsPlain ({ post, addOrRemovePost }: IProps){
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  addOrRemovePost: (payload: IAddOrRemovePostPayload) =>
-    dispatch(addOrRemovePost(payload))
+  updateSaved: (payload: IChangeSavedPayload) =>
+    dispatch(GlobalPostActionAPI.updateSaved(payload))
 });
 
 const PostDetails = connect(null, mapDispatchToProps)(PostDetailsPlain);

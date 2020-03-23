@@ -25,9 +25,9 @@ export default function UserProfile ({ user }: IProps){
       <span className='user-profile__fullname'>{fullname}</span>
       <span className='user-profile__status'>{status}</span>
       <div className='user-profile__follow'>
-        <span>{`${followingCount} Following`}</span>
+        <span className='user-profile__follow__content'>{`${followingCount} Following`}</span>
         <span>&#xb7;</span>
-        <span> {`${followersCount} Followers`}</span>
+        <span className='user-profile__follow__content'>{`${followersCount} Followers`}</span>
       </div>
       {/* TODO: Change button if its the user or when user already follow */}
       <Button>Follow</Button>

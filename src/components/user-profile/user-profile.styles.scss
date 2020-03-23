@@ -29,11 +29,15 @@
 
   &__follow {
     @include flex-box(row, center, center);
-    margin-bottom: 20px;
-
+    margin-bottom: 30px;
     color: rgb(150, 150, 150);
+
     > * {
+      text-align: center;
       margin: 0px 5px;
+    }
+    &__content {
+      width: 100px;
     }
   }
 

@@ -11,10 +11,9 @@ export default function MainRoute (){
     <div className='main-route'>
       <Switch>
         <Route path='/' exact component={HomePage} />
-        <Route path='/detail' exact component={PostPreview} />
-        <Route path={`/post-detail/:id`} exact component={DetailPage} />
         <Route path='/saved' exact component={SavedPage} />
-        <Route path='/profile' exact component={ProfilePage} />
+        <Route path='/post-detail/:id' exact component={DetailPage} />
+        <Route path='/profile/:id' exact component={ProfilePage} />
       </Switch>
     </div>
   );

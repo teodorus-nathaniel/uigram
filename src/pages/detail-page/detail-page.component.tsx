@@ -28,11 +28,7 @@ function DetailPagePlain ({ post, fetchPostDetail, match, isFetching }: IProps){
   // TODO: image carousel / grid (when clicked it becomes the biggest)
   return (
     <div className='detail-page'>
-      {isFetching ? (
-        <Loading />
-      ) : post ? (
-        <PostDetailContainer postDetail={post} />
-      ) : null}
+      <PostDetailContainer postDetail={post} isFetching={isFetching} />
     </div>
   );
 }

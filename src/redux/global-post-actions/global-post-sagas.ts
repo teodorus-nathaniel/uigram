@@ -15,6 +15,7 @@ function* updateLikesOrDislikesAsync ({
   payload: IChangeLikesOrDislikesPayload;
 }){
   // TODO: API CALL
+  // TODO: INI KALO DAPET DATA YANG BARU DARI BACKEND, PAYLOAD CHANGELIKED GANTI JADI POST ITU
   yield put(changeLikesOrDislikes({ like, dislike, id }));
 }
 

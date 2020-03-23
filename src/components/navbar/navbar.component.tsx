@@ -18,7 +18,7 @@ export default function Navbar (){
           <Link to='/post'>Share your UI!</Link>
         </li>
         <li>
-          <Link to='/profile'>Profile</Link>
+          <Link to='/profile/self'>Profile</Link>
         </li>
       </ul>
     </div>

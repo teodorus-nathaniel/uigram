@@ -8,7 +8,7 @@ import ErrorMessage from '../error-message/error-message.component';
 interface IProps {
   posts: Post[];
   noDataMessage: string;
-  isFetching: boolean;
+  isFetching?: boolean;
   error?: Error | null;
 }
 

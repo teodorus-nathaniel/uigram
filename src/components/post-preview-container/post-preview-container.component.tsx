@@ -27,7 +27,9 @@ export default function PostPreviewContainer ({
       ) : posts.length === 0 ? (
         <ErrorMessage message={noDataMessage} />
       ) : (
-        posts.map((post: Post) => <PostPreview key={post.id} post={post} />)
+        <div className='post-preview-container__content'>
+          {posts.map((post: Post) => <PostPreview key={post.id} post={post} />)}
+        </div>
       )}
     </div>
   );

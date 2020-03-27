@@ -1,10 +1,5 @@
 import { PostDetail } from '../../@types/post.interfaces';
-import {
-  PostDetailActionType,
-  FETCH_POST_DETAIL,
-  FETCH_POST_DETAIL_FAILURE,
-  LOAD_POST_DETAIL
-} from './post-detail.actions';
+import { PostDetailActionType, LOAD_POST_DETAIL } from './post-detail.actions';
 import {
   GlobalPostActionType,
   CHANGE_SAVED,
@@ -14,14 +9,10 @@ import { changePostLikesOrDislikes } from '../global-post-actions/global-post-re
 
 interface IState {
   postDetail: PostDetail | null;
-  isFetching: boolean;
-  error: Error | null;
 }
 
 const INITIAL_STATE: IState = {
-  postDetail: null,
-  isFetching: false,
-  error: null
+  postDetail: null
 };
 
 export default function postDetailReducer (
@@ -29,23 +20,10 @@ export default function postDetailReducer (
   action: PostDetailActionType | GlobalPostActionType
 ): IState{
   switch (action.type) {
-    case FETCH_POST_DETAIL:
-      return {
-        ...state,
-        isFetching: true
-      };
-    case FETCH_POST_DETAIL_FAILURE:
-      return {
-        ...state,
-        error: action.payload,
-        isFetching: false
-      };
     case LOAD_POST_DETAIL:
       return {
         ...state,
-        postDetail: action.payload,
-        error: null,
-        isFetching: false
+        postDetail: action.payload
       };
     case CHANGE_SAVED:
       if (!state.postDetail) return state;

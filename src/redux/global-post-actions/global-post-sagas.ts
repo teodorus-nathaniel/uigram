@@ -1,44 +1,51 @@
 import { all, call, takeLatest, put } from 'redux-saga/effects';
 import {
-  UPDATE_LIKES_OR_DISLIKES,
   IChangeLikesOrDislikesPayload,
   changeLikesOrDislikes,
   IChangeSavedPayload,
-  changeSaved,
-  UPDATE_SAVED
+  changeSaved
 } from './global-post-actions';
 import catchAsync from '../utils/catch-async';
+import { fetchApiFail, fetchApiSuccess } from '../fetch/fetch.actions';
 
 function* updateLikesOrDislikesAsync ({
-  payload: { like, dislike, id }
+  payload: { name, data: { like, dislike, id } }
 }: {
   payload: IChangeLikesOrDislikesPayload;
 }){
   // TODO: API CALL
   // TODO: INI KALO DAPET DATA YANG BARU DARI BACKEND, PAYLOAD CHANGELIKED GANTI JADI POST ITU
+  yield put(fetchApiSuccess(name));
   yield put(changeLikesOrDislikes({ like, dislike, id }));
 }
 
-function* changeSavedAsync ({ payload }: { payload: IChangeSavedPayload }){
+function* changeSavedAsync ({
+  payload: { name, data }
+}: {
+  payload: IChangeSavedPayload;
+}){
   // TODO: API CALL, pake type ama id buat remove ato add yang di db
-  const { post, saved } = payload;
+  const { post, saved } = data;
   console.log({ saved, post });
-  yield put(changeSaved(payload));
+  yield put(fetchApiSuccess(name));
+  yield put(changeSaved(data));
 }
 
 function* watchUpdateLikesOrDislikes (){
   yield takeLatest(
-    UPDATE_LIKES_OR_DISLIKES,
-    // TODO: ERROR HANDLING
-    catchAsync(updateLikesOrDislikesAsync, function (err){})
+    (action: any) => action.payload.name === 'CHANGE_LIKES_OR_DISLIKES',
+    catchAsync(
+      'CHANGE_LIKES_OR_DISLIKES',
+      updateLikesOrDislikesAsync,
+      fetchApiFail
+    )
   );
 }
 
 function* watchAddOrRemoveSavedPost (){
   yield takeLatest(
-    UPDATE_SAVED,
-    // TODO: ERROR HANDLING
-    catchAsync(changeSavedAsync, function (err){})
+    (action: any) => action.payload.name === 'CHANGE_SAVED',
+    catchAsync('CHANGE_SAVED', changeSavedAsync, fetchApiFail)
   );
 }
 

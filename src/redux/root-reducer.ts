@@ -5,8 +5,10 @@ import colorModeReducer from './color-mode/color-mode.reducer';
 import postDetailReducer from './post-detail/post-detail.reducer';
 import commentsReducer from './comments/comments.reducer';
 import userReducer from './user/user.reducer';
+import fetchReducer from './fetch/fetch.reducer';
 
 const reducers = {
+  fetchController: fetchReducer,
   post: postReducer,
   savedPosts: savedPostsReducer,
   colorMode: colorModeReducer,

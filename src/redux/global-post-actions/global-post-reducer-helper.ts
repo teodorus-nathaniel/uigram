@@ -6,7 +6,7 @@ import { Post } from './../../@types/post.interfaces';
 
 export function changePostLikesOrDislikes<T extends Post> (
   post: T,
-  payload: IChangeLikesOrDislikesPayload
+  payload: IChangeLikesOrDislikesPayload['data']
 ){
   const { id, like, dislike } = payload;
   if (post.id !== id) return { ...post };
@@ -25,7 +25,10 @@ export function changePostLikesOrDislikes<T extends Post> (
   return { ...post };
 }
 
-export function changePostSaved (post: Post, payload: IChangeSavedPayload){
+export function changePostSaved (
+  post: Post,
+  payload: IChangeSavedPayload['data']
+){
   if (post.id === payload.post.id) {
     post.saved = payload.saved;
   }

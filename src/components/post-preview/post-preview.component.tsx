@@ -12,14 +12,12 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import getAddToSavedListener from '../../utils/get-add-to-saved-listener';
 import Timestamp from '../timestamp/timestamp.component';
-import {
-  GlobalPostActionAPI,
-  IChangeSavedPayload
-} from '../../redux/global-post-actions/global-post-actions';
+import { IChangeSavedPayload } from '../../redux/global-post-actions/global-post-actions';
+import { fetchApi } from '../../redux/fetch/fetch.actions';
 
 interface IProps {
   post: Post;
-  updateSaved: (payload: IChangeSavedPayload) => void;
+  updateSaved: (payload: IChangeSavedPayload['data']) => void;
 }
 
 function PostPreviewPlain ({ post, updateSaved }: IProps){
@@ -95,8 +93,8 @@ function PostPreviewPlain ({ post, updateSaved }: IProps){
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  updateSaved: (payload: IChangeSavedPayload) =>
-    dispatch(GlobalPostActionAPI.updateSaved(payload))
+  updateSaved: (payload: IChangeSavedPayload['data']) =>
+    dispatch(fetchApi({ name: 'CHANGE_SAVED', data: payload }))
 });
 
 const PostPreview = connect(null, mapDispatchToProps)(PostPreviewPlain);

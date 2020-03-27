@@ -5,11 +5,12 @@ import PostPreviewContainer from '../../components/post-preview-container/post-p
 import { Post } from '../../@types/post.interfaces';
 import './saved-page.styles.scss';
 import { Dispatch } from 'redux';
-import SavedPostActionAPI from '../../redux/saved-posts/saved-posts.actions';
+import { fetchApi } from '../../redux/fetch/fetch.actions';
 
 interface IProps {
   savedPosts: Post[];
-  isFetching: boolean;
+  isFetching?: boolean;
+  error?: Error | null;
   fetchSavedPosts: () => void;
 }
 
@@ -34,13 +35,15 @@ function SavedPagePlain ({ savedPosts, isFetching, fetchSavedPosts }: IProps){
 }
 
 const mapStateToProps = ({
-  savedPosts: { savedPosts, isFetching }
+  savedPosts: { savedPosts },
+  fetchController: { isFetching, errors }
 }: GlobalState) => ({
   savedPosts,
-  isFetching
+  isFetching: isFetching.SAVED_POSTS,
+  error: errors.SAVED_POSTS
 });
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchSavedPosts: () => dispatch(SavedPostActionAPI.fetchSavedPosts())
+  fetchSavedPosts: () => dispatch(fetchApi({ name: 'SAVED_POSTS' }))
 });
 
 const SavedPage = connect(mapStateToProps, mapDispatchToProps)(SavedPagePlain);

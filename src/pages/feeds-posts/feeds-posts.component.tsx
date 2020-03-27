@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import PostPreviewContainer from '../../components/post-preview-container/post-preview-container.component';
 import { GlobalState } from '../../redux/root-reducer';
-import PostActionAPI from '../../redux/post/post.actions';
 import { Dispatch } from 'redux';
 import './feeds-posts.styles.scss';
 import { connect } from 'react-redux';
 import { Post } from '../../@types/post.interfaces';
+import { fetchApi } from '../../redux/fetch/fetch.actions';
 
 interface IProps {
   feeds: Post[];
-  isFetching: boolean;
-  error: Error | null;
+  isFetching?: boolean;
+  error?: Error | null;
   fetchFeedsPosts: () => void;
 }
 
@@ -41,15 +41,17 @@ function FeedsPostsPlain ({
 }
 
 const mapStateToProps = ({
-  post: { feeds, isFetching, error }
+  post: { feeds },
+  fetchController: { isFetching, errors }
 }: GlobalState) => ({
   feeds,
-  isFetching,
-  error
+  isFetching: isFetching.POSTS,
+  error: errors.POSTS
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchFeedsPosts: () => dispatch(PostActionAPI.fetchPosts({ type: 'feeds' }))
+  fetchFeedsPosts: () =>
+    dispatch(fetchApi({ name: 'POSTS', data: { type: 'feeds' } }))
 });
 
 const FeedsPosts = connect(mapStateToProps, mapDispatchToProps)(

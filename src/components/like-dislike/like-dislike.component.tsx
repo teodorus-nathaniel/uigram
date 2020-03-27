@@ -4,10 +4,8 @@ import LikeIcon from '../icons/like/like.component';
 import './like-dislike.styles.scss';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import {
-  IChangeLikesOrDislikesPayload,
-  GlobalPostActionAPI
-} from '../../redux/global-post-actions/global-post-actions';
+import { IChangeLikesOrDislikesPayload } from '../../redux/global-post-actions/global-post-actions';
+import { fetchApi } from '../../redux/fetch/fetch.actions';
 
 // TODO: kasih props buat kasi tau kalo itu comment, yang dilakuin beda
 function LikeDislikePlain ({
@@ -27,7 +25,9 @@ function LikeDislikePlain ({
   liked?: boolean;
   className?: string;
   size?: number;
-  updateLikesOrDislikes: (payload: IChangeLikesOrDislikesPayload) => void;
+  updateLikesOrDislikes: (
+    payload: IChangeLikesOrDislikesPayload['data']
+  ) => void;
 }){
   return (
     <div className={`like-dislike ${className || ''}`}>
@@ -53,8 +53,8 @@ function LikeDislikePlain ({
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  updateLikesOrDislikes: (payload: IChangeLikesOrDislikesPayload) =>
-    dispatch(GlobalPostActionAPI.updateLikesOrDislikes(payload))
+  updateLikesOrDislikes: (payload: IChangeLikesOrDislikesPayload['data']) =>
+    dispatch(fetchApi({ name: 'CHANGE_LIKES_OR_DISLIKES', data: payload }))
 });
 
 const LikeDislike = connect(null, mapDispatchToProps)(LikeDislikePlain);

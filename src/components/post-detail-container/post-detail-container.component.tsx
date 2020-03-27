@@ -7,7 +7,8 @@ import ImageCarousel from '../image-carousel/image-carousel.component';
 
 interface IProps {
   postDetail: PostDetail | null;
-  isFetching: boolean;
+  isFetching?: boolean;
+  error?: Error | null;
 }
 
 export default function PostDetailContainer ({

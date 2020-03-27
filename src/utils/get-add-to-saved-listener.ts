@@ -3,7 +3,7 @@ import { IChangeSavedPayload } from '../redux/global-post-actions/global-post-ac
 
 export default function getAddToSavedListener (
   post: Post,
-  dispatchAction: (payload: IChangeSavedPayload) => void
+  dispatchAction: (payload: IChangeSavedPayload['data']) => void
 ){
   return () => {
     dispatchAction({ saved: !post.saved, post: post });

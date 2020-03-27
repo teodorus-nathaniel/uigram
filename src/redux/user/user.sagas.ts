@@ -1,18 +1,27 @@
 import { call, all, takeLatest, put } from 'redux-saga/effects';
-import { FETCH_USER, IFetchUserPayload, loadUser } from './user.actions';
+import { IFetchUserPayload, loadUser } from './user.actions';
 import catchAsync from '../utils/catch-async';
 import { dummyUser } from '../../dummy-datas/dummy-datas';
+import { fetchApiFail, fetchApiSuccess } from '../fetch/fetch.actions';
 
-function* fetchUserAsync ({ payload: { id } }: { payload: IFetchUserPayload }){
+function* fetchUserAsync ({
+  payload: { data: { id }, name }
+}: {
+  payload: IFetchUserPayload;
+}){
   // TODO: API CALL
   yield new Promise((resolve) => setTimeout(resolve, 2000));
   dummyUser.id = id;
+  yield put(fetchApiSuccess(name));
   yield put(loadUser(dummyUser));
 }
 
 function* watchFetchUser (){
   // TODO: ERROR HANDLING
-  yield takeLatest(FETCH_USER, catchAsync(fetchUserAsync, () => {}));
+  yield takeLatest(
+    (action: any) => action.payload.name === 'USER',
+    catchAsync('USER', fetchUserAsync, fetchApiFail)
+  );
 }
 
 export default function* userSagas (){

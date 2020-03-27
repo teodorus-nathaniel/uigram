@@ -14,14 +14,12 @@ import ArrowIcon from '../icons/arrow/arrow.component';
 import { useHistory } from 'react-router-dom';
 import CommentTextArea from '../comment-textarea/comment-textarea.component';
 import Timestamp from '../timestamp/timestamp.component';
-import {
-  GlobalPostActionAPI,
-  IChangeSavedPayload
-} from '../../redux/global-post-actions/global-post-actions';
+import { IChangeSavedPayload } from '../../redux/global-post-actions/global-post-actions';
+import { fetchApi } from '../../redux/fetch/fetch.actions';
 
 interface IProps {
   post: PostDetail;
-  updateSaved: (payload: IChangeSavedPayload) => void;
+  updateSaved: (payload: IChangeSavedPayload['data']) => void;
 }
 
 function PostDetailsPlain ({ post, updateSaved }: IProps){
@@ -98,8 +96,8 @@ function PostDetailsPlain ({ post, updateSaved }: IProps){
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  updateSaved: (payload: IChangeSavedPayload) =>
-    dispatch(GlobalPostActionAPI.updateSaved(payload))
+  updateSaved: (payload: IChangeSavedPayload['data']) =>
+    dispatch(fetchApi({ name: 'CHANGE_SAVED', data: payload }))
 });
 
 const PostDetails = connect(null, mapDispatchToProps)(PostDetailsPlain);

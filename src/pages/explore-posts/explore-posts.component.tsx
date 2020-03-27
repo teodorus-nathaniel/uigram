@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { GlobalState } from '../../redux/root-reducer';
-import PostActionAPI from '../../redux/post/post.actions';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import PostPreviewContainer from '../../components/post-preview-container/post-preview-container.component';
 import { Post } from '../../@types/post.interfaces';
 import './explore-posts.styles.scss';
 import usePrevious from '../../effects/usePrevious.effect';
+import { fetchApi } from '../../redux/fetch/fetch.actions';
 
 interface IProps {
   explore: Post[];
-  isFetching: boolean;
-  error: Error | null;
+  isFetching?: boolean;
+  error?: Error | null;
   fetchExplorePosts: (sort: string) => void;
 }
 
@@ -26,7 +26,8 @@ function ExplorePostsPlain ({
 
   useEffect(
     () => {
-      if (explore.length === 0 || prevSort !== sort) fetchExplorePosts(sort);
+      if (explore.length === 0 || (prevSort !== sort && prevSort))
+        fetchExplorePosts(sort);
     },
     [ fetchExplorePosts, sort, explore, prevSort ]
   );
@@ -51,16 +52,17 @@ function ExplorePostsPlain ({
 }
 
 const mapStateToProps = ({
-  post: { explore, isFetching, error }
+  post: { explore },
+  fetchController: { isFetching, errors }
 }: GlobalState) => ({
   explore,
-  isFetching,
-  error
+  isFetching: isFetching.POSTS,
+  error: errors.POSTS
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   fetchExplorePosts: (sort: string) =>
-    dispatch(PostActionAPI.fetchPosts({ type: 'explore', sort }))
+    dispatch(fetchApi({ name: 'POSTS', data: { type: 'explore', sort } }))
 });
 
 const ExplorePosts = connect(mapStateToProps, mapDispatchToProps)(

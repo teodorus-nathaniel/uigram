@@ -4,19 +4,19 @@ import './profile-page.styles.scss';
 import UserContent from '../../components/user-content/user-content.component';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { Dispatch } from 'redux';
-import { fetchUser } from '../../redux/user/user.actions';
 import { GlobalState } from '../../redux/root-reducer';
 import { connect } from 'react-redux';
 import { User } from '../../@types/user.interfaces';
 import Loading from '../../components/loading/loading.component';
 import ErrorMessage from '../../components/error-message/error-message.component';
 import { dummyUser } from '../../dummy-datas/dummy-datas';
+import { fetchApi } from '../../redux/fetch/fetch.actions';
 
 interface IProps {
   user: User | null;
   self: User | null;
-  isFetching: boolean;
-  error: Error | null;
+  isFetching?: boolean;
+  error?: Error | null;
   fetchUser: (id: string) => void;
 }
 
@@ -72,16 +72,17 @@ function ProfilePagePlain ({
 }
 
 const mapStateToProps = ({
-  user: { user, self, isFetching, error }
+  user: { user, self },
+  fetchController: { isFetching, errors }
 }: GlobalState) => ({
   user,
   self,
-  isFetching,
-  error
+  isFetching: isFetching.USER,
+  error: errors.USER
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchUser: (id: string) => dispatch(fetchUser({ id }))
+  fetchUser: (id: string) => dispatch(fetchApi({ name: 'USER', data: { id } }))
 });
 
 const ProfilePage = connect(mapStateToProps, mapDispatchToProps)(

@@ -3,6 +3,7 @@ import { dummyArrayPost } from './../../dummy-datas/dummy-datas';
 import { loadSavedPosts, IFetchSavedPostsPayload } from './saved-posts.actions';
 import { all, call, takeLatest, put } from 'redux-saga/effects';
 import catchAsync from '../utils/catch-async';
+import createFetchSagaPattern from '../fetch/fetch-saga-pattern-creator';
 
 function* fetchSavedPostsAsync ({
   payload: { name }
@@ -17,7 +18,7 @@ function* fetchSavedPostsAsync ({
 
 function* watchFetchSavedPosts (){
   yield takeLatest(
-    (action: any) => action.payload.name === 'SAVED_POSTS',
+    createFetchSagaPattern('SAVED_POSTS'),
     catchAsync('SAVED_POSTS', fetchSavedPostsAsync, fetchApiFail)
   );
 }

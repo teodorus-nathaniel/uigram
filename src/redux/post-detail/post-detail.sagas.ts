@@ -3,6 +3,7 @@ import catchAsync from '../utils/catch-async';
 import { loadPostDetail, IFetchPostDetailPayload } from './post-detail.actions';
 import { dummyPostDetail } from '../../dummy-datas/dummy-datas';
 import { fetchApiFail, fetchApiSuccess } from '../fetch/fetch.actions';
+import createFetchSagaPattern from '../fetch/fetch-saga-pattern-creator';
 
 function* fetchPostDetailAsync ({
   payload: { data: { id }, name }
@@ -19,7 +20,7 @@ function* fetchPostDetailAsync ({
 
 function* watchFetchPostDetail (){
   yield takeLatest(
-    (action: any) => action.payload.name === 'POST_DETAIL',
+    createFetchSagaPattern('POST_DETAIL'),
     catchAsync('POST_DETAIL', fetchPostDetailAsync, fetchApiFail)
   );
 }

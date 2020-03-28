@@ -3,6 +3,7 @@ import { IFetchUserPayload, loadUser } from './user.actions';
 import catchAsync from '../utils/catch-async';
 import { dummyUser } from '../../dummy-datas/dummy-datas';
 import { fetchApiFail, fetchApiSuccess } from '../fetch/fetch.actions';
+import createFetchSagaPattern from '../fetch/fetch-saga-pattern-creator';
 
 function* fetchUserAsync ({
   payload: { data: { id }, name }
@@ -19,7 +20,7 @@ function* fetchUserAsync ({
 function* watchFetchUser (){
   // TODO: ERROR HANDLING
   yield takeLatest(
-    (action: any) => action.payload.name === 'USER',
+    createFetchSagaPattern('USER'),
     catchAsync('USER', fetchUserAsync, fetchApiFail)
   );
 }

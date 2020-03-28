@@ -1,4 +1,27 @@
 @import "./../../shared/scss/shared";
 
 .detail-page {
+  .post-detail-container {
+    @include flex-box(row, flex-start, flex-start);
+    width: 100%;
+
+    .images-container {
+      width: 50%;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    @media screen and (max-width: $large-breakpoint) {
+      flex-direction: column;
+      .images-container {
+        position: relative;
+        z-index: 9;
+        width: 100%;
+        direction: unset;
+        height: 500px;
+      }
+    }
+  }
 }

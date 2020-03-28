@@ -9,9 +9,10 @@ import { fetchApiFail, fetchApiSuccess } from '../fetch/fetch.actions';
 import createFetchSagaPattern from '../fetch/fetch-saga-pattern-creator';
 
 function* fetchCommentsAsync ({
-  name,
-  data: { page, limit, postId }
-}: IFetchCommentsPayload){
+  payload: { name, data: { page, limit, postId } }
+}: {
+  payload: IFetchCommentsPayload;
+}){
   // TODO: API CALL
   yield new Promise((resolve) => setTimeout(resolve, 2000));
   yield put(fetchApiSuccess(name));

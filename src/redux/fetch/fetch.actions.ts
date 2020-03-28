@@ -3,15 +3,16 @@ import {
   IChangeSavedPayload
 } from './../global-post-actions/global-post-actions';
 import { action, payload } from 'ts-action';
-import { IFetchPostsPayload } from '../post/post.actions';
+import { IFetchExplorePayload, IFetchFeedsPayload } from '../post/post.actions';
 import { IFetchCommentsPayload } from '../comments/comments.actions';
 import { IFetchPostDetailPayload } from '../post-detail/post-detail.actions';
 import { IFetchSavedPostsPayload } from '../saved-posts/saved-posts.actions';
 import { IFetchUserPayload } from '../user/user.actions';
 
-// FIXME: ganti nama, jangan fetch, ama buat saga patternnya bkin func
+// FIXME: ama buat saga patternnya bkin func
 export type IFetchApiPayload =
-  | IFetchPostsPayload
+  | IFetchExplorePayload
+  | IFetchFeedsPayload
   | IFetchCommentsPayload
   | IFetchPostDetailPayload
   | IFetchSavedPostsPayload
@@ -20,7 +21,8 @@ export type IFetchApiPayload =
   | IFetchUserPayload;
 
 export type IFetchApiNames =
-  | IFetchPostsPayload['name']
+  | IFetchExplorePayload['name']
+  | IFetchFeedsPayload['name']
   | IFetchCommentsPayload['name']
   | IFetchPostDetailPayload['name']
   | IFetchSavedPostsPayload['name']

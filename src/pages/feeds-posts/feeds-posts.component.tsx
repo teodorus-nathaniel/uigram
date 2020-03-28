@@ -45,13 +45,12 @@ const mapStateToProps = ({
   fetchController: { isFetching, errors }
 }: GlobalState) => ({
   feeds,
-  isFetching: isFetching.POSTS,
-  error: errors.POSTS
+  isFetching: isFetching.FEEDS,
+  error: errors.FEEDS
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchFeedsPosts: () =>
-    dispatch(fetchApi({ name: 'POSTS', data: { type: 'feeds' } }))
+  fetchFeedsPosts: () => dispatch(fetchApi({ name: 'FEEDS' }))
 });
 
 const FeedsPosts = connect(mapStateToProps, mapDispatchToProps)(

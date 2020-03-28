@@ -16,10 +16,11 @@ import {
 
 interface IState {
   explore: Post[];
+  exploreSort?: string;
   feeds: Post[];
 }
 
-const INITIAL_STATE = {
+const INITIAL_STATE: IState = {
   explore: [],
   feeds: []
 };
@@ -49,7 +50,8 @@ export default function postReducer (
     case LOAD_EXPLORE_POSTS:
       return {
         ...state,
-        explore: action.payload
+        exploreSort: action.payload.sort,
+        explore: action.payload.posts
       };
     case CHANGE_SAVED:
       return updateExploreAndFeeds((item) =>

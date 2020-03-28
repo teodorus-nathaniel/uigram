@@ -1,52 +1,50 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 import {
   loadExplorePosts,
-  IFetchPostsPayload,
-  loadFeedsPosts
+  loadFeedsPosts,
+  IFetchExplorePayload,
+  IFetchFeedsPayload
 } from './post.actions';
 import { dummyArrayPost } from '../../dummy-datas/dummy-datas';
 import catchAsync from '../utils/catch-async';
-import {
-  fetchApiFail,
-  IFetchApiNames,
-  fetchApiSuccess
-} from '../fetch/fetch.actions';
+import { fetchApiFail, fetchApiSuccess } from '../fetch/fetch.actions';
+import createFetchSagaPattern from '../fetch/fetch-saga-pattern-creator';
 
-function* fetchExplorePosts (name: IFetchApiNames, sort: string = 'date'){
+function* fetchExplorePosts ({
+  payload: { name, data: { sort } }
+}: {
+  payload: IFetchExplorePayload;
+}){
   console.log({ sort });
   yield new Promise((resolve) => setTimeout(resolve, 2000));
   yield put(fetchApiSuccess(name));
-  yield put(loadExplorePosts(dummyArrayPost));
+  yield put(loadExplorePosts({ sort, posts: dummyArrayPost }));
 }
-function* fetchFeedsPosts (name: IFetchApiNames){
+
+function* fetchFeedsPosts ({
+  payload: { name }
+}: {
+  payload: IFetchFeedsPayload;
+}){
   yield new Promise((resolve) => setTimeout(resolve, 2000));
   yield put(fetchApiSuccess(name));
   yield put(loadFeedsPosts(dummyArrayPost));
 }
 
-function* fetchPosts ({
-  payload: { name, data: { type, sort } }
-}: {
-  payload: IFetchPostsPayload;
-}){
-  console.log({ type, sort });
-  switch (type) {
-    case 'explore':
-      yield fetchExplorePosts(name, sort);
-      break;
-    case 'feeds':
-      yield fetchFeedsPosts(name);
-      break;
-  }
-}
-
 function* watchFetchFeeds (){
   yield takeLatest(
-    (action: any) => action.payload.name === 'POSTS',
-    catchAsync('POSTS', fetchPosts, fetchApiFail)
+    createFetchSagaPattern('FEEDS'),
+    catchAsync('FEEDS', fetchFeedsPosts, fetchApiFail)
+  );
+}
+
+function* watchFetchExplore (){
+  yield takeLatest(
+    createFetchSagaPattern('EXPLORE'),
+    catchAsync('EXPLORE', fetchExplorePosts, fetchApiFail)
   );
 }
 
 export function* postSagas (){
-  yield all([ call(watchFetchFeeds) ]);
+  yield all([ call(watchFetchFeeds), call(watchFetchExplore) ]);
 }

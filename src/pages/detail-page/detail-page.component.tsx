@@ -5,8 +5,10 @@ import { PostDetail } from '../../@types/post.interfaces';
 import { GlobalState } from '../../redux/root-reducer';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import PostDetailContainer from '../../components/post-detail-container/post-detail-container.component';
 import { fetchApi } from '../../redux/fetch/fetch.actions';
+import LoadingError from '../../components/loading-error/loading-error.component';
+import ImageCarousel from '../../components/image-carousel/image-carousel.component';
+import PostDetails from '../../components/post-details/post-details.component';
 
 interface IProps {
   post: PostDetail | null;
@@ -30,16 +32,18 @@ function DetailPagePlain ({
     [ fetchPostDetail, match ]
   );
 
-  // FIXME: keknya mendingan langsung disini biar ga prop tunneling
-  // TODO: comments nya bkin ada id nya, supaya nanti kalo comment icon yang di home dipencet, dia sesuai hash pindah ke comments (#comments)
-  // TODO: image carousel / grid (when clicked it becomes the biggest)
   return (
     <div className='detail-page'>
-      <PostDetailContainer
-        postDetail={post}
-        isFetching={isFetching}
-        error={error}
-      />
+      <LoadingError isLoading={isFetching} error={error}>
+        {post ? (
+          <div className='post-detail-container'>
+            <div className='images-container scrollbar'>
+              <ImageCarousel images={post.images} />
+            </div>
+            <PostDetails post={post} />
+          </div>
+        ) : null}
+      </LoadingError>
     </div>
   );
 }

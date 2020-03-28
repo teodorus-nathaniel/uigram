@@ -7,6 +7,7 @@ import {
 } from './global-post-actions';
 import catchAsync from '../utils/catch-async';
 import { fetchApiFail, fetchApiSuccess } from '../fetch/fetch.actions';
+import createFetchSagaPattern from '../fetch/fetch-saga-pattern-creator';
 
 function* updateLikesOrDislikesAsync ({
   payload: { name, data: { like, dislike, id } }
@@ -33,7 +34,7 @@ function* changeSavedAsync ({
 
 function* watchUpdateLikesOrDislikes (){
   yield takeLatest(
-    (action: any) => action.payload.name === 'CHANGE_LIKES_OR_DISLIKES',
+    createFetchSagaPattern('CHANGE_LIKES_OR_DISLIKES'),
     catchAsync(
       'CHANGE_LIKES_OR_DISLIKES',
       updateLikesOrDislikesAsync,
@@ -44,7 +45,7 @@ function* watchUpdateLikesOrDislikes (){
 
 function* watchAddOrRemoveSavedPost (){
   yield takeLatest(
-    (action: any) => action.payload.name === 'CHANGE_SAVED',
+    createFetchSagaPattern('CHANGE_SAVED'),
     catchAsync('CHANGE_SAVED', changeSavedAsync, fetchApiFail)
   );
 }

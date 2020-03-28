@@ -2,7 +2,7 @@ import React from 'react';
 import PostPreview from '../post-preview/post-preview.component';
 import './post-preview-container.styles.scss';
 import { Post } from '../../@types/post.interfaces';
-import Loading from '../loading/loading.component';
+import LoadingError from '../loading-error/loading-error.component';
 import ErrorMessage from '../error-message/error-message.component';
 
 interface IProps {
@@ -20,17 +20,17 @@ export default function PostPreviewContainer ({
 }: IProps){
   return (
     <div className='post-preview-container'>
-      {isFetching ? (
-        <Loading />
-      ) : error ? (
-        <ErrorMessage message={error.message} />
-      ) : posts.length === 0 ? (
-        <ErrorMessage message={noDataMessage} />
-      ) : (
-        <div className='post-preview-container__content'>
-          {posts.map((post: Post) => <PostPreview key={post.id} post={post} />)}
-        </div>
-      )}
+      <LoadingError isLoading={isFetching} error={error}>
+        {posts.length === 0 ? (
+          <ErrorMessage message={noDataMessage} />
+        ) : (
+          <div className='post-preview-container__content'>
+            {posts.map((post: Post) => (
+              <PostPreview key={post.id} post={post} />
+            ))}
+          </div>
+        )}
+      </LoadingError>
     </div>
   );
 }

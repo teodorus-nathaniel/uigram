@@ -3,13 +3,12 @@ import { Dispatch } from 'redux';
 import { GlobalState } from '../../redux/root-reducer';
 import { connect } from 'react-redux';
 import { Comment } from '../../@types/comment.interfaces';
-import Loading from '../loading/loading.component';
-import ErrorMessage from '../error-message/error-message.component';
 import CommentParent from '../comment-parent/comment-parent.component';
 import './comments-container.styles.scss';
 import CommentActionAPI from '../../redux/comments/comments.actions';
 import { useLocation } from 'react-router-dom';
 import { fetchApi } from '../../redux/fetch/fetch.actions';
+import LoadingError from '../loading-error/loading-error.component';
 
 interface IProps {
   postId: string;
@@ -59,15 +58,11 @@ function CommentsContainerPlain ({
 
   return (
     <div className='comments-container' ref={commentsRef}>
-      {isFetching ? (
-        <Loading size={75} />
-      ) : error ? (
-        <ErrorMessage message={error.message} />
-      ) : (
-        comments.map((comment) => (
+      <LoadingError isLoading={isFetching} error={error}>
+        {comments.map((comment) => (
           <CommentParent key={comment.id} comment={comment} />
-        ))
-      )}
+        ))}
+      </LoadingError>
     </div>
   );
 }

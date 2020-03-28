@@ -6,6 +6,7 @@ import { call } from 'redux-saga/effects';
 import { all } from 'redux-saga/effects';
 import catchAsync from '../utils/catch-async';
 import { fetchApiFail, fetchApiSuccess } from '../fetch/fetch.actions';
+import createFetchSagaPattern from '../fetch/fetch-saga-pattern-creator';
 
 function* fetchCommentsAsync ({
   name,
@@ -19,7 +20,7 @@ function* fetchCommentsAsync ({
 
 function* watchFetchComments (){
   yield takeLatest(
-    (action: any) => action.payload.name === 'COMMENTS',
+    createFetchSagaPattern('COMMENTS'),
     catchAsync('COMMENTS', fetchCommentsAsync, fetchApiFail)
   );
 }

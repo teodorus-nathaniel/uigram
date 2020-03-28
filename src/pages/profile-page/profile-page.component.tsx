@@ -7,10 +7,10 @@ import { Dispatch } from 'redux';
 import { GlobalState } from '../../redux/root-reducer';
 import { connect } from 'react-redux';
 import { User } from '../../@types/user.interfaces';
-import Loading from '../../components/loading/loading.component';
 import ErrorMessage from '../../components/error-message/error-message.component';
 import { dummyUser } from '../../dummy-datas/dummy-datas';
 import { fetchApi } from '../../redux/fetch/fetch.actions';
+import LoadingError from '../../components/loading-error/loading-error.component';
 
 interface IProps {
   user: User | null;
@@ -55,18 +55,16 @@ function ProfilePagePlain ({
 
   return (
     <div className='profile-page'>
-      {isFetching ? (
-        <Loading />
-      ) : error ? (
-        <ErrorMessage message={error.message} />
-      ) : displayUser ? (
-        <div className='profile-container'>
-          <UserProfile user={displayUser} />
-          <UserContent user={displayUser} />
-        </div>
-      ) : (
-        <ErrorMessage message='User not found' />
-      )}
+      <LoadingError isLoading={isFetching} error={error}>
+        {displayUser ? (
+          <div className='profile-container'>
+            <UserProfile user={displayUser} />
+            <UserContent user={displayUser} />
+          </div>
+        ) : (
+          <ErrorMessage message='User not found' />
+        )}
+      </LoadingError>
     </div>
   );
 }

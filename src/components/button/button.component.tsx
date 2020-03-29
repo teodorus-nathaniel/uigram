@@ -4,6 +4,7 @@ import './button.styles.scss';
 interface IProps {
   className?: string;
   children: any;
+  type?: 'button' | 'submit';
   onClick?: () => any;
 }
 

@@ -50,7 +50,7 @@ function MainRoutePlain ({ user }: IProps){
         {routes.map(
           ({ component, path, protect }) =>
             user || !protect ? (
-              <Route path={path} exact component={component} />
+              <Route path={path} exact key={path} component={component} />
             ) : null
         )}
 

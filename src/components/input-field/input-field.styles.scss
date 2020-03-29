@@ -1,0 +1,49 @@
+@import './../../shared/scss/shared';
+
+.input-field {
+  width: 100%;
+  color: var(--text-color);
+  border-bottom: 1px solid rgb(100, 100, 100);
+  position: relative;
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+  }
+
+  input {
+    width: inherit;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    padding: 10px 0px;
+    padding-bottom: 5px;
+    font-size: 1em;
+  }
+
+  label {
+    color: rgb(150, 150, 150);
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    transform: translateY(-50%);
+    transition: top 250ms ease-out, left 250ms ease-out,
+      font-size 250ms ease-out;
+  }
+
+  input:valid + label,
+  input:focus + label {
+    top: 0;
+    left: 0;
+    font-size: .75em;
+  }
+
+  input:focus + label {
+    color: var(--link-color);
+  }
+}

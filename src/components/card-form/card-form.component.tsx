@@ -17,7 +17,8 @@ interface IProps {
       path: string;
     };
   };
-  onSubmit: () => void;
+  error?: string;
+  onSubmit: (e: any) => void;
 }
 
 export default function CardForm ({
@@ -25,6 +26,7 @@ export default function CardForm ({
   children,
   additional,
   actionButtonText,
+  error,
   onSubmit
 }: IProps){
   return (
@@ -34,6 +36,7 @@ export default function CardForm ({
           <form className='card-form__form' onSubmit={onSubmit}>
             <h1>{title}</h1>
             <div className='card-form__form__fields'>{children}</div>
+            <span className='error'>{error}</span>
             <div className='card-form__form__action'>
               <Button type='submit'>{actionButtonText}</Button>
               <span className='show-small'>

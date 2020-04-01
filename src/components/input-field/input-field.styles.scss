@@ -13,7 +13,7 @@
   select:-webkit-autofill,
   select:-webkit-autofill:hover,
   select:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+    box-shadow: 0 0 0px 1000px #ffffff inset !important;
   }
 
   input {
@@ -24,6 +24,38 @@
     padding: 10px 0px;
     padding-bottom: 5px;
     font-size: 1em;
+  }
+
+  &::after {
+    content: '';
+    height: 2px;
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0px;
+    transition: width 500ms ease-out;
+    background-color: red;
+  }
+
+  .error-message {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    padding: 0;
+    font-size: .75em;
+    color: red;
+    animation: fade-in 300ms ease-out 1 forwards;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translate(50px, -50%);
+    }
+    to {
+      opacity: 1;
+      transform: translate(0px, -50%);
+    }
   }
 
   label {
@@ -41,6 +73,14 @@
     top: 0;
     left: 0;
     font-size: .75em;
+  }
+
+  &.not-valid::after {
+    width: 100%;
+  }
+
+  &.not-valid label {
+    color: red;
   }
 
   input:focus + label {

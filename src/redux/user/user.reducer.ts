@@ -1,14 +1,16 @@
 import { User } from '../../@types/user.interfaces';
-import { UserActionType, LOAD_USER } from './user.actions';
+import { UserActionType, LOAD_USER, LOGIN } from './user.actions';
 
 interface IState {
   self: User | null;
   user: User | null;
+  token: string;
 }
 
 const INITIAL_STATE: IState = {
   self: null,
-  user: null
+  user: null,
+  token: ''
 };
 
 export default function userReducer (
@@ -20,6 +22,12 @@ export default function userReducer (
       return {
         ...state,
         user: action.payload
+      };
+    case LOGIN:
+      return {
+        ...state,
+        token: action.payload.token,
+        self: action.payload.user
       };
     default:
       return state;

@@ -4,8 +4,24 @@ import InputField from '../../components/input-field/input-field.component';
 import IdeasImage from './../../assets/images/ideas-undraw.svg';
 import { validateEmail, validateUsername } from '../../utils/validations';
 import useForm from '../../effects/useForm.effect';
+import useGuestOnly from '../../effects/useGuestOnly';
+import { connect } from 'react-redux';
+import { GlobalState } from '../../redux/root-reducer';
+import { fetchApi } from '../../redux/fetch/fetch.actions';
+import { Dispatch } from 'redux';
+import { User } from '../../@types/user.interfaces';
+import { IRegisterPayload } from '../../redux/user/user.actions';
 
-export default function RegisterPage (){
+interface IProps {
+  user: User | null;
+  isFetching?: boolean;
+  error?: Error | null;
+  register: (data: IRegisterPayload['data']) => void;
+}
+
+function RegisterPagePlain ({ user, isFetching, error, register }: IProps){
+  useGuestOnly(user);
+
   const [ data, handleChange, handleSubmit, submitErrors ] = useForm(
     {
       email: {
@@ -30,14 +46,21 @@ export default function RegisterPage (){
         error: ''
       }
     },
-    () => {}
+    () => {
+      register({
+        email: data.email.value,
+        fullname: data.email.value,
+        username: data.username.value,
+        password: data.password.value
+      });
+    }
   );
 
   const { email, fullname, password, username, confirmPassword } = data;
 
   return (
     <CardForm
-      title='Welcome to UIGram!'
+      title='Welcome to UIGram !'
       actionButtonText='Register'
       additional={{
         img: IdeasImage,
@@ -46,7 +69,8 @@ export default function RegisterPage (){
         sub: 'with us!',
         link: { text: 'Login', path: '/login' }
       }}
-      error={submitErrors}
+      isFetching={isFetching}
+      error={submitErrors ? submitErrors : error ? error.message : ''}
       onSubmit={handleSubmit}>
       <InputField
         errorMessage={email.error}
@@ -89,3 +113,25 @@ export default function RegisterPage (){
     </CardForm>
   );
 }
+
+const mapStateToProps = ({
+  fetchController: {
+    isFetching: { REGISTER: isFetching },
+    errors: { REGISTER: error }
+  },
+  user: { self }
+}: GlobalState) => ({
+  isFetching,
+  error,
+  user: self
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  register: (data: IRegisterPayload['data']) =>
+    dispatch(fetchApi({ name: 'REGISTER', data }))
+});
+
+const RegisterPage = connect(mapStateToProps, mapDispatchToProps)(
+  RegisterPagePlain
+);
+export default RegisterPage;

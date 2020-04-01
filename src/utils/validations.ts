@@ -4,5 +4,5 @@ export function validateEmail (email: string){
 }
 
 export function validateUsername (username: string){
-  return username.length >= 6 ? '' : 'Minimum 6 characters';
+  return username.length >= 6 ? '' : 'Username minimum 6 characters';
 }

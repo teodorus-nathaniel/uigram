@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import './button.styles.scss';
 
-interface IProps {
+interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   children: any;
   type?: 'button' | 'submit';

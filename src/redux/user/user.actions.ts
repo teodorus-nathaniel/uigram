@@ -8,7 +8,29 @@ export interface IFetchUserPayload {
   };
 }
 
-export const LOAD_USER = 'LOAD_USER';
-export const loadUser = action(LOAD_USER, payload<User>());
+export interface ILoginPayload {
+  name: 'LOGIN';
+  data: {
+    email: string;
+    password: string;
+  };
+}
 
-export type UserActionType = ReturnType<typeof loadUser>;
+export interface IRegisterPayload {
+  name: 'REGISTER';
+  data: {
+    email: string;
+    password: string;
+    username: string;
+    fullname: string;
+  };
+}
+
+export const LOAD_USER = 'LOAD_USER';
+export const LOGIN = 'LOGIN';
+export const loadUser = action(LOAD_USER, payload<User>());
+export const login = action(LOGIN, payload<{ user: User; token: string }>());
+
+export type UserActionType =
+  | ReturnType<typeof loadUser>
+  | ReturnType<typeof login>;

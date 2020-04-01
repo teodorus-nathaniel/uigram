@@ -1,3 +1,4 @@
+import { ILoginPayload, IRegisterPayload } from './../user/user.actions';
 import {
   IChangeLikesOrDislikesPayload,
   IChangeSavedPayload
@@ -9,7 +10,6 @@ import { IFetchPostDetailPayload } from '../post-detail/post-detail.actions';
 import { IFetchSavedPostsPayload } from '../saved-posts/saved-posts.actions';
 import { IFetchUserPayload } from '../user/user.actions';
 
-// FIXME: ama buat saga patternnya bkin func
 export type IFetchApiPayload =
   | IFetchExplorePayload
   | IFetchFeedsPayload
@@ -18,7 +18,9 @@ export type IFetchApiPayload =
   | IFetchSavedPostsPayload
   | IChangeLikesOrDislikesPayload
   | IChangeSavedPayload
-  | IFetchUserPayload;
+  | IFetchUserPayload
+  | ILoginPayload
+  | IRegisterPayload;
 
 export type IFetchApiNames =
   | IFetchExplorePayload['name']
@@ -28,7 +30,9 @@ export type IFetchApiNames =
   | IFetchSavedPostsPayload['name']
   | IChangeLikesOrDislikesPayload['name']
   | IChangeSavedPayload['name']
-  | IFetchUserPayload['name'];
+  | IFetchUserPayload['name']
+  | ILoginPayload['name']
+  | IRegisterPayload['name'];
 
 export const FETCH_API = 'FETCH_API';
 export const FETCH_API_FAIL = 'FETCH_API_FAIL';

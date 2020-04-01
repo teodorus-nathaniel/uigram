@@ -18,6 +18,7 @@ interface IProps {
     };
   };
   error?: string;
+  isFetching?: boolean;
   onSubmit: (e: any) => void;
 }
 
@@ -27,6 +28,7 @@ export default function CardForm ({
   additional,
   actionButtonText,
   error,
+  isFetching,
   onSubmit
 }: IProps){
   return (
@@ -38,7 +40,9 @@ export default function CardForm ({
             <div className='card-form__form__fields'>{children}</div>
             <span className='error'>{error}</span>
             <div className='card-form__form__action'>
-              <Button type='submit'>{actionButtonText}</Button>
+              <Button type='submit' disabled={isFetching ? true : false}>
+                {actionButtonText}
+              </Button>
               <span className='show-small'>
                 {additional.actionText}{' '}
                 <a
@@ -67,38 +71,5 @@ export default function CardForm ({
         </div>
       </div>
     </div>
-    // <div className='card-form-wrapper'>
-    //   <div className='card-form-card'>
-    //     <div className='card-form'>
-    //       <form className='card-form__form'>
-    //         <h1>{Welcome back!}</h1>
-    //         <div className='card-form__form__fields'>
-    //           <InputField type='text' name='email' label='Email' />
-    //           <InputField type='password' name='password' label='Password' />
-    //         </div>
-    //         <div className='card-form__form__action'>
-    //           <Button type='submit'>Login</Button>
-    //           <span className='show-small'>
-    //             Already got an account?{' '}
-    //             <span className='show-small__link'>Login</span>
-    //           </span>
-    //         </div>
-    //       </form>
-    //     </div>
-    //     <div className='additional'>
-    //       <div className='additional__text'>
-    //         <p className='additional__text__main'>Share your design</p>
-    //         <p className='additional__text__sub'>
-    //           and discuss it with our community!
-    //         </p>
-    //       </div>
-    //       <img src={SharingImage} alt='sharing' />
-    //       <span className='additional__action'>
-    //         Already got an account?{' '}
-    //         <span className='additional__action__link'>Login</span>
-    //       </span>
-    //     </div>
-    //   </div>
-    // </div>
   );
 }

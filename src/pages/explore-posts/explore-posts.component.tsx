@@ -11,14 +11,16 @@ import { fetchApi } from '../../redux/fetch/fetch.actions';
 interface IProps {
   explore: Post[];
   sortBy?: string;
+  page: number;
   isFetching?: boolean;
-  error?: Error | null;
-  fetchExplorePosts: (sort: string) => void;
+  error?: string;
+  fetchExplorePosts: (sort: string, page: number) => void;
 }
 
 function ExplorePostsPlain ({
   explore,
   sortBy,
+  page,
   isFetching,
   fetchExplorePosts,
   error
@@ -29,9 +31,9 @@ function ExplorePostsPlain ({
   useEffect(
     () => {
       if (explore.length === 0 || (prevSort !== sort && prevSort))
-        fetchExplorePosts(sort);
+        fetchExplorePosts(sort, page + 1);
     },
-    [ fetchExplorePosts, sort, explore, prevSort ]
+    [ fetchExplorePosts, sort, explore, prevSort, page ]
   );
 
   return (
@@ -46,6 +48,7 @@ function ExplorePostsPlain ({
         </select>
       </div>
       <PostPreviewContainer
+        fetchItem={() => fetchExplorePosts(sort, page + 1)}
         posts={explore}
         error={error}
         isFetching={isFetching}
@@ -56,18 +59,20 @@ function ExplorePostsPlain ({
 }
 
 const mapStateToProps = ({
-  post: { explore, exploreSort },
+  post: { explore },
   fetchController: { isFetching, errors }
 }: GlobalState) => ({
-  explore,
-  sortBy: exploreSort,
+  explore: explore.posts,
+  page: explore.page,
+  sortBy: explore.sort,
   isFetching: isFetching.EXPLORE,
   error: errors.EXPLORE
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchExplorePosts: (sort: string) =>
-    dispatch(fetchApi({ name: 'EXPLORE', data: { sort } }))
+  fetchExplorePosts: (sort: string, page: number) => {
+    dispatch(fetchApi({ name: 'EXPLORE', data: { sort, page } }));
+  }
 });
 
 const ExplorePosts = connect(mapStateToProps, mapDispatchToProps)(

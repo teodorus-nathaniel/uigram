@@ -10,21 +10,23 @@ import { fetchApi } from '../../redux/fetch/fetch.actions';
 interface IProps {
   feeds: Post[];
   isFetching?: boolean;
-  error?: Error | null;
-  fetchFeedsPosts: () => void;
+  error?: string;
+  page: number;
+  fetchFeedsPosts: (page: number) => void;
 }
 
 function FeedsPostsPlain ({
   feeds,
   isFetching,
+  page,
   fetchFeedsPosts,
   error
 }: IProps){
   useEffect(
     () => {
-      if (feeds.length === 0) fetchFeedsPosts();
+      if (feeds.length === 0) fetchFeedsPosts(page + 1);
     },
-    [ fetchFeedsPosts, feeds ]
+    [ fetchFeedsPosts, feeds, page ]
   );
 
   return (
@@ -34,6 +36,7 @@ function FeedsPostsPlain ({
         posts={feeds}
         isFetching={isFetching}
         error={error}
+        fetchItem={() => fetchFeedsPosts(page + 1)}
         noDataMessage={`There is no one that you follow yet\nExplore others' works through explore tab`}
       />
     </div>
@@ -44,13 +47,17 @@ const mapStateToProps = ({
   post: { feeds },
   fetchController: { isFetching, errors }
 }: GlobalState) => ({
-  feeds,
+  feeds: feeds.posts,
+  page: feeds.page,
   isFetching: isFetching.FEEDS,
   error: errors.FEEDS
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchFeedsPosts: () => dispatch(fetchApi({ name: 'FEEDS' }))
+  fetchFeedsPosts: (page: number) => {
+    console.log({ page });
+    dispatch(fetchApi({ name: 'FEEDS', data: { page } }));
+  }
 });
 
 const FeedsPosts = connect(mapStateToProps, mapDispatchToProps)(

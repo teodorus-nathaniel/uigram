@@ -6,18 +6,27 @@ import { Post } from '../../@types/post.interfaces';
 import './saved-page.styles.scss';
 import { Dispatch } from 'redux';
 import { fetchApi } from '../../redux/fetch/fetch.actions';
+import useUserOnly from '../../effects/useUserOnly';
 
 interface IProps {
   savedPosts: Post[];
   isFetching?: boolean;
-  error?: Error | null;
-  fetchSavedPosts: () => void;
+  page: number;
+  error?: string;
+  fetchSavedPosts: (page: number) => void;
 }
 
-function SavedPagePlain ({ savedPosts, isFetching, fetchSavedPosts }: IProps){
+function SavedPagePlain ({
+  savedPosts,
+  isFetching,
+  fetchSavedPosts,
+  page
+}: IProps){
+  useUserOnly();
+
   useEffect(
     () => {
-      fetchSavedPosts();
+      fetchSavedPosts(1);
     },
     [ fetchSavedPosts ]
   );
@@ -29,6 +38,7 @@ function SavedPagePlain ({ savedPosts, isFetching, fetchSavedPosts }: IProps){
         isFetching={isFetching}
         posts={savedPosts}
         noDataMessage={`When you post your design, it will appear on your profile`}
+        fetchItem={() => fetchSavedPosts(page + 1)}
       />
     </div>
   );
@@ -38,12 +48,14 @@ const mapStateToProps = ({
   savedPosts: { savedPosts },
   fetchController: { isFetching, errors }
 }: GlobalState) => ({
-  savedPosts,
+  savedPosts: savedPosts.posts,
+  page: savedPosts.page,
   isFetching: isFetching.SAVED_POSTS,
   error: errors.SAVED_POSTS
 });
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchSavedPosts: () => dispatch(fetchApi({ name: 'SAVED_POSTS' }))
+  fetchSavedPosts: (page: number) =>
+    dispatch(fetchApi({ name: 'SAVED_POSTS', data: { page } }))
 });
 
 const SavedPage = connect(mapStateToProps, mapDispatchToProps)(SavedPagePlain);

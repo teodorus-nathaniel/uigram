@@ -21,17 +21,18 @@ export const dummyPost: Post = {
   saved: true
 };
 
-export const dummyArrayPost: Post[] = Array.from({
-  length: 25
-}).map((_, idx) => {
-  const data = { ...dummyPost };
-  data.id = idx + '';
-  const rand = Math.floor(Math.random() * 3);
-  data.liked = rand === 1;
-  data.disliked = rand === 2;
-  data.saved = Boolean(Math.floor(Math.random() * 2));
-  return data;
-});
+export const dummyArrayPost = (page: number) =>
+  Array.from({
+    length: 25
+  }).map((_, idx) => {
+    const data = { ...dummyPost };
+    data.id = idx + page * 25 + '';
+    const rand = Math.floor(Math.random() * 3);
+    data.liked = rand === 1;
+    data.disliked = rand === 2;
+    data.saved = Boolean(Math.floor(Math.random() * 2));
+    return data;
+  });
 
 export const dummyPostDetail: PostDetail = {
   id: '1',
@@ -69,19 +70,20 @@ export const dummyComment: Comment = {
   timestamp: new Date()
 };
 
-export const dummyArrayComments: Comment[] = Array.from({
-  length: 5
-}).map((_, idx) => {
-  const rand = Math.floor(Math.random() * 3);
-  const comment = { ...dummyComment };
+export const dummyArrayComments = (page: number) =>
+  Array.from({
+    length: 5
+  }).map((_, idx) => {
+    const rand = Math.floor(Math.random() * 3);
+    const comment = { ...dummyComment };
 
-  if (Math.random() > 0.5) comment.repliesCount = 0;
-  comment.id = idx + '';
-  comment.liked = rand === 1;
-  comment.disliked = rand === 2;
+    if (Math.random() > 0.5) comment.repliesCount = 0;
+    comment.id = idx + page * 5 + '';
+    comment.liked = rand === 1;
+    comment.disliked = rand === 2;
 
-  return comment;
-});
+    return comment;
+  });
 
 export const dummyUser: User = {
   email: 'nathankurnia26@gmail.com',

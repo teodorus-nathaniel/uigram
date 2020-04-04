@@ -6,14 +6,19 @@ import catchAsync from '../utils/catch-async';
 import createFetchSagaPattern from '../fetch/fetch-saga-pattern-creator';
 
 function* fetchSavedPostsAsync ({
-  payload: { name }
+  payload: { name, data: { page } }
 }: {
   payload: IFetchSavedPostsPayload;
 }){
   // TODO: API CALL
   yield new Promise((resolve) => setTimeout(resolve, 2000));
   yield put(fetchApiSuccess(name));
-  yield put(loadSavedPosts(dummyArrayPost.filter((post) => post.saved)));
+  yield put(
+    loadSavedPosts({
+      posts: dummyArrayPost(0).filter((post) => post.saved),
+      page
+    })
+  );
 }
 
 function* watchFetchSavedPosts (){

@@ -11,24 +11,32 @@ import { fetchApiFail, fetchApiSuccess } from '../fetch/fetch.actions';
 import createFetchSagaPattern from '../fetch/fetch-saga-pattern-creator';
 
 function* fetchExplorePosts ({
-  payload: { name, data: { sort } }
+  payload: { name, data: { sort, page } }
 }: {
   payload: IFetchExplorePayload;
 }){
   console.log({ sort });
   yield new Promise((resolve) => setTimeout(resolve, 2000));
+
+  yield put(
+    loadExplorePosts({
+      sort,
+      posts: dummyArrayPost(page),
+      page
+    })
+  );
   yield put(fetchApiSuccess(name));
-  yield put(loadExplorePosts({ sort, posts: dummyArrayPost }));
 }
 
 function* fetchFeedsPosts ({
-  payload: { name }
+  payload: { name, data: { page } }
 }: {
   payload: IFetchFeedsPayload;
 }){
   yield new Promise((resolve) => setTimeout(resolve, 2000));
+
+  yield put(loadFeedsPosts({ posts: dummyArrayPost(page), page }));
   yield put(fetchApiSuccess(name));
-  yield put(loadFeedsPosts(dummyArrayPost));
 }
 
 function* watchFetchFeeds (){

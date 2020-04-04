@@ -14,7 +14,7 @@ interface IProps {
   post: PostDetail | null;
   match: match<{ id: string }>;
   isFetching?: boolean;
-  error?: Error | null;
+  error?: string;
   fetchPostDetail: (id: string) => void;
 }
 

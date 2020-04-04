@@ -1,4 +1,8 @@
-import { ILoginPayload, IRegisterPayload } from './../user/user.actions';
+import {
+  ILoginPayload,
+  IRegisterPayload,
+  IFetchUserPostsPayload
+} from './../user/user.actions';
 import {
   IChangeLikesOrDislikesPayload,
   IChangeSavedPayload
@@ -20,7 +24,8 @@ export type IFetchApiPayload =
   | IChangeSavedPayload
   | IFetchUserPayload
   | ILoginPayload
-  | IRegisterPayload;
+  | IRegisterPayload
+  | IFetchUserPostsPayload;
 
 export type IFetchApiNames =
   | IFetchExplorePayload['name']
@@ -32,7 +37,8 @@ export type IFetchApiNames =
   | IChangeSavedPayload['name']
   | IFetchUserPayload['name']
   | ILoginPayload['name']
-  | IRegisterPayload['name'];
+  | IRegisterPayload['name']
+  | IFetchUserPostsPayload['name'];
 
 export const FETCH_API = 'FETCH_API';
 export const FETCH_API_FAIL = 'FETCH_API_FAIL';
@@ -41,7 +47,7 @@ export const FETCH_API_SUCCESS = 'FETCH_API_SUCCESS';
 export const fetchApi = action(FETCH_API, payload<IFetchApiPayload>());
 export const fetchApiFail = action(
   FETCH_API_FAIL,
-  payload<{ name: IFetchApiNames; error: Error }>()
+  payload<{ name: IFetchApiNames; error: any }>()
 );
 export const fetchApiSuccess = action(
   FETCH_API_SUCCESS,

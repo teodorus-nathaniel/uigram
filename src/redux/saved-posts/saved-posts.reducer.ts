@@ -8,11 +8,14 @@ import {
 import { changePostLikesOrDislikes } from '../global-post-actions/global-post-reducer-helper';
 
 interface IState {
-  savedPosts: Post[];
+  savedPosts: {
+    posts: Post[];
+    page: number;
+  };
 }
 
 const INITIAL_STATE: IState = {
-  savedPosts: []
+  savedPosts: { posts: [], page: 0 }
 };
 
 export default function savedPostsReducer (
@@ -21,13 +24,17 @@ export default function savedPostsReducer (
 ): IState{
   switch (action.type) {
     case LOAD_SAVED_POSTS:
+      let newSaved = action.payload;
+      if (action.payload.page === 1) {
+        newSaved.posts = [ ...state.savedPosts.posts, ...newSaved.posts ];
+      }
       return {
         ...state,
-        savedPosts: action.payload
+        savedPosts: newSaved
       };
     case CHANGE_SAVED:
       const { saved, post } = action.payload;
-      let newSavedPosts = [ ...state.savedPosts ];
+      let newSavedPosts = [ ...state.savedPosts.posts ];
       if (saved) {
         newSavedPosts.push(post);
       } else {
@@ -35,15 +42,15 @@ export default function savedPostsReducer (
       }
       return {
         ...state,
-        savedPosts: newSavedPosts
+        savedPosts: { ...state.savedPosts, posts: newSavedPosts }
       };
     case CHANGE_LIKES_OR_DISLIKES:
-      const newPosts = state.savedPosts.map((post) => {
+      const newPosts = state.savedPosts.posts.map((post) => {
         return changePostLikesOrDislikes(post, action.payload);
       });
       return {
         ...state,
-        savedPosts: newPosts
+        savedPosts: { ...state.savedPosts, posts: newPosts }
       };
     default:
       return state;

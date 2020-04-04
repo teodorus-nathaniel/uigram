@@ -15,43 +15,55 @@ import {
 } from '../global-post-actions/global-post-reducer-helper';
 
 interface IState {
-  explore: Post[];
-  exploreSort?: string;
-  feeds: Post[];
+  explore: { posts: Post[]; page: number; sort?: string };
+  feeds: { posts: Post[]; page: number };
 }
 
 const INITIAL_STATE: IState = {
-  explore: [],
-  feeds: []
+  explore: { posts: [], page: 0 },
+  feeds: { posts: [], page: 0 }
 };
 
 export default function postReducer (
   state: IState = INITIAL_STATE,
   action: PostActionType | GlobalPostActionType
 ): IState{
-  function updateExploreAndFeeds (operationCb: (item: Post) => Post){
+  function updateExploreAndFeeds (operationCb: (item: Post) => Post): IState{
     return {
       ...state,
-      explore: state.explore.map((post) => {
-        return operationCb(post);
-      }),
-      feeds: state.feeds.map((post) => {
-        return operationCb(post);
-      })
+      explore: {
+        ...state.explore,
+        posts: state.explore.posts.map((post) => {
+          return operationCb(post);
+        })
+      },
+      feeds: {
+        ...state.feeds,
+        posts: state.feeds.posts.map((post) => {
+          return operationCb(post);
+        })
+      }
     };
   }
 
   switch (action.type) {
     case LOAD_FEEDS_POSTS:
+      const newFeeds = action.payload;
+      if (action.payload.page === 1)
+        newFeeds.posts = [ ...state.feeds.posts, ...newFeeds.posts ];
+
       return {
         ...state,
-        feeds: action.payload
+        feeds: newFeeds
       };
     case LOAD_EXPLORE_POSTS:
+      const newExplore = action.payload;
+      if (action.payload.page === 1)
+        newExplore.posts = [ ...state.explore.posts, ...newExplore.posts ];
+
       return {
         ...state,
-        exploreSort: action.payload.sort,
-        explore: action.payload.posts
+        explore: newExplore
       };
     case CHANGE_SAVED:
       return updateExploreAndFeeds((item) =>

@@ -58,8 +58,8 @@ function NavbarPlain ({ user }: IProps){
   );
 }
 
-const mapStateToProps = ({ user: { self } }: GlobalState) => ({
-  user: self
+const mapStateToProps = ({ user: { self: { data } } }: GlobalState) => ({
+  user: data
 });
 
 const Navbar = connect(mapStateToProps)(NavbarPlain);

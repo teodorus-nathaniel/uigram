@@ -6,11 +6,12 @@ import Button from '../button/button.component';
 
 interface IProps {
   user: User;
+  page: number;
 }
 
 export default function UserProfile ({ user }: IProps){
   const {
-    email,
+    // email,
     followersCount,
     followingCount,
     fullname,

@@ -14,7 +14,7 @@ interface IProps {
   postId: string;
   comments: Comment[];
   isFetching?: boolean;
-  error?: Error | null;
+  error?: string;
   fetchComments: (postId: string, page?: number, limit?: number) => void;
   clearComments: () => void;
 }

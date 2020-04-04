@@ -5,7 +5,7 @@ import ErrorMessage from '../error-message/error-message.component';
 interface IProps {
   isLoading?: boolean;
   loadingSize?: number;
-  error?: Error | null;
+  error?: string;
   children: any;
 }
 
@@ -20,7 +20,7 @@ export default function LoadingError ({
       {isLoading ? (
         <Loading size={loadingSize} />
       ) : error ? (
-        <ErrorMessage message={error.message} />
+        <ErrorMessage message={error} />
       ) : (
         children
       )}

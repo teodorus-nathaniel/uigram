@@ -15,12 +15,12 @@ import { IRegisterPayload } from '../../redux/user/user.actions';
 interface IProps {
   user: User | null;
   isFetching?: boolean;
-  error?: Error | null;
+  error?: string;
   register: (data: IRegisterPayload['data']) => void;
 }
 
 function RegisterPagePlain ({ user, isFetching, error, register }: IProps){
-  useGuestOnly(user);
+  useGuestOnly();
 
   const [ data, handleChange, handleSubmit, submitErrors ] = useForm(
     {
@@ -70,7 +70,7 @@ function RegisterPagePlain ({ user, isFetching, error, register }: IProps){
         link: { text: 'Login', path: '/login' }
       }}
       isFetching={isFetching}
-      error={submitErrors ? submitErrors : error ? error.message : ''}
+      error={submitErrors ? submitErrors : error ? error : ''}
       onSubmit={handleSubmit}>
       <InputField
         errorMessage={email.error}
@@ -119,11 +119,11 @@ const mapStateToProps = ({
     isFetching: { REGISTER: isFetching },
     errors: { REGISTER: error }
   },
-  user: { self }
+  user: { self: { data } }
 }: GlobalState) => ({
   isFetching,
   error,
-  user: self
+  user: data
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

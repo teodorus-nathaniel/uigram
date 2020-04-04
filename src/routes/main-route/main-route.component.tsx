@@ -22,8 +22,7 @@ const routes = [
   },
   {
     path: '/saved',
-    component: SavedPage,
-    protect: true
+    component: SavedPage
   },
   {
     path: '/post-detail/:id',
@@ -47,12 +46,9 @@ function MainRoutePlain ({ user }: IProps){
   return (
     <div className='main-route'>
       <Switch>
-        {routes.map(
-          ({ component, path, protect }) =>
-            user || !protect ? (
-              <Route path={path} exact key={path} component={component} />
-            ) : null
-        )}
+        {routes.map(({ component, path }) => (
+          <Route path={path} exact key={path} component={component} />
+        ))}
 
         <Route
           path='*'
@@ -68,8 +64,8 @@ function MainRoutePlain ({ user }: IProps){
   );
 }
 
-const mapStateToProps = ({ user: { self } }: GlobalState) => ({
-  user: self
+const mapStateToProps = ({ user: { self: { data } } }: GlobalState) => ({
+  user: data
 });
 
 const MainRoute = connect(mapStateToProps)(MainRoutePlain);

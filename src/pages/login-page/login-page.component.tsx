@@ -13,13 +13,13 @@ import useGuestOnly from '../../effects/useGuestOnly';
 
 interface IProps {
   isFetching?: boolean;
-  error?: Error | null;
+  error?: string;
   user: User | null;
   login: (data: { email: string; password: string }) => void;
 }
 
 function LoginPagePlain ({ login, isFetching, error, user }: IProps){
-  useGuestOnly(user);
+  useGuestOnly();
 
   const [ data, handleChange, handleSubmit, submitErrors ] = useForm(
     {
@@ -51,7 +51,7 @@ function LoginPagePlain ({ login, isFetching, error, user }: IProps){
         link: { text: 'Register', path: '/register' }
       }}
       isFetching={isFetching}
-      error={submitErrors ? submitErrors : error ? error.message : ''}
+      error={submitErrors ? submitErrors : error ? error : ''}
       onSubmit={handleSubmit}>
       <InputField
         type='text'
@@ -77,11 +77,11 @@ const mapStateToProps = ({
     isFetching: { LOGIN: isFetching },
     errors: { LOGIN: error }
   },
-  user: { self }
+  user: { self: { data } }
 }: GlobalState) => ({
   isFetching,
   error,
-  user: self
+  user: data
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

@@ -16,7 +16,7 @@ function* fetchCommentsAsync ({
   // TODO: API CALL
   yield new Promise((resolve) => setTimeout(resolve, 2000));
   yield put(fetchApiSuccess(name));
-  yield put(addComments(dummyArrayComments));
+  yield put(addComments(dummyArrayComments(0)));
 }
 
 function* watchFetchComments (){

@@ -8,7 +8,7 @@ import {
 
 interface IState {
   isFetching: { [key in IFetchApiNames]?: boolean };
-  errors: { [key in IFetchApiNames]?: null | Error };
+  errors: { [key in IFetchApiNames]?: string };
 }
 
 const INITIAL_STATE: IState = {
@@ -34,6 +34,10 @@ export default function fetchReducer (
         }
       };
     case FETCH_API_FAIL:
+      let error = 'Something unexpected happening :(';
+      try {
+        error = action.payload.error.response.data.message;
+      } catch (e) {}
       return {
         ...state,
         isFetching: {
@@ -42,7 +46,7 @@ export default function fetchReducer (
         },
         errors: {
           ...state.errors,
-          [action.payload.name]: action.payload.error
+          [action.payload.name]: error
         }
       };
     case FETCH_API_SUCCESS:

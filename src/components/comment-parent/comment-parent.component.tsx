@@ -60,7 +60,7 @@ export default function CommentParent ({ comment }: IProps){
       <div
         className='replies'
         style={{ display: showReplies ? 'flex' : 'none' }}>
-        {dummyArrayComments
+        {dummyArrayComments(1)
           .slice(2)
           .map((comment) => (
             <CommentContent key={comment.id} comment={comment} animation />

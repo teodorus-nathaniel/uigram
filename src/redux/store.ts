@@ -6,12 +6,14 @@ import rootSaga from './root-saga';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage/session';
 
-const persistConfig = {
-  key: 'root',
-  storage
-};
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(
+  {
+    key: 'root',
+    storage,
+    whitelist: [ 'user', 'colorMode' ]
+  },
+  rootReducer
+);
 
 const sagaMiddleware = createSagaMiddleware();
 const middlewares = [ logger, sagaMiddleware ];

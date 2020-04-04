@@ -1,10 +1,13 @@
+import { dummyArrayPost } from './../../dummy-datas/dummy-datas';
 import { call, all, takeLatest, put } from 'redux-saga/effects';
 import {
   IFetchUserPayload,
   loadUser,
   ILoginPayload,
   login,
-  IRegisterPayload
+  IRegisterPayload,
+  IFetchUserPostsPayload,
+  loadUserPosts
 } from './user.actions';
 import catchAsync from '../utils/catch-async';
 import { dummyUser } from '../../dummy-datas/dummy-datas';
@@ -32,6 +35,7 @@ function* loginAsync ({ payload: { data, name } }: { payload: ILoginPayload }){
     yield put(fetchApiSuccess(name));
     yield put(login(data));
   } else {
+    console.log(res.data.message);
     throw new Error(res.data.message);
   }
 }
@@ -47,6 +51,23 @@ function* registerAsync ({
     yield put(fetchApiSuccess(name));
     yield put(login(data));
   }
+}
+
+function* fetchUserPostsAsync ({
+  payload: { name, data: { id, page, self } }
+}: {
+  payload: IFetchUserPostsPayload;
+}){
+  // TODO: API CALL
+  yield new Promise((resolve) => setTimeout(resolve, 2000));
+  yield put(fetchApiSuccess(name));
+  yield put(
+    loadUserPosts({
+      page,
+      posts: dummyArrayPost(page),
+      self
+    })
+  );
 }
 
 function* watchFetchUser (){
@@ -70,6 +91,18 @@ function* watchRegister (){
   );
 }
 
+function* watchFetchUserPosts (){
+  yield takeLatest(
+    createFetchSagaPattern('FETCH_USER_POSTS'),
+    catchAsync('FETCH_USER_POSTS', fetchUserPostsAsync, fetchApiFail)
+  );
+}
+
 export default function* userSagas (){
-  yield all([ call(watchFetchUser), call(watchLogin), call(watchRegister) ]);
+  yield all([
+    call(watchFetchUser),
+    call(watchLogin),
+    call(watchRegister),
+    call(watchFetchUserPosts)
+  ]);
 }

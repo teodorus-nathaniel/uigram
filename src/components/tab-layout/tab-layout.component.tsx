@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './tab-layout.styles.scss';
 import gsap from 'gsap';
 
@@ -9,7 +9,29 @@ interface IProps {
 }
 
 export default function TabLayout ({ tabs, activeTab, setActiveTab }: IProps){
+  const [ scrollOffset, setScrollOffset ] = useState(
+    Array.from({ length: tabs.length }).map(() => 0)
+  );
   const borderRef = useRef<HTMLDivElement>(null);
+
+  const setActiveTabAndSaveOffset = (idx: number) => {
+    setScrollOffset((s) => {
+      const newState = [ ...s ];
+      newState[activeTab] = window.scrollY;
+      return newState;
+    });
+
+    setActiveTab(idx);
+  };
+
+  useEffect(
+    () => {
+      window.scrollTo({
+        top: scrollOffset[activeTab]
+      });
+    },
+    [ activeTab, scrollOffset ]
+  );
 
   useEffect(
     () => {
@@ -45,7 +67,7 @@ export default function TabLayout ({ tabs, activeTab, setActiveTab }: IProps){
     <div className='tab-layout'>
       {tabs.map((tab, idx) => (
         <div className={`tab${idx === activeTab ? '-active' : ''}`} key={tab}>
-          <span onClick={(e) => setActiveTab(idx)}>{tab}</span>
+          <span onClick={() => setActiveTabAndSaveOffset(idx)}>{tab}</span>
         </div>
       ))}
       <div

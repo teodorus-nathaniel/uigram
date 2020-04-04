@@ -41,7 +41,7 @@ function BookmarkIconPlain ({
 }
 
 const mapStateToProps = ({ savedPosts: { savedPosts } }: GlobalState) => ({
-  savedPosts
+  savedPosts: savedPosts.posts
 });
 
 const BookmarkIcon = connect(mapStateToProps)(BookmarkIconPlain);

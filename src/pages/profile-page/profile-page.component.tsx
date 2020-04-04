@@ -8,16 +8,17 @@ import { GlobalState } from '../../redux/root-reducer';
 import { connect } from 'react-redux';
 import { User } from '../../@types/user.interfaces';
 import ErrorMessage from '../../components/error-message/error-message.component';
-import { dummyUser } from '../../dummy-datas/dummy-datas';
 import { fetchApi } from '../../redux/fetch/fetch.actions';
 import LoadingError from '../../components/loading-error/loading-error.component';
+import { Post } from '../../@types/post.interfaces';
 
 interface IProps {
-  user: User | null;
-  self: User | null;
+  user: { data: User | null; posts: { page: number; data: Post[] } };
+  self: { data: User | null; posts: { page: number; data: Post[] } };
   isFetching?: boolean;
-  error?: Error | null;
+  error?: string;
   fetchUser: (id: string) => void;
+  fetchUserPosts: (id: string, page: number, self?: boolean) => void;
 }
 
 function ProfilePagePlain ({
@@ -25,7 +26,8 @@ function ProfilePagePlain ({
   self,
   isFetching,
   error,
-  fetchUser
+  fetchUser,
+  fetchUserPosts
 }: IProps){
   const match = useRouteMatch<{ id: string }>();
   const history = useHistory();
@@ -33,32 +35,40 @@ function ProfilePagePlain ({
 
   useEffect(
     () => {
-      if (id !== 'self') {
-        if (!user || user.id !== id) {
+      if (id === 'self' && !self.data) {
+        history.push('/login');
+      } else if (id !== 'self') {
+        if (!user.data || user.data.id !== id) {
           fetchUser(id);
+          fetchUserPosts(id, user.posts.page + 1);
         }
+      } else if (self.posts.data.length === 0) {
+        fetchUserPosts(id, self.posts.page + 1, true);
       }
     },
-    [ id, fetchUser, user ]
+    [ id, fetchUser, user, fetchUserPosts, self, history ]
   );
 
   let displayUser = user;
   if (match.params.id === 'self') {
     displayUser = self;
-    // TODO: REMOVE THIS IS FOR TESTING
-    displayUser = dummyUser;
 
     if (displayUser === null) {
       history.push('/login');
     }
   }
 
+  console.log(displayUser);
+
   return (
     <div className='profile-page'>
       <LoadingError isLoading={isFetching} error={error}>
-        {displayUser ? (
+        {displayUser.data ? (
           <div className='profile-container'>
-            <UserProfile user={displayUser} />
+            <UserProfile
+              user={displayUser.data}
+              page={displayUser.posts.page}
+            />
             <UserContent user={displayUser} />
           </div>
         ) : (
@@ -73,14 +83,16 @@ const mapStateToProps = ({
   user: { user, self },
   fetchController: { isFetching, errors }
 }: GlobalState) => ({
-  user,
-  self,
+  user: user,
+  self: self,
   isFetching: isFetching.USER,
   error: errors.USER
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchUser: (id: string) => dispatch(fetchApi({ name: 'USER', data: { id } }))
+  fetchUser: (id: string) => dispatch(fetchApi({ name: 'USER', data: { id } })),
+  fetchUserPosts: (id: string, page: number, self?: boolean) =>
+    dispatch(fetchApi({ name: 'FETCH_USER_POSTS', data: { id, page, self } }))
 });
 
 const ProfilePage = connect(mapStateToProps, mapDispatchToProps)(

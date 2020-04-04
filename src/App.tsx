@@ -8,10 +8,15 @@ import { GlobalState } from './redux/root-reducer';
 import { User } from './@types/user.interfaces';
 
 interface IProps {
+  inDarkMode: boolean;
   user: User | null;
 }
 
-function AppPlain ({ user }: IProps){
+function AppPlain ({ user, inDarkMode }: IProps){
+  if (inDarkMode) {
+    document.body.classList.add('dark');
+  }
+
   return (
     <div className='App'>
       {user ? <Sidenav /> : null}
@@ -23,8 +28,12 @@ function AppPlain ({ user }: IProps){
   );
 }
 
-const mapStateToProps = ({ user: { self } }: GlobalState) => ({
-  user: self
+const mapStateToProps = ({
+  user: { self: { data } },
+  colorMode: { inDarkMode }
+}: GlobalState) => ({
+  inDarkMode,
+  user: data
 });
 
 const App = connect(mapStateToProps)(AppPlain);

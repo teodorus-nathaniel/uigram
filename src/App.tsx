@@ -21,7 +21,7 @@ function AppPlain ({ user, inDarkMode }: IProps){
     <div className='App'>
       {user ? <Sidenav /> : null}
       <Navbar />
-      <main style={{ marginLeft: user ? '55px' : '0' }}>
+      <main className={!user ? 'no-user' : ''}>
         <MainRoute />
       </main>
     </div>

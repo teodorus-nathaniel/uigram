@@ -19,8 +19,8 @@ function* fetchExplorePosts ({
   // console.log({ sort });
   // yield new Promise((resolve) => setTimeout(resolve, 2000));
 
-  const res = yield getFetchInstance().get(`/posts?sort=${sort}`);
-  console.log(res);
+  // const res = yield getFetchInstance().get(`/posts?sort=${sort}`);
+  // console.log(res);
 
   yield put(
     loadExplorePosts({

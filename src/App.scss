@@ -3,6 +3,12 @@
 main {
   background-color: var(--background-color);
   min-height: calc(100vh - 67px);
+  transition: background-color 250ms ease-in-out;
+  margin-left: 55px;
+
+  &.no-user {
+    margin-left: 0;
+  }
 
   @media screen and (max-width: $breakpoint) {
     margin-left: 0;

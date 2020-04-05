@@ -1,107 +1,108 @@
 @import './../../shared/scss/shared';
 
 .sidenav {
-	position: fixed;
-	left: 0;
-	top: 0;
-	background-color: var(--primary-color);
-	width: 55px;
-	height: 100vh;
-	transition: width 250ms ease-out, background-color 250ms ease-in;
-	box-shadow: 0px 0px 5px rgba(var(--box-shadow-rgb), .1);
-	z-index: 99;
-	overflow: hidden;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: var(--primary-color);
+  width: 55px;
+  height: 100vh;
+  transition: width 250ms ease-out, background-color 250ms ease-in;
+  box-shadow: 0px 0px 5px rgba(var(--box-shadow-rgb), .1);
+  z-index: 99;
+  overflow: hidden;
 
-	&__logo {
-		margin: 10px 0px;
-		opacity: 1;
-		transform: translateY(0);
-		transition: opacity 300ms ease, transform 250ms ease;
+  &__logo {
+    margin: 10px 0px;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 300ms ease, transform 250ms ease;
 
-		&.hide {
-			opacity: 0;
-			transform: translateY(-20px);
-		}
-	}
+    &.hide {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+  }
 
-	&:hover {
-		width: 225px;
-		background-color: var(--accent-color-darken);
+  &:hover {
+    width: 225px;
+    background-color: var(--accent-color-darken);
 
-		ul li span {
-			color: white;
-			opacity: 1;
-			transition-delay: 300ms;
-			transition: opacity 200ms ease-out;
-		}
-	}
+    ul li span {
+      color: white;
+      opacity: 1;
+      transition-delay: 300ms;
+      transition: opacity 200ms ease-out;
+    }
+  }
 
-	ul {
-		@include flex-box(column, flex-start, flex-start);
-		height: inherit;
-		width: inherit;
+  ul {
+    @include flex-box(column, flex-start, flex-start);
+    height: inherit;
+    width: inherit;
 
-		li {
-			width: inherit;
-			height: 48px;
+    li {
+      width: inherit;
+      height: 48px;
 
-			> a,
-			> div {
-				@include flex-box(row, flex-start, center);
-				padding: 10px 14px;
-				width: inherit;
-				height: inherit;
-			}
+      > a,
+      > div {
+        @include flex-box(row, flex-start, center);
+        padding: 10px 14px;
+        width: inherit;
+        height: inherit;
+      }
 
-			&:hover {
-				background-color: var(--accent-color);
-			}
+      &:hover {
+        background-color: var(--accent-color);
+      }
 
-			span {
-				opacity: 0;
-				margin-left: 20px;
-				transition: opacity 100ms ease-out;
-			}
+      span {
+        opacity: 0;
+        margin-left: 20px;
+        transition: opacity 100ms ease-out;
+      }
 
-			&:last-child {
-				margin-top: auto;
-			}
-		}
-	}
+      &:last-child {
+        margin-top: auto;
+      }
+    }
+  }
 
-	@media screen and (max-width: $breakpoint) {
-		width: 100%;
-		bottom: 0;
-		top: auto;
-		height: 55px;
+  @media screen and (max-width: $breakpoint) {
+    width: 100%;
+    bottom: 0;
+    top: auto;
+    height: 55px;
 
-		&:hover {
-			width: 100%;
-		}
+    &:hover {
+      width: 100%;
+    }
 
-		&__logo {
-			opacity: 1;
-			transition: none;
+    &__logo {
+      opacity: 1;
+      transition: none;
 
-			&.hide {
-				opacity: 1;
-				transform: translateY(0px);
-			}
-		}
+      &.hide {
+        opacity: 1;
+        transform: translateY(0px);
+      }
+    }
 
-		ul {
-			flex-direction: row;
-			align-items: center;
+    ul {
+      flex-direction: row;
+      align-items: center;
 
-			li {
-				a {
-					@include flex-box(row, center, center);
-					margin: 0;
-					span {
-						display: none;
-					}
-				}
-			}
-		}
-	}
+      li {
+        a,
+        div {
+          @include flex-box(row, center, center);
+          margin: 0;
+          span {
+            display: none;
+          }
+        }
+      }
+    }
+  }
 }

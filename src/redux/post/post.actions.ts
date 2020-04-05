@@ -18,6 +18,8 @@ export interface IFetchExplorePayload {
 
 export const LOAD_FEEDS_POSTS = 'LOAD_FEEDS_POSTS';
 export const LOAD_EXPLORE_POSTS = 'LOAD_EXPLORE_POSTS';
+export const CLEAR_EXPLORE_POSTS = 'CLEAR_EXPLORE_POSTS';
+export const CLEAR_FEEDS_POSTS = 'CLEAR_FEEDS_POSTS';
 
 export const loadFeedsPosts = action(
   LOAD_FEEDS_POSTS,
@@ -27,7 +29,11 @@ export const loadExplorePosts = action(
   LOAD_EXPLORE_POSTS,
   payload<{ sort?: string; posts: Post[]; page: number }>()
 );
+export const clearFeedsPosts = action(CLEAR_FEEDS_POSTS);
+export const clearExplorePosts = action(CLEAR_EXPLORE_POSTS);
 
 export type PostActionType =
   | ReturnType<typeof loadExplorePosts>
-  | ReturnType<typeof loadFeedsPosts>;
+  | ReturnType<typeof loadFeedsPosts>
+  | ReturnType<typeof clearExplorePosts>
+  | ReturnType<typeof clearFeedsPosts>;

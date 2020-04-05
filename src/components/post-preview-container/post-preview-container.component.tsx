@@ -23,7 +23,7 @@ export default function PostPreviewContainer ({
 }: IProps){
   return (
     <div className='post-preview-container'>
-      {posts.length === 0 && !isFetching ? (
+      {posts.length === 0 && !isFetching && !error ? (
         <ErrorMessage message={noDataMessage} />
       ) : (
         <Fragment>
@@ -41,7 +41,7 @@ export default function PostPreviewContainer ({
           {isFetching ? (
             <Loading size={100} />
           ) : error ? (
-            <ErrorMessage message={error} />
+            <ErrorMessage size={1.3} message={error} />
           ) : null}
         </Fragment>
       )}

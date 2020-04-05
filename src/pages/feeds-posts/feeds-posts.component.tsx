@@ -24,9 +24,10 @@ function FeedsPostsPlain ({
 }: IProps){
   useEffect(
     () => {
-      if (feeds.length === 0) fetchFeedsPosts(page + 1);
+      if (isFetching || error) return;
+      if (feeds.length === 0) fetchFeedsPosts(1);
     },
-    [ fetchFeedsPosts, feeds, page ]
+    [ fetchFeedsPosts, feeds, page, isFetching, error ]
   );
 
   return (

@@ -36,7 +36,8 @@ export default function fetchReducer (
     case FETCH_API_FAIL:
       let error = 'Something unexpected happening :(';
       try {
-        error = action.payload.error.response.data.message;
+        const message = action.payload.error.response.data.message;
+        if (message) error = message;
       } catch (e) {}
       return {
         ...state,

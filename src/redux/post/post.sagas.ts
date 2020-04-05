@@ -9,14 +9,18 @@ import { dummyArrayPost } from '../../dummy-datas/dummy-datas';
 import catchAsync from '../utils/catch-async';
 import { fetchApiFail, fetchApiSuccess } from '../fetch/fetch.actions';
 import createFetchSagaPattern from '../fetch/fetch-saga-pattern-creator';
+import getFetchInstance from '../utils/fetch';
 
 function* fetchExplorePosts ({
   payload: { name, data: { sort, page } }
 }: {
   payload: IFetchExplorePayload;
 }){
-  console.log({ sort });
-  yield new Promise((resolve) => setTimeout(resolve, 2000));
+  // console.log({ sort });
+  // yield new Promise((resolve) => setTimeout(resolve, 2000));
+
+  const res = yield getFetchInstance().get(`/posts?sort=${sort}`);
+  console.log(res);
 
   yield put(
     loadExplorePosts({

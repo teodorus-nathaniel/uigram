@@ -25,7 +25,7 @@ export default function savedPostsReducer (
   switch (action.type) {
     case LOAD_SAVED_POSTS:
       let newSaved = action.payload;
-      if (action.payload.page === 1) {
+      if (action.payload.page > 1) {
         newSaved.posts = [ ...state.savedPosts.posts, ...newSaved.posts ];
       }
       return {

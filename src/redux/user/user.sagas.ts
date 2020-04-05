@@ -35,7 +35,6 @@ function* loginAsync ({ payload: { data, name } }: { payload: ILoginPayload }){
     yield put(fetchApiSuccess(name));
     yield put(login(data));
   } else {
-    console.log(res.data.message);
     throw new Error(res.data.message);
   }
 }

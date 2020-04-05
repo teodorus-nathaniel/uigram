@@ -48,12 +48,14 @@ function CommentsContainerPlain ({
 
   useEffect(
     () => {
+      if (isFetching || error) return;
+
       fetchComments(postId);
       return () => {
         clearComments();
       };
     },
-    [ clearComments, fetchComments, postId ]
+    [ clearComments, fetchComments, postId, isFetching, error ]
   );
 
   return (

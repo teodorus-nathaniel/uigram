@@ -49,7 +49,7 @@ export default function postReducer (
   switch (action.type) {
     case LOAD_FEEDS_POSTS:
       const newFeeds = action.payload;
-      if (action.payload.page === 1)
+      if (action.payload.page > 1)
         newFeeds.posts = [ ...state.feeds.posts, ...newFeeds.posts ];
 
       return {
@@ -58,7 +58,7 @@ export default function postReducer (
       };
     case LOAD_EXPLORE_POSTS:
       const newExplore = action.payload;
-      if (action.payload.page === 1)
+      if (action.payload.page > 1)
         newExplore.posts = [ ...state.explore.posts, ...newExplore.posts ];
 
       return {

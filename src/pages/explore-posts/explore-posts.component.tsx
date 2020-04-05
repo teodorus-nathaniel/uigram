@@ -30,10 +30,12 @@ function ExplorePostsPlain ({
 
   useEffect(
     () => {
-      if (explore.length === 0 || (prevSort !== sort && prevSort))
-        fetchExplorePosts(sort, page + 1);
+      if (isFetching || error) return;
+      if (explore.length === 0 || (prevSort !== sort && prevSort)) {
+        fetchExplorePosts(sort, 1);
+      }
     },
-    [ fetchExplorePosts, sort, explore, prevSort, page ]
+    [ fetchExplorePosts, sort, explore, prevSort, page, isFetching, error ]
   );
 
   return (

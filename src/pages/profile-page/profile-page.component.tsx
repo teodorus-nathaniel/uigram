@@ -35,6 +35,7 @@ function ProfilePagePlain ({
 
   useEffect(
     () => {
+      if (isFetching || error) return;
       if (id === 'self' && !self.data) {
         history.push('/login');
       } else if (id !== 'self') {
@@ -46,7 +47,7 @@ function ProfilePagePlain ({
         fetchUserPosts(id, self.posts.page + 1, true);
       }
     },
-    [ id, fetchUser, user, fetchUserPosts, self, history ]
+    [ id, fetchUser, user, fetchUserPosts, self, history, isFetching, error ]
   );
 
   let displayUser = user;

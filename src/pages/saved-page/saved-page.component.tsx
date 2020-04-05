@@ -20,15 +20,17 @@ function SavedPagePlain ({
   savedPosts,
   isFetching,
   fetchSavedPosts,
+  error,
   page
 }: IProps){
   useUserOnly();
 
   useEffect(
     () => {
+      if (isFetching || error) return;
       fetchSavedPosts(1);
     },
-    [ fetchSavedPosts ]
+    [ fetchSavedPosts, isFetching, error ]
   );
 
   return (
@@ -39,6 +41,7 @@ function SavedPagePlain ({
         posts={savedPosts}
         noDataMessage={`When you post your design, it will appear on your profile`}
         fetchItem={() => fetchSavedPosts(page + 1)}
+        error={error}
       />
     </div>
   );

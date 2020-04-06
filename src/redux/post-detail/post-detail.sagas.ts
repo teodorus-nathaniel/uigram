@@ -1,27 +1,30 @@
 import { all, takeLatest, put, call } from 'redux-saga/effects';
-import catchAsync from '../utils/catch-async';
+import createFetchFunction from '../utils/create-fetch-func';
 import { loadPostDetail, IFetchPostDetailPayload } from './post-detail.actions';
-import { dummyPostDetail } from '../../dummy-datas/dummy-datas';
-import { fetchApiFail, fetchApiSuccess } from '../fetch/fetch.actions';
 import createFetchSagaPattern from '../fetch/fetch-saga-pattern-creator';
+import getFetchInstance from '../utils/fetch';
+import getDataFromResponse from '../utils/get-data-from-res';
 
 function* fetchPostDetailAsync ({
-  payload: { data: { id }, name }
+  payload: { data: { id } }
 }: {
   payload: IFetchPostDetailPayload;
 }){
-  console.log(id);
-  yield new Promise((resolve) => {
-    setTimeout(resolve, 2000);
-  });
-  yield put(fetchApiSuccess(name));
-  yield put(loadPostDetail(dummyPostDetail));
+  // console.log(id);
+  // yield new Promise((resolve) => {
+  //   setTimeout(resolve, 2000);
+  // });
+  const res = yield getFetchInstance().get(`/posts/${id}`);
+  const { post } = getDataFromResponse(res);
+  if (!post) throw new Error('Post data not found');
+
+  yield put(loadPostDetail(post));
 }
 
 function* watchFetchPostDetail (){
   yield takeLatest(
     createFetchSagaPattern('POST_DETAIL'),
-    catchAsync('POST_DETAIL', fetchPostDetailAsync, fetchApiFail)
+    createFetchFunction('POST_DETAIL', fetchPostDetailAsync)
   );
 }
 

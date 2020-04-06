@@ -73,6 +73,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   fetchExplorePosts: (sort: string, page: number) => {
+    console.log({ page });
     dispatch(fetchApi({ name: 'EXPLORE', data: { sort, page } }));
   }
 });

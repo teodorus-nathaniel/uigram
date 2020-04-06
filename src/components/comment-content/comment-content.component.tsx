@@ -27,6 +27,7 @@ export default function CommentContent ({
     likeCount,
     timestamp
   } = comment;
+
   return (
     <div className={`comment ${animation ? 'fade-in' : ''}`}>
       <div className='comment__info'>

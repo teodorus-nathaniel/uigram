@@ -17,7 +17,7 @@ export const dummyPost: Post = {
   dislikeCount: 10,
   liked: true,
   commentsCount: 120,
-  timestamp: new Date(),
+  timestamp: +(new Date().getTime() / 1000).toFixed(0),
   saved: true
 };
 
@@ -50,7 +50,7 @@ export const dummyPostDetail: PostDetail = {
   saved: true,
   liked: true,
   commentsCount: 120,
-  timestamp: new Date(),
+  timestamp: +(new Date().getTime() / 1000).toFixed(0),
   description:
     'baki kabur menyelamatkan kota lorem ipsum baki kabur bos menyelamatkan kota baktown dengan baju dari bakstore',
   link: 'google.com'
@@ -67,7 +67,7 @@ export const dummyComment: Comment = {
     username: 'Teodorus'
   },
   repliesCount: 5,
-  timestamp: new Date()
+  timestamp: +(new Date().getTime() / 1000).toFixed(0)
 };
 
 export const dummyArrayComments = (page: number) =>

@@ -48,19 +48,18 @@ function CommentsContainerPlain ({
 
   useEffect(
     () => {
-      if (isFetching || error) return;
-
+      if (isFetching || error || comments.length > 0) return;
       fetchComments(postId);
       return () => {
         clearComments();
       };
     },
-    [ clearComments, fetchComments, postId, isFetching, error ]
+    [ clearComments, fetchComments, postId, isFetching, error, comments ]
   );
 
   return (
     <div className='comments-container' ref={commentsRef}>
-      <LoadingError isLoading={isFetching} error={error}>
+      <LoadingError isLoading={isFetching} error={error} loadingSize={100}>
         {comments.map((comment) => (
           <CommentParent key={comment.id} comment={comment} />
         ))}

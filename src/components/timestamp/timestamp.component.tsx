@@ -3,14 +3,14 @@ import moment from 'moment';
 import './timestamp.styles.scss';
 
 interface IProps {
-  timestamp: Date;
+  timestamp: number;
   className?: string;
 }
 
 export default function Timestamp ({ timestamp, className }: IProps){
   return (
     <span className={`timestamp ${className || ''}`}>
-      {moment(timestamp).fromNow()}
+      {moment(timestamp * 1000).fromNow()}
     </span>
   );
 }

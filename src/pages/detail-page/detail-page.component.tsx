@@ -27,10 +27,12 @@ function DetailPagePlain ({
 }: IProps){
   useEffect(
     () => {
-      if (isFetching || error) return;
-      fetchPostDetail(match.params.id);
+      const { id } = match.params;
+      if (isFetching || error || (post && post.id === id)) return;
+
+      fetchPostDetail(id);
     },
-    [ fetchPostDetail, match, isFetching, error ]
+    [ fetchPostDetail, match, isFetching, error, post ]
   );
 
   return (

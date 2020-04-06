@@ -9,9 +9,9 @@
 
   &.fade-in {
     opacity: 0;
-    animation: fade-in 800ms ease-out 1 forwards;
+    animation: comments-fade-in 800ms ease-out 1 forwards;
 
-    @keyframes fade-in {
+    @keyframes comments-fade-in {
       100% {
         opacity: 1;
       }

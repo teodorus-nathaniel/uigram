@@ -38,7 +38,10 @@ export default function fetchReducer (
       try {
         const message = action.payload.error.response.data.message;
         if (message) error = message;
-      } catch (e) {}
+      } catch (e) {
+        const message = action.payload.error.message;
+        if (message) error = message;
+      }
       return {
         ...state,
         isFetching: {

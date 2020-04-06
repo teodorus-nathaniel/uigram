@@ -10,7 +10,7 @@ export interface Post {
   commentsCount: number;
   liked?: boolean;
   disliked?: boolean;
-  timestamp: Date;
+  timestamp: number;
   saved: boolean;
 }
 

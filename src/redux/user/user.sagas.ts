@@ -9,57 +9,48 @@ import {
   IFetchUserPostsPayload,
   loadUserPosts
 } from './user.actions';
-import catchAsync from '../utils/catch-async';
+import createFetchFunction from '../utils/create-fetch-func';
 import { dummyUser } from '../../dummy-datas/dummy-datas';
-import { fetchApiFail, fetchApiSuccess } from '../fetch/fetch.actions';
 import createFetchSagaPattern from '../fetch/fetch-saga-pattern-creator';
 import getFetchInstance from './../utils/fetch';
 import checkResponseStatus from '../utils/check-response-status';
 
 function* fetchUserAsync ({
-  payload: { data: { id }, name }
+  payload: { data: { id } }
 }: {
   payload: IFetchUserPayload;
 }){
   // TODO: API CALL
   yield new Promise((resolve) => setTimeout(resolve, 2000));
   dummyUser.id = id;
-  yield put(fetchApiSuccess(name));
   yield put(loadUser(dummyUser));
 }
 
-function* loginAsync ({ payload: { data, name } }: { payload: ILoginPayload }){
+function* loginAsync ({ payload: { data } }: { payload: ILoginPayload }){
   const res = yield getFetchInstance().post('/login', data);
   if (checkResponseStatus(res)) {
     const { data } = res.data;
-    yield put(fetchApiSuccess(name));
     yield put(login(data));
   } else {
     throw new Error(res.data.message);
   }
 }
 
-function* registerAsync ({
-  payload: { data, name }
-}: {
-  payload: IRegisterPayload;
-}){
+function* registerAsync ({ payload: { data } }: { payload: IRegisterPayload }){
   const res = yield getFetchInstance().post('/register', data);
   if (checkResponseStatus(res)) {
     const { data } = res.data;
-    yield put(fetchApiSuccess(name));
     yield put(login(data));
   }
 }
 
 function* fetchUserPostsAsync ({
-  payload: { name, data: { id, page, self } }
+  payload: { data: { id, page, self } }
 }: {
   payload: IFetchUserPostsPayload;
 }){
   // TODO: API CALL
   yield new Promise((resolve) => setTimeout(resolve, 2000));
-  yield put(fetchApiSuccess(name));
   yield put(
     loadUserPosts({
       page,
@@ -72,28 +63,28 @@ function* fetchUserPostsAsync ({
 function* watchFetchUser (){
   yield takeLatest(
     createFetchSagaPattern('USER'),
-    catchAsync('USER', fetchUserAsync, fetchApiFail)
+    createFetchFunction('USER', fetchUserAsync)
   );
 }
 
 function* watchLogin (){
   yield takeLatest(
     createFetchSagaPattern('LOGIN'),
-    catchAsync('LOGIN', loginAsync, fetchApiFail)
+    createFetchFunction('LOGIN', loginAsync)
   );
 }
 
 function* watchRegister (){
   yield takeLatest(
     createFetchSagaPattern('REGISTER'),
-    catchAsync('REGISTER', registerAsync, fetchApiFail)
+    createFetchFunction('REGISTER', registerAsync)
   );
 }
 
 function* watchFetchUserPosts (){
   yield takeLatest(
     createFetchSagaPattern('FETCH_USER_POSTS'),
-    catchAsync('FETCH_USER_POSTS', fetchUserPostsAsync, fetchApiFail)
+    createFetchFunction('FETCH_USER_POSTS', fetchUserPostsAsync)
   );
 }
 

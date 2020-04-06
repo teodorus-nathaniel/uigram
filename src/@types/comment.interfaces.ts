@@ -6,7 +6,7 @@ export interface Comment {
   likeCount: number;
   dislikeCount: number;
   repliesCount: number;
-  timestamp: Date;
+  timestamp: number;
   liked?: boolean;
   disliked?: boolean;
 }

@@ -56,7 +56,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   fetchFeedsPosts: (page: number) => {
-    console.log({ page });
+    // console.log({ page });
     dispatch(fetchApi({ name: 'FEEDS', data: { page } }));
   }
 });

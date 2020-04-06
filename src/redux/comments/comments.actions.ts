@@ -10,14 +10,14 @@ export interface IFetchCommentsPayload {
   };
 }
 
-export const ADD_COMMENTS = 'ADD_COMMENTS';
+export const LOAD_COMMENTS = 'LOAD_COMMENTS';
 export const CLEAR_COMMENTS = 'CLEAR_COMMENTS';
 
-export const addComments = action(ADD_COMMENTS, payload<Comment[]>());
+export const loadComments = action(LOAD_COMMENTS, payload<Comment[]>());
 export const clearComments = action(CLEAR_COMMENTS);
 
 export type CommentsActionType =
-  | ReturnType<typeof addComments>
+  | ReturnType<typeof loadComments>
   | ReturnType<typeof clearComments>;
 
 const CommentActionAPI = {

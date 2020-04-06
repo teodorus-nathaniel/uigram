@@ -1,7 +1,7 @@
 import { Comment } from './../../@types/comment.interfaces';
 import {
   CommentsActionType,
-  ADD_COMMENTS,
+  LOAD_COMMENTS,
   CLEAR_COMMENTS
 } from './comments.actions';
 
@@ -18,7 +18,7 @@ export default function commentsReducer (
   action: CommentsActionType
 ): IState{
   switch (action.type) {
-    case ADD_COMMENTS:
+    case LOAD_COMMENTS:
       return {
         ...state,
         comments: [ ...state.comments, ...action.payload ]

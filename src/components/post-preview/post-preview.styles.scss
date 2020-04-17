@@ -59,6 +59,21 @@
     width: 100%;
     background-color: rgba(var(--primary-color-rgb), .9);
     padding: 10px 20px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 1px;
+      background-image: linear-gradient(
+        to right,
+        rgba(var(--primary-color-rgb), .5),
+        rgba(var(--primary-color-lighten-rgb), .5)
+      );
+      width: 100%;
+    }
   }
 
   &__info {
@@ -67,6 +82,7 @@
 
   &__title {
     font-size: 1.25em;
+    margin-bottom: 5px;
   }
 
   &__detail {
@@ -86,17 +102,17 @@
   &__additional {
     @include flex-box(column, flex-start, flex-start);
     width: 100%;
-    padding: 10px 20px;
+    padding: 15px 20px;
     padding-top: 5px;
 
     &__container {
       @include flex-box(row, space-between, center);
       width: inherit;
-      height: 32px;
+      padding: .5em 0px;
 
       &__comments {
         @include flex-box(row, flex-start, center);
-        font-size: .9em;
+        font-size: .8em;
 
         span {
           margin-left: 10px;

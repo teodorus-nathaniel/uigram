@@ -34,8 +34,8 @@ export const dummyArrayPost = (page: number) =>
     return data;
   });
 
-export const dummyPostDetail: PostDetail = {
-  id: '1',
+export const dummyPostDetail = (id: string): PostDetail => ({
+  id,
   title: 'Figma UI',
   images: [ PostImage, page, PostImage ],
   owner: {
@@ -54,7 +54,7 @@ export const dummyPostDetail: PostDetail = {
   description:
     'baki kabur menyelamatkan kota lorem ipsum baki kabur bos menyelamatkan kota baktown dengan baju dari bakstore',
   link: 'google.com'
-};
+});
 
 export const dummyComment: Comment = {
   id: '1',

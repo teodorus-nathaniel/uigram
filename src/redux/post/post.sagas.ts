@@ -16,11 +16,20 @@ function* fetchExplorePosts ({
 }: {
   payload: IFetchExplorePayload;
 }){
-  // console.log({ sort });
-  // yield new Promise((resolve) => setTimeout(resolve, 2000));
+  // const res = yield getFetchInstance().get(`/posts?sort=${sort}&page=${page}`);
+  // const { posts } = getDataFromResponse(res);
 
-  const res = yield getFetchInstance().get(`/posts?sort=${sort}&page=${page}`);
-  const { posts } = getDataFromResponse(res);
+  // yield put(
+  //   loadExplorePosts({
+  //     sort,
+  //     posts: posts,
+  //     page
+  //   })
+  // );
+
+  console.log({ sort });
+  yield new Promise((resolve) => setTimeout(resolve, 2000));
+  const posts = dummyArrayPost(page);
 
   yield put(
     loadExplorePosts({

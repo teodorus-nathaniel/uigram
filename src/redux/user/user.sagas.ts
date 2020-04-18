@@ -7,41 +7,51 @@ import {
   login,
   IRegisterPayload,
   IFetchUserPostsPayload,
-  loadUserPosts
+  loadUserPosts,
+  CHECK_USER
 } from './user.actions';
 import createFetchFunction from '../utils/create-fetch-func';
 import { dummyUser } from '../../dummy-datas/dummy-datas';
 import createFetchSagaPattern from '../fetch/fetch-saga-pattern-creator';
 import getFetchInstance from './../utils/fetch';
-import checkResponseStatus from '../utils/check-response-status';
+import getDataFromResponse from '../utils/get-data-from-res';
+import store from '../store';
+import { setCookie } from '../utils/cookie';
+
+function* loginUserFromResponse (res: any){
+  console.log(res);
+  const { user, token } = getDataFromResponse(res);
+  setCookie('token', token, 7);
+  yield put(
+    login({
+      user,
+      token
+    })
+  );
+}
 
 function* fetchUserAsync ({
   payload: { data: { id } }
 }: {
   payload: IFetchUserPayload;
 }){
-  // TODO: API CALL
-  yield new Promise((resolve) => setTimeout(resolve, 2000));
-  dummyUser.id = id;
-  yield put(loadUser(dummyUser));
+  // yield new Promise((resolve) => setTimeout(resolve, 2000));
+  // dummyUser.id = id;
+  // yield put(loadUser(dummyUser));
+
+  const res = yield getFetchInstance().get(`/users/${id}`);
+  const { user } = getDataFromResponse(res);
+  yield put(loadUser(user));
 }
 
 function* loginAsync ({ payload: { data } }: { payload: ILoginPayload }){
   const res = yield getFetchInstance().post('/login', data);
-  if (checkResponseStatus(res)) {
-    const { data } = res.data;
-    yield put(login(data));
-  } else {
-    throw new Error(res.data.message);
-  }
+  yield loginUserFromResponse(res);
 }
 
 function* registerAsync ({ payload: { data } }: { payload: IRegisterPayload }){
   const res = yield getFetchInstance().post('/register', data);
-  if (checkResponseStatus(res)) {
-    const { data } = res.data;
-    yield put(login(data));
-  }
+  yield loginUserFromResponse(res);
 }
 
 function* fetchUserPostsAsync ({
@@ -49,15 +59,49 @@ function* fetchUserPostsAsync ({
 }: {
   payload: IFetchUserPostsPayload;
 }){
-  // TODO: API CALL
-  yield new Promise((resolve) => setTimeout(resolve, 2000));
+  // yield new Promise((resolve) => setTimeout(resolve, 2000));
+  // yield put(
+  //   loadUserPosts({
+  //     page,
+  //     posts: dummyArrayPost(page),
+  //     self
+  //   })
+  // );
+  if (self) {
+    const { data } = store.getState().user.self;
+    if (data) id = data.id;
+    else {
+      throw new Error('You need to login first!');
+    }
+  }
+
+  const res = yield getFetchInstance().get(`/users/${id}/posts?page=${page}`);
+  const { posts } = getDataFromResponse(res);
+  console.log(posts);
+
   yield put(
     loadUserPosts({
       page,
-      posts: dummyArrayPost(page),
+      posts,
       self
     })
   );
+}
+
+function* checkUserAsync (){
+  try {
+    const { token } = yield store.getState().user;
+    if (token === '') return;
+    const res = yield getFetchInstance().post('/check-user', {
+      token
+    });
+    console.log(res);
+
+    yield loginUserFromResponse(res);
+  } catch (error) {
+    yield setCookie('token', '', -10);
+    console.log(error);
+  }
 }
 
 function* watchFetchUser (){
@@ -88,11 +132,16 @@ function* watchFetchUserPosts (){
   );
 }
 
+function* watchCheckUser (){
+  yield takeLatest(CHECK_USER, checkUserAsync);
+}
+
 export default function* userSagas (){
   yield all([
     call(watchFetchUser),
     call(watchLogin),
     call(watchRegister),
-    call(watchFetchUserPosts)
+    call(watchFetchUserPosts),
+    call(watchCheckUser)
   ]);
 }

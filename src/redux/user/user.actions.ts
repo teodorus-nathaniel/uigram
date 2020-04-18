@@ -38,10 +38,12 @@ export interface IFetchUserPostsPayload {
 
 export const LOAD_USER = 'LOAD_USER';
 export const LOGIN = 'LOGIN';
+export const CHECK_USER = 'CHECK_USER';
 export const LOAD_USER_POSTS = 'LOAD_USER_POSTS';
 
 export const loadUser = action(LOAD_USER, payload<User>());
 export const login = action(LOGIN, payload<{ user: User; token: string }>());
+export const checkUser = action(CHECK_USER);
 export const loadUserPosts = action(
   LOAD_USER_POSTS,
   payload<{ page: number; self?: boolean; posts: Post[] }>()

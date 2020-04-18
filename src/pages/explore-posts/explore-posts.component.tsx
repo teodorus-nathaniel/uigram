@@ -31,7 +31,10 @@ function ExplorePostsPlain ({
   useEffect(
     () => {
       if (isFetching || error) return;
-      if (explore.length === 0 || (prevSort !== sort && prevSort)) {
+      if (
+        (explore.length === 0 && page === 0) ||
+        (prevSort !== sort && prevSort)
+      ) {
         fetchExplorePosts(sort, 1);
       }
     },
@@ -74,6 +77,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   fetchExplorePosts: (sort: string, page: number) => {
     console.log({ page });
+    console.log('WOIEWRWERWER');
     dispatch(fetchApi({ name: 'EXPLORE', data: { sort, page } }));
   }
 });

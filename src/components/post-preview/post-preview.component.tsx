@@ -57,7 +57,7 @@ function PostPreviewPlain ({ post, updateSaved }: IProps){
             <span className='post-preview__title'>{title}</span>
             <span className='post-preview__detail'>
               by{' '}
-              <Link to='/author' className='post-preview__author'>
+              <Link to={`/user/${owner.id}`} className='post-preview__author'>
                 {owner.username}
               </Link>
             </span>

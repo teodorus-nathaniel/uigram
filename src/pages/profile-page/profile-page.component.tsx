@@ -11,6 +11,7 @@ import ErrorMessage from '../../components/error-message/error-message.component
 import { fetchApi } from '../../redux/fetch/fetch.actions';
 import LoadingError from '../../components/loading-error/loading-error.component';
 import { Post } from '../../@types/post.interfaces';
+import useFetchCleanup from '../../effects/useFetchCleanup.effect';
 
 interface IProps {
   user: { data: User | null; posts: { page: number; data: Post[] } };
@@ -29,6 +30,8 @@ function ProfilePagePlain ({
   fetchUser,
   fetchUserPosts
 }: IProps){
+  useFetchCleanup('USER');
+
   const match = useRouteMatch<{ id: string }>();
   const history = useHistory();
   const { id } = match.params;
@@ -43,7 +46,7 @@ function ProfilePagePlain ({
           fetchUser(id);
           fetchUserPosts(id, user.posts.page + 1);
         }
-      } else if (self.posts.data.length === 0) {
+      } else if (self.posts.data.length === 0 && self.posts.page === 0) {
         fetchUserPosts(id, self.posts.page + 1, true);
       }
     },
@@ -58,8 +61,6 @@ function ProfilePagePlain ({
       history.push('/login');
     }
   }
-
-  console.log(displayUser);
 
   return (
     <div className='profile-page'>

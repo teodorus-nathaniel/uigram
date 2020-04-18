@@ -25,7 +25,7 @@ function FeedsPostsPlain ({
   useEffect(
     () => {
       if (isFetching || error) return;
-      if (feeds.length === 0) fetchFeedsPosts(1);
+      if (feeds.length === 0 && page === 0) fetchFeedsPosts(1);
     },
     [ fetchFeedsPosts, feeds, page, isFetching, error ]
   );

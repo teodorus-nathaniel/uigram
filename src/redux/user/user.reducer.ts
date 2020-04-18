@@ -6,6 +6,7 @@ import {
   LOGIN,
   LOAD_USER_POSTS
 } from './user.actions';
+import { getCookie } from '../utils/cookie';
 
 interface IState {
   self: {
@@ -22,7 +23,7 @@ interface IState {
 const INITIAL_STATE: IState = {
   self: { data: null, posts: { data: [], page: 0 } },
   user: { data: null, posts: { data: [], page: 0 } },
-  token: ''
+  token: getCookie('token')
 };
 
 export default function userReducer (

@@ -6,6 +6,7 @@ import ExplorePosts from '../explore-posts/explore-posts.component';
 import { GlobalState } from '../../redux/root-reducer';
 import { connect } from 'react-redux';
 import { User } from '../../@types/user.interfaces';
+import homePageStore from './home-page.store';
 
 const tabNames = [ 'Your Feeds', 'Explore' ];
 const Components = [ FeedsPosts, ExplorePosts ];
@@ -27,6 +28,8 @@ function HomePagePlain ({ user }: IProps){
             activeTab={activeTab}
             setActiveTab={setActiveTab}
             tabs={tabNames}
+            saveState={homePageStore.saveTabState}
+            getSavedState={homePageStore.getTabState}
           />
           {<Component />}
         </Fragment>

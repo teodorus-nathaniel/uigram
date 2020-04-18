@@ -9,6 +9,7 @@ import { fetchApi } from '../../redux/fetch/fetch.actions';
 import LoadingError from '../../components/loading-error/loading-error.component';
 import ImageCarousel from '../../components/image-carousel/image-carousel.component';
 import PostDetails from '../../components/post-details/post-details.component';
+import useFetchCleanup from '../../effects/useFetchCleanup.effect';
 
 interface IProps {
   post: PostDetail | null;
@@ -25,6 +26,8 @@ function DetailPagePlain ({
   isFetching,
   error
 }: IProps){
+  useFetchCleanup('POST_DETAIL');
+
   useEffect(
     () => {
       const { id } = match.params;

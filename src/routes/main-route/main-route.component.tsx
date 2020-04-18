@@ -39,6 +39,10 @@ const routes = [
   {
     path: '/register',
     component: RegisterPage
+  },
+  {
+    path: '/user/:id',
+    component: ProfilePage
   }
 ];
 

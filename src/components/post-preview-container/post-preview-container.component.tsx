@@ -24,7 +24,7 @@ export default function PostPreviewContainer ({
   return (
     <div className='post-preview-container'>
       {posts.length === 0 && !isFetching && !error ? (
-        <ErrorMessage message={noDataMessage} />
+        <ErrorMessage message={noDataMessage} size={2} />
       ) : (
         <Fragment>
           <InfiniteScroll

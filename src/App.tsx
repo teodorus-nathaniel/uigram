@@ -28,7 +28,7 @@ function AppPlain ({ user, inDarkMode, checkUser }: IProps){
   }
 
   return (
-    <div className='App'>
+    <div className="App">
       {user ? <Sidenav /> : null}
       <Navbar />
       <main className={!user ? 'no-user' : ''}>

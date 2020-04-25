@@ -11,21 +11,22 @@ function* fetchPostDetailAsync ({
 }: {
   payload: IFetchPostDetailPayload;
 }){
-  // console.log(id);
-  // yield new Promise((resolve) => {
-  //   setTimeout(resolve, 2000);
-  // });
+  console.log(id);
+  yield new Promise((resolve) => {
+    setTimeout(resolve, 2000);
+  });
 
-  // const post = dummyPostDetail(id);
-  // if (!post) throw new Error('Post data not found');
-
-  // yield put(loadPostDetail(post));
-
-  const res = yield getFetchInstance().get(`/posts/${id}`);
-  const { post } = getDataFromResponse(res);
+  const post = dummyPostDetail(id);
   if (!post) throw new Error('Post data not found');
 
   yield put(loadPostDetail(post));
+
+  // TODO: this is api call
+  // const res = yield getFetchInstance().get(`/posts/${id}`);
+  // const { post } = getDataFromResponse(res);
+  // if (!post) throw new Error('Post data not found');
+
+  // yield put(loadPostDetail(post));
 }
 
 function* watchFetchPostDetail (){

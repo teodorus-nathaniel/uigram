@@ -11,7 +11,8 @@ export const dummyPost: Post = {
   images: [ PostImage, page ],
   owner: {
     id: '2',
-    username: 'Teodorus'
+    username: 'Teodorus',
+    followed: false
   },
   likeCount: 12,
   dislikeCount: 10,
@@ -41,7 +42,8 @@ export const dummyPostDetail = (id: string): PostDetail => ({
   owner: {
     id: '2',
     username: 'Teodorus',
-    profilePic: AvatarImage
+    profilePic: AvatarImage,
+    followed: false
   },
   likeCount: 0,
   dislikeCount: 0,
@@ -64,7 +66,8 @@ export const dummyComment: Comment = {
   likeCount: 1,
   owner: {
     id: 'isadjf',
-    username: 'Teodorus'
+    username: 'Teodorus',
+    followed: false
   },
   repliesCount: 5,
   timestamp: +(new Date().getTime() / 1000).toFixed(0)
@@ -92,5 +95,6 @@ export const dummyUser: User = {
   fullname: 'Teodorus Nathaniel',
   id: 'asdf',
   status: 'Front end developer',
-  username: 'Teodorus'
+  username: 'Teodorus',
+  followed: false
 };

@@ -39,11 +39,11 @@ function DetailPagePlain ({
   );
 
   return (
-    <div className='detail-page'>
+    <div className="detail-page">
       <LoadingError isLoading={isFetching} error={error}>
         {post ? (
-          <div className='post-detail-container'>
-            <div className='images-container scrollbar'>
+          <div className="post-detail-container">
+            <div className="images-container scrollbar">
               <ImageCarousel images={post.images} />
             </div>
             <PostDetails post={post} />

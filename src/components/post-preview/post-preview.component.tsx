@@ -14,13 +14,17 @@ import getAddToSavedListener from '../../utils/get-add-to-saved-listener';
 import Timestamp from '../timestamp/timestamp.component';
 import { IChangeSavedPayload } from '../../redux/global-post-actions/global-post-actions';
 import { fetchApi } from '../../redux/fetch/fetch.actions';
+import { GlobalState } from '../../redux/root-reducer';
+import { User } from '../../@types/user.interfaces';
+import FollowButton from '../follow-button/follow-button.component';
 
 interface IProps {
   post: Post;
+  noFollowButton?: boolean;
   updateSaved: (payload: IChangeSavedPayload['data']) => void;
 }
 
-function PostPreviewPlain ({ post, updateSaved }: IProps){
+function PostPreviewPlain ({ post, updateSaved, noFollowButton }: IProps){
   const [ ref, , entry ] = useInView({
     triggerOnce: true,
     threshold: 0.3
@@ -45,22 +49,24 @@ function PostPreviewPlain ({ post, updateSaved }: IProps){
     timestamp,
     saved
   } = post;
+
   return (
-    <div className='post-preview not-visible' ref={ref}>
-      <div className='post-preview__content-container'>
-        <Link to={`/post-detail/${id}`} className='image-container'>
-          <div className='img-hover-hitbox' />
-          <img src={images[0]} alt='page' />
+    <div className="post-preview not-visible" ref={ref}>
+      <div className="post-preview__content-container">
+        <Link to={`/post-detail/${id}`} className="image-container">
+          <div className="img-hover-hitbox" />
+          <img src={images[0]} alt="page" />
         </Link>
-        <div className='post-preview__content'>
-          <div className='post-preview__info'>
-            <span className='post-preview__title'>{title}</span>
-            <span className='post-preview__detail'>
-              by{' '}
-              <Link to={`/user/${owner.id}`} className='post-preview__author'>
+        <div className="post-preview__content">
+          <div className="post-preview__info">
+            <span className="post-preview__title">{title}</span>
+            <div className="post-preview__detail">
+              <span>by &nbsp;</span>
+              <Link to={`/user/${owner.id}`} className="post-preview__author">
                 {owner.username}
               </Link>
-            </span>
+              {noFollowButton ? null : <FollowButton owner={owner} />}
+            </div>
           </div>
           <LikeDislike
             likeCount={likeCount}
@@ -71,9 +77,9 @@ function PostPreviewPlain ({ post, updateSaved }: IProps){
           />
         </div>
       </div>
-      <div className='post-preview__additional'>
-        <div className='post-preview__additional__container'>
-          <div className='post-preview__additional__container__comments'>
+      <div className="post-preview__additional">
+        <div className="post-preview__additional__container">
+          <div className="post-preview__additional__container__comments">
             <CommentIcon
               size={1.2}
               onClick={() => history.push(`/post-detail/${id}#comments`)}

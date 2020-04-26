@@ -16,9 +16,9 @@ function* fetchExplorePosts ({
 }: {
   payload: IFetchExplorePayload;
 }){
-  // TODO: this is api call
-  // const res = yield getFetchInstance().get(`/posts?sort=${sort}&page=${page}`);
-  // const { posts } = getDataFromResponse(res);
+  // console.log({ sort });
+  // yield new Promise((resolve) => setTimeout(resolve, 2000));
+  // const posts = dummyArrayPost(page);
 
   // yield put(
   //   loadExplorePosts({
@@ -28,9 +28,9 @@ function* fetchExplorePosts ({
   //   })
   // );
 
-  console.log({ sort });
-  yield new Promise((resolve) => setTimeout(resolve, 2000));
-  const posts = dummyArrayPost(page);
+  // TODO: this is api call
+  const res = yield getFetchInstance().get(`/posts?sort=${sort}&page=${page}`);
+  const { posts } = getDataFromResponse(res);
 
   yield put(
     loadExplorePosts({
@@ -46,19 +46,19 @@ function* fetchFeedsPosts ({
 }: {
   payload: IFetchFeedsPayload;
 }){
-  yield new Promise((resolve) => setTimeout(resolve, 2000));
-  yield put(loadFeedsPosts({ posts: dummyArrayPost(page), page }));
+  // yield new Promise((resolve) => setTimeout(resolve, 2000));
+  // yield put(loadFeedsPosts({ posts: dummyArrayPost(page), page }));
 
   // TODO: this is api call
-  // const res = yield getFetchInstance().get(`/posts/self/feeds`);
-  // const { posts } = getDataFromResponse(res);
+  const res = yield getFetchInstance().get(`/posts/self/feeds?page=${page}`);
+  const { posts } = getDataFromResponse(res);
 
-  // yield put(
-  //   loadFeedsPosts({
-  //     posts: posts,
-  //     page
-  //   })
-  // );
+  yield put(
+    loadFeedsPosts({
+      posts: posts,
+      page
+    })
+  );
 }
 
 function* watchFetchFeeds (){

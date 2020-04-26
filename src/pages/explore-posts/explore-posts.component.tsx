@@ -42,14 +42,14 @@ function ExplorePostsPlain ({
   );
 
   return (
-    <div className='explore-posts'>
-      <div className='explore-posts__sort-container'>
+    <div className="explore-posts">
+      <div className="explore-posts__sort-container">
         <span>Sort by: </span>
         <select
           onChange={({ target: { value } }) => setSort(value)}
           defaultValue={sort}>
-          <option value='date'>Date</option>
-          <option value='like'>Most Liked</option>
+          <option value="date">Date</option>
+          <option value="like">Most Liked</option>
         </select>
       </div>
       <PostPreviewContainer
@@ -76,8 +76,6 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   fetchExplorePosts: (sort: string, page: number) => {
-    console.log({ page });
-    console.log('WOIEWRWERWER');
     dispatch(fetchApi({ name: 'EXPLORE', data: { sort, page } }));
   }
 });

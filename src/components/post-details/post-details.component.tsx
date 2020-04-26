@@ -16,6 +16,7 @@ import CommentTextArea from '../comment-textarea/comment-textarea.component';
 import Timestamp from '../timestamp/timestamp.component';
 import { IChangeSavedPayload } from '../../redux/global-post-actions/global-post-actions';
 import { fetchApi } from '../../redux/fetch/fetch.actions';
+import FollowButton from '../follow-button/follow-button.component';
 
 interface IProps {
   post: PostDetail;
@@ -42,17 +43,17 @@ function PostDetailsPlain ({ post, updateSaved }: IProps){
   } = post;
 
   return (
-    <div className='details'>
-      <ArrowIcon className='back-icon' onClick={() => history.goBack()} />
-      <div className='flex-column details__info'>
-        <div className='flex-column'>
+    <div className="details">
+      <ArrowIcon className="back-icon" onClick={() => history.goBack()} />
+      <div className="flex-column details__info">
+        <div className="flex-column">
           <h1>{title}</h1>
-          <div className='flex-row-space-between'>
+          <div className="flex-row-space-between">
             <a href={link}>visit website</a>
-            <Timestamp timestamp={timestamp} className='details__timestamp' />
+            <Timestamp timestamp={timestamp} className="details__timestamp" />
           </div>
         </div>
-        <div className='flex-row-space-between'>
+        <div className="flex-row-space-between">
           <LikeDislike
             size={1.4}
             likeCount={likeCount}
@@ -64,7 +65,7 @@ function PostDetailsPlain ({ post, updateSaved }: IProps){
           {saved ? (
             <BookmarkIcon
               onClick={handleBookmarkAddClick}
-              color='#00a3ff'
+              color="#00a3ff"
               size={1.2}
             />
           ) : (
@@ -73,18 +74,21 @@ function PostDetailsPlain ({ post, updateSaved }: IProps){
         </div>
       </div>
 
-      <div className='flex-column'>
-        <span className='details__title'>Description</span>
-        <p className='details__description'>{description}</p>
+      <div className="flex-column">
+        <span className="details__title">Description</span>
+        <p className="details__description">{description}</p>
       </div>
 
-      <div className='details__owner flex-column'>
-        <span className='details__title'>Posted by</span>
-        <UserInfo user={owner} />
+      <div className="details__owner flex-column">
+        <span className="details__title">Posted by</span>
+        <div className="details__owner__container">
+          <UserInfo user={owner} />
+          <FollowButton owner={owner} />
+        </div>
       </div>
 
-      <div className='comments'>
-        <div className='flex-row comments__comments-count'>
+      <div className="comments">
+        <div className="flex-row comments__comments-count">
           <CommentIcon size={1.4} />
           <span>{commentsCount} comments</span>
         </div>

@@ -11,6 +11,8 @@
       top: 0;
       height: 100vh;
       overflow: hidden;
+      box-shadow: 2px 0px 5px 0px rgba(0, 0, 0, .15);
+      background-color: rgba(150, 150, 150, .1);
     }
 
     @media screen and (max-width: $large-breakpoint) {

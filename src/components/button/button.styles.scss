@@ -7,6 +7,12 @@
   font-weight: bold;
   cursor: pointer;
 
+  &.alt {
+    background-color: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--text-color);
+  }
+
   &:disabled {
     border: 1px solid #999999;
     background-color: #cccccc;

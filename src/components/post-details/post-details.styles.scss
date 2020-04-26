@@ -77,8 +77,10 @@
     font-size: 1.2em;
   }
 
-  &__owner .user-info span {
-    color: var(--link-color);
+  &__owner {
+    &__container {
+      @include flex-box(row, flex-start, center);
+    }
   }
 
   .comments {

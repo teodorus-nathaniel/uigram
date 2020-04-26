@@ -41,13 +41,11 @@ function UserProfilePlain ({ user, unfollow, follow }: IProps){
         <span>&#xb7;</span>
         <span className="user-profile__follow__content">{`${followersCount} Followers`}</span>
       </div>
-      {followed ? (
-        <Button alt onClick={handleUnfollowClick}>
-          Unfollow
-        </Button>
-      ) : (
-        <Button onClick={handleFollowClick}>Follow</Button>
-      )}
+      <Button
+        alt={followed}
+        onClick={followed ? handleUnfollowClick : handleFollowClick}>
+        {followed ? 'Unfollow' : 'Follow'}
+      </Button>
     </div>
   );
 }

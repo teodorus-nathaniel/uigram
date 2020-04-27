@@ -1,0 +1,14 @@
+@import './../../shared/scss/shared';
+
+.user-follow {
+  ul {
+    @include flex-box(column, flex-start, flex-start);
+    padding: 0px 30px;
+    li {
+      @include flex-box(row, space-between, center);
+      padding: 8px 15px;
+      border-bottom: 1px solid rgba(150, 150, 150, .5);
+      width: 100%;
+    }
+  }
+}

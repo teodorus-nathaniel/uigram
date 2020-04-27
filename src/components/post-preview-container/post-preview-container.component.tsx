@@ -37,7 +37,11 @@ export default function PostPreviewContainer ({
             scrollThreshold="500px"
             loader={null}>
             {posts.map((post: Post) => (
-              <PostPreview noFollowButton key={post.id} post={post} />
+              <PostPreview
+                noFollowButton={noFollowButton}
+                key={post.id}
+                post={post}
+              />
             ))}
           </InfiniteScroll>
           {isFetching ? (

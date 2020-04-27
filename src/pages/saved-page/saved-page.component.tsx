@@ -28,18 +28,20 @@ function SavedPagePlain ({
   useEffect(
     () => {
       if (isFetching || error) return;
+      console.log('object');
       fetchSavedPosts(1);
     },
-    [ fetchSavedPosts, isFetching, error ]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
   );
 
   return (
-    <div className='saved-page'>
-      <h2 className='heading'>Saved posts</h2>
+    <div className="saved-page">
+      <h2 className="heading">Saved posts</h2>
       <PostPreviewContainer
         isFetching={isFetching}
         posts={savedPosts}
-        noDataMessage={`When you post your design, it will appear on your profile`}
+        noDataMessage={`You haven't bookmarked any ui design`}
         fetchItem={() => fetchSavedPosts(page + 1)}
         error={error}
       />

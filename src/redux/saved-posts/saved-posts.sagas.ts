@@ -3,20 +3,30 @@ import { loadSavedPosts, IFetchSavedPostsPayload } from './saved-posts.actions';
 import { all, call, takeLatest, put } from 'redux-saga/effects';
 import createFetchFunction from '../utils/create-fetch-func';
 import createFetchSagaPattern from '../fetch/fetch-saga-pattern-creator';
+import getFetchInstance from '../utils/fetch';
+import getDataFromResponse from '../utils/get-data-from-res';
 
 function* fetchSavedPostsAsync ({
   payload: { data: { page } }
 }: {
   payload: IFetchSavedPostsPayload;
 }){
-  // TODO: API CALL
-  yield new Promise((resolve) => setTimeout(resolve, 2000));
+  const res = yield getFetchInstance().get('/users/self/saved');
+  const { posts } = getDataFromResponse(res);
   yield put(
     loadSavedPosts({
-      posts: dummyArrayPost(0).filter((post) => post.saved),
+      posts,
       page
     })
   );
+
+  // yield new Promise((resolve) => setTimeout(resolve, 2000));
+  // yield put(
+  //   loadSavedPosts({
+  //     posts: dummyArrayPost(0).filter((post) => post.saved),
+  //     page
+  //   })
+  // );
 }
 
 function* watchFetchSavedPosts (){

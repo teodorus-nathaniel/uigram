@@ -3,7 +3,7 @@ import CardForm from '../../components/card-form/card-form.component';
 import InputField from '../../components/input-field/input-field.component';
 import SharingImage from './../../assets/images/sharing-undraw.svg';
 import useForm from './../../effects/useForm.effect';
-import { validateEmail } from '../../utils/validations';
+import { validateEmail, validatePassword } from '../../utils/validations';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { fetchApi } from '../../redux/fetch/fetch.actions';
@@ -29,7 +29,9 @@ function LoginPagePlain ({ login, isFetching, error, user }: IProps){
         error: ''
       },
       password: {
-        value: ''
+        value: '',
+        validation: validatePassword,
+        error: ''
       }
     },
     () => {
@@ -41,8 +43,8 @@ function LoginPagePlain ({ login, isFetching, error, user }: IProps){
 
   return (
     <CardForm
-      title='Welcome back!'
-      actionButtonText='Login'
+      title="Welcome back!"
+      actionButtonText="Login"
       additional={{
         actionText: "Don't have an account yet?",
         img: SharingImage,
@@ -54,19 +56,20 @@ function LoginPagePlain ({ login, isFetching, error, user }: IProps){
       error={submitErrors ? submitErrors : error ? error : ''}
       onSubmit={handleSubmit}>
       <InputField
-        type='text'
-        name='email'
-        label='Email'
+        type="text"
+        name="email"
+        label="Email"
         onChange={handleChange}
         value={email.value}
         errorMessage={email.error}
       />
       <InputField
-        type='password'
-        name='password'
-        label='Password'
+        type="password"
+        name="password"
+        label="Password"
         onChange={handleChange}
         value={password.value}
+        errorMessage={password.error}
       />
     </CardForm>
   );

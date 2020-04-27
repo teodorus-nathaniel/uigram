@@ -25,7 +25,7 @@ export default function InputField ({
       <input {...otherProps} id={id} name={name} value={value} required />
       <label htmlFor={id}>{label}</label>
       {errorMessage && value ? (
-        <span className='error-message'>{errorMessage}</span>
+        <span className="error-message">{errorMessage}</span>
       ) : null}
     </div>
   );

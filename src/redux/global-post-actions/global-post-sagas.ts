@@ -7,9 +7,11 @@ import {
 } from './global-post-actions';
 import createFetchFunction from '../utils/create-fetch-func';
 import createFetchSagaPattern from '../fetch/fetch-saga-pattern-creator';
+import getFetchInstance from '../utils/fetch';
+import getDataFromResponse from '../utils/get-data-from-res';
 
 function* updateLikesOrDislikesAsync ({
-  payload: { name, data: { like, dislike, id } }
+  payload: { data: { like, dislike, id } }
 }: {
   payload: IChangeLikesOrDislikesPayload;
 }){
@@ -19,13 +21,29 @@ function* updateLikesOrDislikesAsync ({
 }
 
 function* changeSavedAsync ({
-  payload: { name, data }
+  payload: { data }
 }: {
   payload: IChangeSavedPayload;
 }){
-  // TODO: API CALL, pake type ama id buat remove ato add yang di db
   const { post, saved } = data;
-  console.log({ saved, post });
+
+  let res;
+  if (saved) {
+    res = yield getFetchInstance().patch('/users/self/add-saved', {
+      id: post.id
+    });
+  } else {
+    res = yield getFetchInstance().patch('/users/self/delete-saved', {
+      id: post.id
+    });
+  }
+
+  const { modifiedCount } = getDataFromResponse(res);
+  if (modifiedCount <= 0) {
+    console.log('saved post not updated');
+    return;
+  }
+
   yield put(changeSaved(data));
 }
 

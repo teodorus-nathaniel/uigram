@@ -2,7 +2,11 @@ import React from 'react';
 import CardForm from '../../components/card-form/card-form.component';
 import InputField from '../../components/input-field/input-field.component';
 import IdeasImage from './../../assets/images/ideas-undraw.svg';
-import { validateEmail, validateUsername } from '../../utils/validations';
+import {
+  validateEmail,
+  validateUsername,
+  validatePassword
+} from '../../utils/validations';
 import useForm from '../../effects/useForm.effect';
 import useGuestOnly from '../../effects/useGuestOnly';
 import { connect } from 'react-redux';
@@ -38,7 +42,9 @@ function RegisterPagePlain ({ user, isFetching, error, register }: IProps){
         value: ''
       },
       password: {
-        value: ''
+        value: '',
+        validation: validatePassword,
+        error: ''
       },
       confirmPassword: {
         value: '',
@@ -60,8 +66,8 @@ function RegisterPagePlain ({ user, isFetching, error, register }: IProps){
 
   return (
     <CardForm
-      title='Welcome to UIGram !'
-      actionButtonText='Register'
+      title="Welcome to UIGram !"
+      actionButtonText="Register"
       additional={{
         img: IdeasImage,
         main: 'Explore new ideas',
@@ -74,39 +80,40 @@ function RegisterPagePlain ({ user, isFetching, error, register }: IProps){
       onSubmit={handleSubmit}>
       <InputField
         errorMessage={email.error}
-        type='text'
-        name='email'
-        label='Email'
+        type="text"
+        name="email"
+        label="Email"
         value={email.value}
         onChange={handleChange}
       />
       <InputField
         errorMessage={username.error}
-        type='text'
-        name='username'
-        label='Username'
+        type="text"
+        name="username"
+        label="Username"
         value={username.value}
         onChange={handleChange}
       />
       <InputField
-        type='text'
-        name='fullname'
-        label='Full Name'
+        type="text"
+        name="fullname"
+        label="Full Name"
         value={fullname.value}
         onChange={handleChange}
       />
       <InputField
-        type='password'
-        name='password'
-        label='Password'
+        type="password"
+        name="password"
+        label="Password"
         value={password.value}
         onChange={handleChange}
+        errorMessage={password.error}
       />
       <InputField
         errorMessage={confirmPassword.error}
-        type='password'
-        name='confirmPassword'
-        label='Confirm Password'
+        type="password"
+        name="confirmPassword"
+        label="Confirm Password"
         value={confirmPassword.value}
         onChange={handleChange}
       />

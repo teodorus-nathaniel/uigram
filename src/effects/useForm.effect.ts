@@ -24,8 +24,6 @@ export default function useForm<
           data['password'].value === value
             ? ''
             : 'Password confirmation does not match!';
-
-        console.log(data['password'].value, data[name].value);
       }
     } else {
       const validation = data[name].validation;

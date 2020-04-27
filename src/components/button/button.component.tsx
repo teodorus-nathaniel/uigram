@@ -6,15 +6,15 @@ interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: any;
   alt?: boolean;
   type?: 'button' | 'submit';
-  onClick?: () => any;
+  onClick?: (e?: any) => any;
 }
 
-export default function Button ({
+export default function Button({
   alt,
   children,
   className,
   ...otherProps
-}: IProps){
+}: IProps) {
   return (
     <button
       className={`button ${alt ? 'alt' : ''} ${className || ''}`}

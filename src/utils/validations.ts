@@ -10,3 +10,9 @@ export function validateUsername (username: string){
 export function validatePassword (pass: string){
   return pass.length <= 5 ? 'Password must be more than 5 characters' : '';
 }
+
+export function isEmpty (text: string, value: string){
+  return value !== undefined
+    ? value.length > 0 ? '' : `${text} must be filled`
+    : '';
+}

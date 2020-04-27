@@ -15,16 +15,14 @@ export default function InputField ({
   value,
   ...otherProps
 }: IProps){
-  const id = Symbol(name).toString();
-
   return (
     <div
-      className={`input-field ${className} ${errorMessage && value
+      className={`input-field ${className || ''} ${errorMessage && value
         ? 'not-valid'
         : ''}`}>
-      <input {...otherProps} id={id} name={name} value={value} required />
-      <label htmlFor={id}>{label}</label>
-      {errorMessage && value ? (
+      <input {...otherProps} id={name} name={name} value={value} required />
+      <label htmlFor={name}>{label}</label>
+      {errorMessage ? (
         <span className="error-message">{errorMessage}</span>
       ) : null}
     </div>

@@ -1,0 +1,85 @@
+@import './../../shared/scss/shared';
+
+.slide-bar {
+  @include flex-box(row, center, center);
+  background-color: var(--primary-color);
+  width: 100%;
+  margin-bottom: 5px;
+  height: 50px;
+  position: relative;
+
+  .slide {
+    @include flex-box(row, center, center);
+    flex: 1;
+    font-size: 1.1em;
+    position: relative;
+    transition: color 300ms ease-out;
+    height: 100%;
+    color: var(--text-color);
+    transition: background-color 200ms ease-out, color 300ms ease-out;
+
+    span {
+      vertical-align: center;
+      height: 100%;
+      color: currentColor;
+      padding: 10px 15px;
+      vertical-align: center;
+      transform: translateY(2px);
+      border-bottom: 0px solid currentColor;
+      transition: border-bottom 200ms ease-out;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 50%);
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1px solid var(--text-color);
+      transition: background-color 300ms ease-out;
+    }
+
+    &-active {
+      @extend .slide;
+      font-weight: bold;
+
+      &::after {
+        border: none;
+        background-color: var(--link-color);
+      }
+    }
+
+    &-last-active {
+      @extend .slide-active;
+      color: var(--link-color);
+    }
+  }
+  &__line {
+    position: absolute;
+    bottom: 0;
+    background-color: var(--link-color);
+    transform: translateY(50%) scaleX(0);
+    left: 25%;
+    height: 2px;
+    width: 50%;
+    transition: transform 500ms ease-out;
+    transform-origin: left;
+
+    &--done {
+      @extend .slide-bar__line;
+      transform: translateY(50%) scaleX(1);
+    }
+  }
+}
+
+@keyframes next-slide {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}

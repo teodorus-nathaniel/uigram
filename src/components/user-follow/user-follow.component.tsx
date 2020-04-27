@@ -5,18 +5,22 @@ import './user-follow.styles.scss';
 import Button from '../button/button.component';
 import LoadingError from '../loading-error/loading-error.component';
 import ErrorMessage from '../error-message/error-message.component';
+import { GlobalState } from '../../redux/root-reducer';
+import { connect } from 'react-redux';
 
 interface IProps {
+  self: User | null;
   listUser: User[];
   noDataMessage: string;
   isFetching?: boolean;
   error?: Error;
 }
 
-export default function UserFollow ({
+function UserFollowPlain ({
   listUser,
   isFetching,
   error,
+  self,
   noDataMessage
 }: IProps){
   return (
@@ -32,7 +36,11 @@ export default function UserFollow ({
               {listUser.map((user) => (
                 <li key={user.id}>
                   <UserInfo user={user} />
-                  {user.followed ? <Button>Follow</Button> : null}
+                  {user.followed ||
+                  !self ||
+                  (self && self.id === user.id) ? null : (
+                    <Button>Follow</Button>
+                  )}
                 </li>
               ))}
             </ul>
@@ -42,3 +50,10 @@ export default function UserFollow ({
     </div>
   );
 }
+
+const mapStateToProps = ({ user: { self: { data } } }: GlobalState) => ({
+  self: data
+});
+
+const UserFollow = connect(mapStateToProps)(UserFollowPlain);
+export default UserFollow;

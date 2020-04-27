@@ -1,0 +1,11 @@
+@import './../../shared/scss/shared';
+
+.post-description{
+    @include flex-box(column, flex-start, flex-start);
+    width: 100%;
+    padding: 25px 50px 0px 50px;
+
+    .input-field:last-child{
+        margin-top: 20px;
+    }
+}

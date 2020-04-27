@@ -6,8 +6,10 @@ import './feeds-posts.styles.scss';
 import { connect } from 'react-redux';
 import { Post } from '../../@types/post.interfaces';
 import { fetchApi } from '../../redux/fetch/fetch.actions';
+import { User } from '../../@types/user.interfaces';
 
 interface IProps {
+  self: { data: User | null; posts: { page: number; data: Post[] } },
   feeds: Post[];
   isFetching?: boolean;
   error?: string;
@@ -15,24 +17,28 @@ interface IProps {
   fetchFeedsPosts: (page: number) => void;
 }
 
-function FeedsPostsPlain ({
+function FeedsPostsPlain({
+  self,
   feeds,
   isFetching,
   page,
   fetchFeedsPosts,
   error
-}: IProps){
+}: IProps) {
   useEffect(
     () => {
       if (isFetching || error) return;
       if (feeds.length === 0 && page === 0) fetchFeedsPosts(1);
     },
-    [ fetchFeedsPosts, feeds, page, isFetching, error ]
+    [fetchFeedsPosts, feeds, page, isFetching, error]
   );
+
+  let name = 'User';
+  if (self.data) name = self.data.username;
 
   return (
     <div className='feeds-posts'>
-      <h2 className='heading'>Welcome, User</h2>
+      <h2 className='heading'>Welcome, {name}</h2>
       <PostPreviewContainer
         posts={feeds}
         isFetching={isFetching}
@@ -45,9 +51,11 @@ function FeedsPostsPlain ({
 }
 
 const mapStateToProps = ({
+  user: { self },
   post: { feeds },
   fetchController: { isFetching, errors }
 }: GlobalState) => ({
+  self: self,
   feeds: feeds.posts,
   page: feeds.page,
   isFetching: isFetching.FEEDS,

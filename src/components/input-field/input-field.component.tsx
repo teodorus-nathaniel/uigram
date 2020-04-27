@@ -7,24 +7,23 @@ interface IProps extends InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string;
 }
 
-export default function InputField ({
+export default function InputField({
   name,
   label,
   className,
   errorMessage,
   value,
   ...otherProps
-}: IProps){
-  const id = Symbol(name).toString();
-
+}: IProps) {
+  console.log(errorMessage, value)
   return (
     <div
-      className={`input-field ${className} ${errorMessage && value
+      className={`input-field ${className || ''} ${errorMessage && value
         ? 'not-valid'
         : ''}`}>
-      <input {...otherProps} id={id} name={name} value={value} required />
-      <label htmlFor={id}>{label}</label>
-      {errorMessage && value ? (
+      <input {...otherProps} id={name} name={name} value={value} required />
+      <label htmlFor={name}>{label}</label>
+      {errorMessage ? (
         <span className='error-message'>{errorMessage}</span>
       ) : null}
     </div>

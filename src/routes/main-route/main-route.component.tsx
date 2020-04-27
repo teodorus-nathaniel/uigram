@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { User } from '../../@types/user.interfaces';
 import LoginPage from '../../pages/login-page/login-page.component';
 import RegisterPage from '../../pages/register-page/register-page.component';
+import PostPagePlain from '../../pages/post-page/post-page.components';
 
 interface IProps {
   user: User | null;
@@ -43,10 +44,14 @@ const routes = [
   {
     path: '/user/:id',
     component: ProfilePage
+  },
+  {
+    path: '/post',
+    component: PostPagePlain
   }
 ];
 
-function MainRoutePlain ({ user }: IProps){
+function MainRoutePlain({ user }: IProps) {
   return (
     <div className='main-route'>
       <Switch>

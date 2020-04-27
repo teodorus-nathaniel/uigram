@@ -1,0 +1,8 @@
+.follow-button {
+  color: var(--link-color);
+  font-weight: bold;
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

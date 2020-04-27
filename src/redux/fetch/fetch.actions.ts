@@ -1,7 +1,9 @@
 import {
   ILoginPayload,
   IRegisterPayload,
-  IFetchUserPostsPayload
+  IFetchUserPostsPayload,
+  IFollowUserPayload,
+  IUnfollowUserPayload
 } from './../user/user.actions';
 import {
   IChangeLikesOrDislikesPayload,
@@ -25,7 +27,9 @@ export type IFetchApiPayload =
   | IFetchUserPayload
   | ILoginPayload
   | IRegisterPayload
-  | IFetchUserPostsPayload;
+  | IFetchUserPostsPayload
+  | IFollowUserPayload
+  | IUnfollowUserPayload;
 
 export type IFetchApiNames =
   | IFetchExplorePayload['name']
@@ -38,7 +42,9 @@ export type IFetchApiNames =
   | IFetchUserPayload['name']
   | ILoginPayload['name']
   | IRegisterPayload['name']
-  | IFetchUserPostsPayload['name'];
+  | IFetchUserPostsPayload['name']
+  | IFollowUserPayload['name']
+  | IUnfollowUserPayload['name'];
 
 export const FETCH_API = 'FETCH_API';
 export const FETCH_API_FAIL = 'FETCH_API_FAIL';

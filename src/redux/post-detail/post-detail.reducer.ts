@@ -1,3 +1,4 @@
+import { FOLLOW_USER, UNFOLLOW_USER } from './../user/user.actions';
 import { PostDetail } from '../../@types/post.interfaces';
 import { PostDetailActionType, LOAD_POST_DETAIL } from './post-detail.actions';
 import {
@@ -19,6 +20,15 @@ export default function postDetailReducer (
   state: IState = INITIAL_STATE,
   action: PostDetailActionType | GlobalPostActionType
 ): IState{
+  const updatePostDetail = (
+    updateCb: (post: PostDetail) => PostDetail,
+    id: string
+  ) => {
+    if (!state.postDetail || id !== state.postDetail.owner.id)
+      return state.postDetail;
+    return updateCb({ ...state.postDetail });
+  };
+
   switch (action.type) {
     case LOAD_POST_DETAIL:
       return {
@@ -42,8 +52,32 @@ export default function postDetailReducer (
 
       return {
         ...state,
-        postDetail: changePostLikesOrDislikes(state.postDetail, action.payload)
+        postDetail: {
+          ...changePostLikesOrDislikes(state.postDetail, action.payload)
+        }
       };
+
+    case FOLLOW_USER:
+      const newPostDetailFollow = updatePostDetail((post) => {
+        console.log(post);
+        post.owner.followed = true;
+        return post;
+      }, action.payload);
+      return {
+        ...state,
+        postDetail: newPostDetailFollow
+      };
+
+    case UNFOLLOW_USER:
+      const newPostDetailUnfollow = updatePostDetail((post) => {
+        post.owner.followed = false;
+        return post;
+      }, action.payload);
+      return {
+        ...state,
+        postDetail: newPostDetailUnfollow
+      };
+
     default:
       return state;
   }

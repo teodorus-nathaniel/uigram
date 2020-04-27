@@ -1,5 +1,6 @@
 import { action, payload } from 'ts-action';
 import { Post } from '../../@types/post.interfaces';
+import { followUser, unfollowUser } from '../user/user.actions';
 
 export interface IFetchFeedsPayload {
   name: 'FEEDS';
@@ -36,4 +37,6 @@ export type PostActionType =
   | ReturnType<typeof loadExplorePosts>
   | ReturnType<typeof loadFeedsPosts>
   | ReturnType<typeof clearExplorePosts>
-  | ReturnType<typeof clearFeedsPosts>;
+  | ReturnType<typeof clearFeedsPosts>
+  | ReturnType<typeof followUser>
+  | ReturnType<typeof unfollowUser>;

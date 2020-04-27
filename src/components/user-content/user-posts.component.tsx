@@ -21,7 +21,7 @@ function UserPostsPlain ({ user, isFetching, error, fetchUserPosts }: IProps){
   return (
     <PostPreviewContainer
       posts={user.posts.data}
-      noDataMessage='Share your first post!'
+      noDataMessage="Share your first post!"
       fetchItem={() =>
         fetchUserPosts(
           user.data!.id,
@@ -30,6 +30,7 @@ function UserPostsPlain ({ user, isFetching, error, fetchUserPosts }: IProps){
         )}
       isFetching={isFetching}
       error={error}
+      noFollowButton
     />
   );
 }

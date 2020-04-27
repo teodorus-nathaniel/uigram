@@ -8,7 +8,11 @@ import {
   IRegisterPayload,
   IFetchUserPostsPayload,
   loadUserPosts,
-  CHECK_USER
+  CHECK_USER,
+  IFollowUserPayload,
+  IUnfollowUserPayload,
+  followUser,
+  unfollowUser
 } from './user.actions';
 import createFetchFunction from '../utils/create-fetch-func';
 import { dummyUser } from '../../dummy-datas/dummy-datas';
@@ -104,6 +108,24 @@ function* checkUserAsync (){
   }
 }
 
+function* followUserAsync ({
+  payload: { data: { id } }
+}: {
+  payload: IFollowUserPayload;
+}){
+  yield getFetchInstance().patch(`/users/${id}/follow`);
+  yield put(followUser(id));
+}
+
+function* unfollowUserAsync ({
+  payload: { data: { id } }
+}: {
+  payload: IUnfollowUserPayload;
+}){
+  yield getFetchInstance().patch(`/users/${id}/unfollow`);
+  yield put(unfollowUser(id));
+}
+
 function* watchFetchUser (){
   yield takeLatest(
     createFetchSagaPattern('USER'),
@@ -136,12 +158,27 @@ function* watchCheckUser (){
   yield takeLatest(CHECK_USER, checkUserAsync);
 }
 
+function* watchFollowUser (){
+  yield takeLatest(
+    createFetchSagaPattern('FOLLOW_USER'),
+    createFetchFunction('FOLLOW_USER', followUserAsync)
+  );
+}
+function* watchUnfollowUser (){
+  yield takeLatest(
+    createFetchSagaPattern('UNFOLLOW_USER'),
+    createFetchFunction('UNFOLLOW_USER', unfollowUserAsync)
+  );
+}
+
 export default function* userSagas (){
   yield all([
     call(watchFetchUser),
     call(watchLogin),
     call(watchRegister),
     call(watchFetchUserPosts),
-    call(watchCheckUser)
+    call(watchCheckUser),
+    call(watchFollowUser),
+    call(watchUnfollowUser)
   ]);
 }

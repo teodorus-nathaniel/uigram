@@ -13,6 +13,7 @@ import {
   changePostLikesOrDislikes,
   changePostSaved
 } from '../global-post-actions/global-post-reducer-helper';
+import { FOLLOW_USER, UNFOLLOW_USER } from '../user/user.actions';
 
 interface IState {
   explore: { posts: Post[]; page: number; sort?: string };
@@ -34,13 +35,15 @@ export default function postReducer (
       explore: {
         ...state.explore,
         posts: state.explore.posts.map((post) => {
-          return operationCb(post);
+          let newPost = { ...post };
+          return operationCb(newPost);
         })
       },
       feeds: {
         ...state.feeds,
         posts: state.feeds.posts.map((post) => {
-          return operationCb(post);
+          let newPost = { ...post };
+          return operationCb(newPost);
         })
       }
     };
@@ -77,6 +80,20 @@ export default function postReducer (
           dislike,
           id: action.payload.id
         });
+      });
+    case FOLLOW_USER:
+      return updateExploreAndFeeds((item) => {
+        if (item.owner.id === action.payload) {
+          item.owner.followed = true;
+        }
+        return item;
+      });
+    case UNFOLLOW_USER:
+      return updateExploreAndFeeds((item) => {
+        if (item.owner.id === action.payload) {
+          item.owner.followed = false;
+        }
+        return item;
       });
     default:
       return state;

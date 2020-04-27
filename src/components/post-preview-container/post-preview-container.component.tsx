@@ -11,6 +11,7 @@ interface IProps {
   noDataMessage: string;
   isFetching?: boolean;
   error?: string;
+  noFollowButton?: boolean;
   fetchItem: () => void;
 }
 
@@ -19,23 +20,24 @@ export default function PostPreviewContainer ({
   noDataMessage,
   isFetching,
   fetchItem,
-  error
+  error,
+  noFollowButton
 }: IProps){
   return (
-    <div className='post-preview-container'>
+    <div className="post-preview-container">
       {posts.length === 0 && !isFetching && !error ? (
         <ErrorMessage message={noDataMessage} size={2} />
       ) : (
         <Fragment>
           <InfiniteScroll
-            className='post-preview-container__content'
+            className="post-preview-container__content"
             dataLength={posts.length}
             next={fetchItem}
             hasMore={true}
-            scrollThreshold='500px'
+            scrollThreshold="500px"
             loader={null}>
             {posts.map((post: Post) => (
-              <PostPreview key={post.id} post={post} />
+              <PostPreview noFollowButton key={post.id} post={post} />
             ))}
           </InfiniteScroll>
           {isFetching ? (

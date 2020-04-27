@@ -86,12 +86,12 @@
   }
 
   &__detail {
-    font-size: .8em;
+    @include flex-box(row, flex-start, center);
+    font-size: .85em;
   }
 
   &__author {
     font-weight: bold;
-    color: var(--link-color);
     text-decoration: none;
 
     &:hover {

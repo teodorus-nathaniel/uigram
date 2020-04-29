@@ -47,12 +47,12 @@ function SidenavPlain ({ changeColorMode }: IProps){
       icon: BookmarkIcon
     },
     {
-      path: '/following',
+      path: '/profile/self#following',
       name: 'Following',
       icon: FollowingIcon
     },
     {
-      path: '/followers',
+      path: '/profile/self#followers',
       name: 'Followers',
       icon: FollowersIcon
     }
@@ -62,11 +62,11 @@ function SidenavPlain ({ changeColorMode }: IProps){
     <aside
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className='sidenav'>
+      className="sidenav">
       <ul>
         <li className={`sidenav__logo ${isScrolled ? '' : 'hide'}`}>
-          <Link to='/'>
-            <IconImage src={Logo} alt='Logo' />
+          <Link to="/">
+            <IconImage src={Logo} alt="Logo" />
             <span>Home</span>
           </Link>
         </li>
@@ -96,7 +96,7 @@ function SidenavPlain ({ changeColorMode }: IProps){
           }}>
           <div>
             <SunIcon noHover color={isHovered ? 'white' : undefined} />
-            <span className='cursor'>Color Mode</span>
+            <span className="cursor">Color Mode</span>
           </div>
         </li>
       </ul>

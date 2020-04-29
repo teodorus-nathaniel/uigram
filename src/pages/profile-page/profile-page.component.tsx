@@ -63,10 +63,10 @@ function ProfilePagePlain ({
   }
 
   return (
-    <div className='profile-page'>
+    <div className="profile-page">
       <LoadingError isLoading={isFetching} error={error}>
         {displayUser.data ? (
-          <div className='profile-container'>
+          <div className="profile-container">
             <UserProfile
               user={displayUser.data}
               page={displayUser.posts.page}
@@ -74,7 +74,7 @@ function ProfilePagePlain ({
             <UserContent user={displayUser} />
           </div>
         ) : (
-          <ErrorMessage message='User not found' />
+          <ErrorMessage message="User not found" />
         )}
       </LoadingError>
     </div>

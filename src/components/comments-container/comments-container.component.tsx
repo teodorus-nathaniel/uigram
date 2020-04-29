@@ -37,10 +37,13 @@ function CommentsContainerPlain ({
         location.hash === '#comments' &&
         commentsRef.current
       ) {
-        window.scrollTo({
-          behavior: 'smooth',
-          top: commentsRef.current.getBoundingClientRect().top
-        });
+        setTimeout(() => {
+          if (commentsRef.current)
+            window.scrollTo({
+              behavior: 'smooth',
+              top: commentsRef.current.getBoundingClientRect().top
+            });
+        }, 200);
       }
     },
     [ commentsRef, location, comments ]
@@ -58,7 +61,7 @@ function CommentsContainerPlain ({
   );
 
   return (
-    <div className='comments-container' ref={commentsRef}>
+    <div className="comments-container" ref={commentsRef}>
       <LoadingError isLoading={isFetching} error={error} loadingSize={100}>
         {comments.map((comment) => (
           <CommentParent key={comment.id} comment={comment} />

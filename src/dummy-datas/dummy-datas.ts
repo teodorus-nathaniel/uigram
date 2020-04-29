@@ -54,14 +54,14 @@ export const dummyPostDetail = (id: string): PostDetail => ({
   commentsCount: 120,
   timestamp: +(new Date().getTime() / 1000).toFixed(0),
   description:
-    'baki kabur menyelamatkan kota lorem ipsum baki kabur bos menyelamatkan kota baktown dengan baju dari bakstore',
+    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio',
   link: 'google.com'
 });
 
 export const dummyComment: Comment = {
   id: '1',
   content:
-    'lorem ipsum baki kabur bos menyelamatkan kota baktown dengan baju dari bakstore',
+    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio lorem ipsum dolor amet sit Lorem ipsum dolor sit amet',
   dislikeCount: 20,
   likeCount: 1,
   owner: {

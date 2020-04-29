@@ -49,7 +49,9 @@ function PostDetailsPlain ({ post, updateSaved }: IProps){
         <div className="flex-column">
           <h1>{title}</h1>
           <div className="flex-row-space-between">
-            <a href={link}>visit website</a>
+            <a href={link} rel="noopener noreferrer" target="_blank">
+              visit website
+            </a>
             <Timestamp timestamp={timestamp} className="details__timestamp" />
           </div>
         </div>

@@ -16,8 +16,12 @@
     text-align: center;
 
     &__first-image-info {
-      margin: 15px 0 20px 0;
+      margin: 10px 0 40px 0;
       color: rgba(0, 0, 0, .5);
+    }
+
+    span:last-child {
+      font-size: 1.1em;
     }
   }
 

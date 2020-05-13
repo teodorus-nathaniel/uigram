@@ -20,7 +20,9 @@ export default function SlideBar ({
     <div className="slide-bar">
       {slides.map((slide, idx) => (
         <div
-          className={`slide${idx <= activeSlide ? '--active' : ''}`}
+          className={`slide${idx < activeSlide
+            ? '--active'
+            : idx === activeSlide ? '--last-active' : ''}`}
           key={slide}>
           <div>{idx + 1}</div>
           <span>{slide}</span>

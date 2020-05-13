@@ -13,6 +13,7 @@
   --primary-color-darken: #f3f2f2;
   --background-color: #f6f6f6;
   --text-color: black;
+  --text-color-rgb: 0, 0, 0;
   --text-color-lighten: rgb(37, 37, 37);
   --link-color: #00a3ff;
   --profile-background-color: white;
@@ -29,6 +30,7 @@ body.dark {
   --primary-color-darken: #656565;
   --background-color: #191919;
   --text-color: rgb(200, 200, 200);
+  --text-color-rgb: 200, 200, 200;
   --text-color-lighten: rgb(150, 150, 150);
   --profile-background-color: #191919;
 
@@ -67,7 +69,7 @@ p {
 
 h1,
 h2 {
-  line-height: 1;
+  line-height: 1.1;
 }
 
 body {
@@ -141,4 +143,13 @@ h2.heading {
 .flex-column-start-end {
   @include flex-box(column, flex-start, flex-end);
   @extend .flex-box;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

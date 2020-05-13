@@ -15,7 +15,7 @@ interface IProps {
 const navigations = {
   user: [
     {
-      link: '/post',
+      link: '/add-post',
       text: 'Share your Design!',
       inverted: true
     },

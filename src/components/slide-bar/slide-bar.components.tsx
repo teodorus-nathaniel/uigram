@@ -5,16 +5,12 @@ interface IProps {
   slides: string[];
   activeSlide: number;
   setActiveSlide: (slide: number) => void;
-  saveState?: (state: any) => void;
-  getSavedState?: () => any;
 }
 
 export default function SlideBar ({
   slides,
   activeSlide,
-  setActiveSlide,
-  saveState,
-  getSavedState
+  setActiveSlide
 }: IProps){
   return (
     <div className="slide-bar">
@@ -24,7 +20,7 @@ export default function SlideBar ({
             ? '--active'
             : idx === activeSlide ? '--last-active' : ''}`}
           key={slide}>
-          <div>{idx + 1}</div>
+          <div onClick={() => setActiveSlide(idx)}>{idx + 1}</div>
           <span>{slide}</span>
         </div>
       ))}

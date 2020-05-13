@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './detail-page.styles.scss';
 import { match } from 'react-router-dom';
 import { PostDetail } from '../../@types/post.interfaces';
@@ -27,6 +27,7 @@ function DetailPagePlain ({
   error
 }: IProps){
   useFetchCleanup('POST_DETAIL');
+  const [ slideIndex, setSlideIndex ] = useState(0);
 
   useEffect(
     () => {
@@ -44,7 +45,11 @@ function DetailPagePlain ({
         {post ? (
           <div className="post-detail-container">
             <div className="images-container scrollbar">
-              <ImageCarousel images={post.images} />
+              <ImageCarousel
+                images={post.images}
+                slideIndex={slideIndex}
+                setSlideIndex={setSlideIndex}
+              />
             </div>
             <PostDetails post={post} />
           </div>

@@ -5,6 +5,7 @@ import postDetailSagas from './post-detail/post-detail.sagas';
 import { commentsSagas } from './comments/comments.sagas';
 import globalPostSagas from './global-post-actions/global-post-sagas';
 import userSagas from './user/user.sagas';
+import addPostSagas from './add-post/add-post.sagas';
 
 export default function* rootSaga (){
   yield all([
@@ -13,6 +14,7 @@ export default function* rootSaga (){
     call(savedPostsSagas),
     call(postDetailSagas),
     call(commentsSagas),
-    call(userSagas)
+    call(userSagas),
+    call(addPostSagas)
   ]);
 }

@@ -16,3 +16,11 @@ export function isEmpty (text: string, value: string){
     ? value.length > 0 ? '' : `${text} must be filled`
     : '';
 }
+
+export function validateUrl (url: string){
+  return /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/.test(
+    url
+  )
+    ? ''
+    : 'Invalid url';
+}

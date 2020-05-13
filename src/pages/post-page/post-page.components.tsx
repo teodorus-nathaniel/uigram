@@ -50,13 +50,13 @@ function PostPagePlain ({ self }: IProps){
   return (
     <div>
       <Fragment>
-        <SlideBar
+        {/* <SlideBar
           activeSlide={activeSlide}
           setActiveSlide={setActiveSlide}
           slides={slideNames}
           saveState={postPageStore.saveTabState}
           getSavedState={postPageStore.getTabState}
-        />
+        /> */}
         {
           <Component
             activeSlide={activeSlide}

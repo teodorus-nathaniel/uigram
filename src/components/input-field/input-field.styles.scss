@@ -87,6 +87,7 @@
     transform: translateY(-50%);
     transition: top 250ms ease-out, left 250ms ease-out,
       font-size 250ms ease-out;
+    pointer-events: none;
   }
 
   input:valid + label,

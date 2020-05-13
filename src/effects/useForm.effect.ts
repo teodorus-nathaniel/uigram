@@ -6,7 +6,8 @@ export default function useForm<
       validation?: (value: any) => string;
       value: any;
       error?: string;
-      isPasswordConfirmation?: boolean;
+      sameAs?: string;
+      link?: string;
     };
   }
 > (
@@ -14,16 +15,21 @@ export default function useForm<
   successSubmit: () => void
 ): [T, (e: ChangeEvent<HTMLInputElement>) => void, (e: any) => void, string]{
   const [ data, setData ] = useState(initialState);
-  const [ submitErrors, setErrors ] = useState('');
+  const [ submitErrors, setErrors ] = useState<string[]>([]);
 
-  function validate (name: string, value: any){
+  function validate (name: string, value: any, newLinkData?: string){
     let error = '';
-    if (data[name].isPasswordConfirmation) {
-      if (data['password']) {
-        error =
-          data['password'].value === value
-            ? ''
-            : 'Password confirmation does not match!';
+    const sameAsAttr = data[name].sameAs;
+    if (sameAsAttr) {
+      if (data[sameAsAttr]) {
+        let isSame = data[sameAsAttr].value === value;
+        if (newLinkData) {
+          isSame = newLinkData === value;
+        }
+        error = isSame
+          ? ''
+          : `${sameAsAttr.charAt(0).toUpperCase() +
+              sameAsAttr.substr(1)} confirmation does not match!`;
       }
     } else {
       const validation = data[name].validation;
@@ -34,37 +40,56 @@ export default function useForm<
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const error = validate(e.target.name, e.target.value);
+    const { name, value } = e.target;
+    const error = validate(name, value);
 
-    setData({
-      ...data,
-      [e.target.name]: {
-        ...data[e.target.name],
-        value: e.target.value,
-        error
-      }
-    });
+    const link = data[name].link;
+    let linkError = '';
+    if (link && data[link]) {
+      linkError = validate(link, data[link].value, value);
+
+      setData({
+        ...data,
+        [name]: {
+          ...data[name],
+          value: value,
+          error
+        },
+        [link]: {
+          ...data[link],
+          error: linkError
+        }
+      });
+    } else {
+      setData({
+        ...data,
+        [name]: {
+          ...data[name],
+          value: value,
+          error
+        }
+      });
+    }
   };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
-    let errors = Object.entries(data).reduce((acc, [ key, element ]) => {
+    let errors = Object.entries(data).reduce<
+      string[]
+    >((acc, [ key, element ]) => {
       if (!element.validation) return acc;
       const error = validate(key, element.value);
-      acc += error ? error + ', ' : '';
+      if (error) acc.push(error);
       return acc;
-    }, '');
+    }, []);
 
-    errors = errors ? errors.slice(0, errors.length - 2) : '';
+    setErrors(errors);
 
-    if (errors) {
-      setErrors(errors);
-      return;
-    }
+    if (errors.length !== 0) return;
 
     successSubmit();
   };
 
-  return [ data, handleChange, handleSubmit, submitErrors ];
+  return [ data, handleChange, handleSubmit, submitErrors[0] ];
 }

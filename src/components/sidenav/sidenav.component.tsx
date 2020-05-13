@@ -29,8 +29,8 @@ function SidenavPlain ({ changeColorMode }: IProps){
   useEffect(
     () => {
       function handleScrolled (){
-        if (window.scrollY >= 67 && !isScrolled) setIsScrolled(true);
-        else if (window.scrollY < 67 && isScrolled) setIsScrolled(false);
+        if (window.scrollY >= 65 && !isScrolled) setIsScrolled(true);
+        else if (window.scrollY < 65 && isScrolled) setIsScrolled(false);
       }
       window.addEventListener('scroll', handleScrolled);
       return () => {

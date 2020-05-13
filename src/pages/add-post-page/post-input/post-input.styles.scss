@@ -5,7 +5,7 @@
   max-width: 500px;
   margin: 0 auto;
   width: 100%;
-  padding: 40px 30px;
+  padding: 70px 30px;
 
   button {
     width: 100%;
@@ -17,7 +17,7 @@
 
     &__first-image-info {
       margin: 10px 0 40px 0;
-      color: rgba(0, 0, 0, .5);
+      color: RGBA(var(--text-color-rgb), .5);
     }
 
     span:last-child {
@@ -26,26 +26,32 @@
   }
 
   &__input-url {
-    margin-top: 70px;
+    margin-top: 80px;
 
     .input-field {
       font-size: 1.3rem;
       margin-bottom: 5px;
     }
 
+    &__error {
+      color: red;
+      display: block;
+      font-weight: bold;
+      font-size: .8em;
+      box-sizing: content-box;
+      padding: 10px 0px 15px 0px;
+      min-height: 1.25em;
+    }
+
     &__desc {
       font-size: 0.8em;
       color: rgba(0, 0, 0, .5);
-    }
-
-    button {
-      margin-top: 20px;
     }
   }
 
   &__separator {
     @include flex-box(row, center, center);
-    padding: 30px 20px;
+    padding: 40px 20px;
     position: relative;
 
     span {

@@ -2,7 +2,7 @@ import './sidenav.styles.scss';
 
 import React, { useEffect, useState } from 'react';
 
-import Logo from '../../assets/images/logo.svg';
+import Logo from '../../assets/images/uigram-transparent.png';
 import BookmarkIcon from '../icons/bookmark/bookmark.component';
 import FollowersIcon from '../icons/followers/followers.component';
 import FollowingIcon from '../icons/following/following.component';

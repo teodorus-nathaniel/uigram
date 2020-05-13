@@ -1,0 +1,85 @@
+@import './../../shared/scss/shared';
+
+.add-post-page {
+  &__container {
+    @include flex-box(row, flex-start, flex-start);
+    width: 100%;
+
+    &__images {
+      width: 50%;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      box-shadow: 2px 0px 5px 0px rgba(0, 0, 0, .15);
+      background-color: rgba(150, 150, 150, .1);
+
+      &__plus {
+        @include flex-box(row, center, center);
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, .7);
+      }
+    }
+
+    &__content {
+      flex: 1;
+      padding: 40px 50px;
+      max-width: 700px;
+      margin: 0 auto;
+
+      &__actions {
+        @include flex-box(row, flex-start, center);
+        width: 100%;
+        max-width: 500px;
+        margin: 0px auto;
+        margin-top: 50px;
+
+        .button {
+          @include flex-box(row, center, center);
+          $self: &;
+          background-color: var(--link-color);
+          border: none;
+          border-radius: 50%;
+          width: 50px;
+          height: 50px;
+          padding: 10px;
+          box-shadow: 5px 5px 15px rgba(0, 0, 0, .1),
+            2px 2px 5px rgba(0, 0, 0, .3);
+          opacity: 1;
+          transition: opacity 250ms ease-out;
+
+          &--hide {
+            @extend .button;
+            opacity: 0;
+            pointer-events: none;
+          }
+        }
+
+        &__next {
+          margin-left: auto;
+        }
+      }
+    }
+
+    @media screen and (max-width: $large-breakpoint) {
+      flex-direction: column;
+
+      &__images {
+        position: relative;
+        z-index: 9;
+        width: 100%;
+        direction: unset;
+        height: 50vh;
+      }
+
+      &__image-preview {
+        width: 100%;
+      }
+
+      &__content {
+        width: 100%;
+      }
+    }
+  }
+}

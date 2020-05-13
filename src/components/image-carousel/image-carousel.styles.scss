@@ -54,4 +54,14 @@
     top: 0;
     transition: transform 350ms ease-out;
   }
+
+  @media screen and (max-width: $large-breakpoint) {
+    &__container {
+      height: 100%;
+    }
+
+    &__slide {
+      height: 100%;
+    }
+  }
 }

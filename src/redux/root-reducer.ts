@@ -6,6 +6,7 @@ import postDetailReducer from './post-detail/post-detail.reducer';
 import commentsReducer from './comments/comments.reducer';
 import userReducer from './user/user.reducer';
 import fetchReducer from './fetch/fetch.reducer';
+import addPostReducer from './add-post/add-post.reducer';
 
 const reducers = {
   fetchController: fetchReducer,
@@ -14,7 +15,8 @@ const reducers = {
   colorMode: colorModeReducer,
   postDetail: postDetailReducer,
   comments: commentsReducer,
-  user: userReducer
+  user: userReducer,
+  addPost: addPostReducer
 };
 
 const rootReducer = combineReducers(reducers);

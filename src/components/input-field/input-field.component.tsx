@@ -22,9 +22,10 @@ export default function InputField ({
         : ''}`}>
       <input {...otherProps} id={name} name={name} value={value} required />
       <label htmlFor={name}>{label}</label>
-      {errorMessage ? (
+      {errorMessage && value ? (
         <span className="error-message">{errorMessage}</span>
       ) : null}
+      <div className="after-element" />
     </div>
   );
 }

@@ -1,76 +1,65 @@
 @import './../../shared/scss/shared';
 
 .slide-bar {
-  @include flex-box(row, center, center);
-  background-color: var(--primary-color);
+  @include flex-box(row, space-between, center);
   width: 100%;
-  margin-bottom: 5px;
-  height: 50px;
   position: relative;
 
   .slide {
-    @include flex-box(row, center, center);
-    flex: 1;
+    @include flex-box(column, center, center);
     font-size: 1.1em;
     position: relative;
-    transition: color 300ms ease-out;
     height: 100%;
-    color: var(--text-color);
-    transition: background-color 200ms ease-out, color 300ms ease-out;
+
+    div {
+      @include flex-box(row, center, center);
+      border-radius: 50%;
+      height: 40px;
+      width: 40px;
+      background-color: rgba(150, 150, 150, .5);
+      color: var(--text-color);
+      transition: background-color 300ms ease-out;
+      box-shadow: 0px 0px 6px rgba(0, 0, 0, .2);
+      transition: color 300ms ease-out;
+      margin-bottom: 5px;
+    }
 
     span {
-      vertical-align: center;
-      height: 100%;
-      color: currentColor;
-      padding: 10px 15px;
-      vertical-align: center;
-      transform: translateY(2px);
-      border-bottom: 0px solid currentColor;
-      transition: border-bottom 200ms ease-out;
+      color: rgba(150, 150, 150, .8);
+      transition: color 300ms ease-out;
+      width: 80px;
+      text-align: center;
     }
 
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translate(-50%, 50%);
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      border: 1px solid var(--text-color);
-      transition: background-color 300ms ease-out;
-    }
-
-    &-active {
+    &--active {
       @extend .slide;
-      font-weight: bold;
 
-      &::after {
-        border: none;
+      div {
         background-color: var(--link-color);
+        color: white;
+      }
+
+      span {
+        color: var(--text-color);
       }
     }
-
-    &-last-active {
-      @extend .slide-active;
-      color: var(--link-color);
-    }
   }
+
   &__line {
     position: absolute;
-    bottom: 0;
+    top: 20px;
+    left: 60px;
+    width: 50px;
     background-color: var(--link-color);
-    transform: translateY(50%) scaleX(0);
-    left: 25%;
+    transform: scaleX(0);
     height: 2px;
-    width: 50%;
+    width: calc(100% - 120px);
     transition: transform 500ms ease-out;
     transform-origin: left;
 
     &--done {
       @extend .slide-bar__line;
-      transform: translateY(50%) scaleX(1);
+      transform: scaleX(1);
     }
   }
 }

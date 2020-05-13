@@ -15,6 +15,7 @@ import { IFetchCommentsPayload } from '../comments/comments.actions';
 import { IFetchPostDetailPayload } from '../post-detail/post-detail.actions';
 import { IFetchSavedPostsPayload } from '../saved-posts/saved-posts.actions';
 import { IFetchUserPayload } from '../user/user.actions';
+import { IAddPostUsingUrlPayload } from '../add-post/add-post.actions';
 
 export type IFetchApiPayload =
   | IFetchExplorePayload
@@ -29,7 +30,8 @@ export type IFetchApiPayload =
   | IRegisterPayload
   | IFetchUserPostsPayload
   | IFollowUserPayload
-  | IUnfollowUserPayload;
+  | IUnfollowUserPayload
+  | IAddPostUsingUrlPayload;
 
 export type IFetchApiNames =
   | IFetchExplorePayload['name']
@@ -44,7 +46,8 @@ export type IFetchApiNames =
   | IRegisterPayload['name']
   | IFetchUserPostsPayload['name']
   | IFollowUserPayload['name']
-  | IUnfollowUserPayload['name'];
+  | IUnfollowUserPayload['name']
+  | IAddPostUsingUrlPayload['name'];
 
 export const FETCH_API = 'FETCH_API';
 export const FETCH_API_FAIL = 'FETCH_API_FAIL';

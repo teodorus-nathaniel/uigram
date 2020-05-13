@@ -11,6 +11,7 @@ import { User } from '../../@types/user.interfaces';
 import LoginPage from '../../pages/login-page/login-page.component';
 import RegisterPage from '../../pages/register-page/register-page.component';
 import PostPagePlain from '../../pages/post-page/post-page.components';
+import AddPostPage from '../../pages/add-post-page/add-post-page.component';
 
 interface IProps {
   user: User | null;
@@ -48,22 +49,26 @@ const routes = [
   {
     path: '/post',
     component: PostPagePlain
+  },
+  {
+    path: '/add-post',
+    component: AddPostPage
   }
 ];
 
-function MainRoutePlain({ user }: IProps) {
+function MainRoutePlain ({ user }: IProps){
   return (
-    <div className='main-route'>
+    <div className="main-route">
       <Switch>
         {routes.map(({ component, path }) => (
           <Route path={path} exact key={path} component={component} />
         ))}
 
         <Route
-          path='*'
+          path="*"
           render={() => (
             <ErrorMessage
-              message='404: Page you requested not found'
+              message="404: Page you requested not found"
               size={2}
             />
           )}

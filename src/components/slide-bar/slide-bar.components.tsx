@@ -16,15 +16,13 @@ export default function SlideBar ({
   saveState,
   getSavedState
 }: IProps){
-  console.log(100 * (activeSlide + 1));
   return (
     <div className="slide-bar">
       {slides.map((slide, idx) => (
         <div
-          className={`slide${idx < activeSlide
-            ? '-active'
-            : idx === activeSlide ? '-last-active' : ''}`}
+          className={`slide${idx <= activeSlide ? '--active' : ''}`}
           key={slide}>
+          <div>{idx + 1}</div>
           <span>{slide}</span>
         </div>
       ))}

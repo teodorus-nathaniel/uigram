@@ -3,7 +3,7 @@ import './navbar.styles.scss';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Logo from './../../assets/images/logo.svg';
+import Logo from './../../assets/images/uigram-transparent.png';
 import { User } from '../../@types/user.interfaces';
 import { GlobalState } from '../../redux/root-reducer';
 import { connect } from 'react-redux';
@@ -41,10 +41,10 @@ function NavbarPlain ({ user }: IProps){
   const usedNav = user ? navigations.user : navigations.noUser;
 
   return (
-    <div className='navbar'>
-      <div className='navbar__logo'>
-        <Link to='/'>
-          <img src={Logo} alt='Logo' />
+    <div className="navbar">
+      <div className="navbar__logo">
+        <Link to="/">
+          <img src={Logo} alt="Logo" />
         </Link>
       </div>
       <ul>

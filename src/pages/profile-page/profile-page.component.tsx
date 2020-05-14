@@ -68,6 +68,7 @@ function ProfilePagePlain ({
         {displayUser.data ? (
           <div className="profile-container">
             <UserProfile
+              isSelf={match.params.id === 'self'}
               user={displayUser.data}
               page={displayUser.posts.page}
             />

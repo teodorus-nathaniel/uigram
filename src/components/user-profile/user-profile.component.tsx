@@ -12,9 +12,10 @@ interface IProps {
   page: number;
   unfollow: (id: string) => void;
   follow: (id: string) => void;
+  isSelf: boolean;
 }
 
-function UserProfilePlain ({ user, unfollow, follow }: IProps){
+function UserProfilePlain ({ user, unfollow, follow, isSelf }: IProps){
   const {
     id,
     // email,
@@ -33,19 +34,23 @@ function UserProfilePlain ({ user, unfollow, follow }: IProps){
   return (
     <div className="user-profile">
       <img src={profilePic || ProfilePlaceholder} alt="profile pic" />
-      <span className="user-profile__username">{username}</span>
-      <span className="user-profile__fullname">{fullname}</span>
-      <span className="user-profile__status">{status}</span>
-      <div className="user-profile__follow">
-        <span className="user-profile__follow__content">{`${followingCount} Following`}</span>
-        <span>&#xb7;</span>
-        <span className="user-profile__follow__content">{`${followersCount} Followers`}</span>
+      <div>
+        <span className="user-profile__username">{username}</span>
+        <span className="user-profile__fullname">{fullname}</span>
+        <span className="user-profile__status">{status}</span>
+        <div className="user-profile__follow">
+          <span className="user-profile__follow__content">{`${followingCount} Following`}</span>
+          <span>&#xb7;</span>
+          <span className="user-profile__follow__content">{`${followersCount} Followers`}</span>
+        </div>
+        {isSelf ? null : (
+          <Button
+            alt={followed}
+            onClick={followed ? handleUnfollowClick : handleFollowClick}>
+            {followed ? 'Unfollow' : 'Follow'}
+          </Button>
+        )}
       </div>
-      <Button
-        alt={followed}
-        onClick={followed ? handleUnfollowClick : handleFollowClick}>
-        {followed ? 'Unfollow' : 'Follow'}
-      </Button>
     </div>
   );
 }

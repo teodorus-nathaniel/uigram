@@ -12,12 +12,14 @@ interface IProps {
   self: User | null;
   listUser: User[];
   noDataMessage: string;
+  isInFollowers?: boolean;
   isFetching?: boolean;
   error?: Error;
 }
 
 function UserFollowPlain ({
   listUser,
+  isInFollowers,
   isFetching,
   error,
   self,
@@ -38,7 +40,10 @@ function UserFollowPlain ({
                   <UserInfo user={user} />
                   {user.followed ||
                   !self ||
-                  (self && self.id === user.id) ? null : (
+                  (self && self.id === user.id) ? null : isInFollowers &&
+                  !user.followed ? (
+                    <Button>Follow Back</Button>
+                  ) : (
                     <Button>Follow</Button>
                   )}
                 </li>

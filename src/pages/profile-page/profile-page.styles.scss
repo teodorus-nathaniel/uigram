@@ -12,5 +12,16 @@
       width: 350px;
       height: 100vh;
     }
+
+    @media screen and (max-width: $large-breakpoint) {
+      flex-direction: column;
+
+      > *:first-child {
+        position: relative;
+        height: auto;
+        width: 100%;
+        z-index: 9;
+      }
+    }
   }
 }

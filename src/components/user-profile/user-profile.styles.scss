@@ -7,6 +7,10 @@
   background-color: var(--profile-background-color);
   box-shadow: 3px 0px 2px rgba(0, 0, 0, .1);
 
+  > div {
+    @include flex-box(column, flex-start, center);
+  }
+
   img {
     width: 200px;
     height: 200px;
@@ -43,5 +47,23 @@
 
   button {
     width: 100%;
+  }
+
+  @media screen and (max-width: $large-breakpoint) {
+    @include flex-box(row, center, center);
+
+    img {
+      margin-right: 50px;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    @include flex-box(column, center, center);
+
+    img {
+      margin-right: 0;
+      width: 150px;
+      height: 150px;
+    }
   }
 }

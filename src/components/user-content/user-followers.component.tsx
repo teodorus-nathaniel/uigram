@@ -16,6 +16,7 @@ export default function UserFollowers ({ user }: IProps){
 
   return (
     <UserFollow
+      isInFollowers
       noDataMessage="You don't have any follower yet."
       listUser={users}
       isFetching={isFetching}

@@ -13,8 +13,8 @@ export default function UserInfo ({ user }: IProps){
   const spanClickHandler = () => history.push(`/profile/${user.id}`);
 
   return (
-    <div className='user-info'>
-      <img src={user.profilePic || ProfilePic} alt='profile' />
+    <div className="user-info">
+      <img src={user.profilePic || ProfilePic} alt="profile" />
       <span onClick={spanClickHandler}>{user.username}</span>
     </div>
   );

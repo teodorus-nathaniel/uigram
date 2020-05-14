@@ -11,7 +11,7 @@ function* fetchSavedPostsAsync ({
 }: {
   payload: IFetchSavedPostsPayload;
 }){
-  const res = yield getFetchInstance().get('/users/self/saved');
+  const res = yield getFetchInstance().get(`/users/self/saved?page=${page}`);
   const { posts } = getDataFromResponse(res);
   yield put(
     loadSavedPosts({

@@ -20,8 +20,6 @@ export default function UserContent ({ user }: IProps){
   const [ activeTab, setActiveTab ] = useState(0);
   const Component = components[activeTab];
 
-  console.log(hash);
-
   useEffect(
     () => {
       let tab = tabs.findIndex((val) => val.toLowerCase() === hash);

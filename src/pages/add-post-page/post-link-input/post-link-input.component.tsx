@@ -2,7 +2,6 @@ import React, { ChangeEvent, useState } from 'react';
 import './post-link-input.styles.scss';
 import Button from '../../../components/button/button.component';
 import InputField from '../../../components/input-field/input-field.component';
-import useForm from '../../../effects/useForm.effect';
 import { validateUrl } from '../../../utils/validations';
 import { GlobalState } from '../../../redux/root-reducer';
 import { Dispatch } from 'redux';

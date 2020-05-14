@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { ChangeEvent } from 'react';
 import InputField from '../../../components/input-field/input-field.component';
 import Button from '../../../components/button/button.component';
 import './post-input.styles.scss';

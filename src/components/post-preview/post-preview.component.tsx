@@ -14,8 +14,6 @@ import getAddToSavedListener from '../../utils/get-add-to-saved-listener';
 import Timestamp from '../timestamp/timestamp.component';
 import { IChangeSavedPayload } from '../../redux/global-post-actions/global-post-actions';
 import { fetchApi } from '../../redux/fetch/fetch.actions';
-import { GlobalState } from '../../redux/root-reducer';
-import { User } from '../../@types/user.interfaces';
 import FollowButton from '../follow-button/follow-button.component';
 
 interface IProps {

@@ -19,7 +19,7 @@ export default function ImagesPreview ({
           className={`images-preview__image${activeImage === idx
             ? '--active'
             : ''}`}
-          key={idx}
+          key={image}
           onClick={() => onImageClick(idx)}>
           <img src={image} alt="post" />
         </div>

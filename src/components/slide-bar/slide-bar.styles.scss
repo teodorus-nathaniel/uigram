@@ -7,6 +7,7 @@
 
   .slide {
     @include flex-box(column, center, center);
+    position: relative;
     font-size: 1.1em;
     position: relative;
     height: 100%;
@@ -23,6 +24,8 @@
       transition: color 300ms ease-out;
       margin-bottom: 5px;
       cursor: pointer;
+      position: relative;
+      z-index: 5;
     }
 
     span {
@@ -66,16 +69,10 @@
     left: 80px;
     width: 50px;
     background-color: var(--link-color);
-    transform: scaleX(0);
     height: 2px;
-    width: calc(100% - 160px);
-    transition: transform 500ms ease-out;
+    transition: width 500ms ease-out;
     transform-origin: left;
-
-    &--done {
-      @extend .slide-bar__line;
-      transform: scaleX(1);
-    }
+    z-index: 0;
   }
 }
 

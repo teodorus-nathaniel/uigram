@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import './image-carousel.styles.scss';
 import AngleIcon from '../icons/angle/angle.component';
+import CrossIcon from '../icons/cross/cross.compnent';
 
 interface IProps {
   images: string[];
   slideIndex: number;
   setSlideIndex: (idx: number) => void;
+  onDeleteClick?: (idx: number) => void;
 }
 
 export default function ImageCarousel ({
   images,
   setSlideIndex,
-  slideIndex
+  slideIndex,
+  onDeleteClick
 }: IProps){
   const slide = (change: -1 | 1) => () => {
     const newIdx = slideIndex + change;
@@ -32,6 +35,11 @@ export default function ImageCarousel ({
         style={{ opacity: slideIndex <= 0 ? 0 : 'initial' }}>
         <AngleIcon color="white" />
       </div>
+      {onDeleteClick ? (
+        <div className="delete-btn" onClick={() => onDeleteClick(slideIndex)}>
+          <CrossIcon color="white" />
+        </div>
+      ) : null}
       <div
         className="image-carousel__container scrollbar"
         style={{

@@ -24,7 +24,16 @@ export default function SlideBar ({
           <span>{slide}</span>
         </div>
       ))}
-      <div className={`slide-bar__line${activeSlide === 1 ? '--done' : ''}`} />
+      <div
+        className={`slide-bar__line`}
+        style={{
+          width: `calc(((100% - (120px * ${slides.length})) / ${slides.length -
+            1} + 80px) * ${activeSlide} + 40px * ${activeSlide - 1 >= 0
+            ? activeSlide - 1
+            : 0})`
+        }}
+      />
     </div>
   );
 }
+// calc((100% - (120px * 3)) / 2)

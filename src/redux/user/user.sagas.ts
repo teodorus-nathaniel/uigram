@@ -99,7 +99,6 @@ function* checkUserAsync (){
     const res = yield getFetchInstance().post('/check-user', {
       token
     });
-    console.log(res);
 
     yield loginUserFromResponse(res);
   } catch (error) {
@@ -155,7 +154,10 @@ function* watchFetchUserPosts (){
 }
 
 function* watchCheckUser (){
-  yield takeLatest(CHECK_USER, checkUserAsync);
+  yield takeLatest(
+    createFetchSagaPattern('CHECK_USER'),
+    createFetchFunction('CHECK_USER', checkUserAsync)
+  );
 }
 
 function* watchFollowUser (){

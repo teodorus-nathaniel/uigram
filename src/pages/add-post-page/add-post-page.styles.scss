@@ -15,10 +15,15 @@
       background-color: rgba(150, 150, 150, .1);
 
       &__plus {
-        @include flex-box(row, center, center);
+        @include flex-box(column, center, center);
         width: 100%;
         height: 100%;
-        background-color: rgba(150, 150, 150, .7);
+        background-color: rgba(100, 100, 100, .7);
+
+        h2 {
+          color: white;
+          margin-top: 15px;
+        }
       }
     }
 
@@ -29,31 +34,70 @@
       &__content {
         padding: 40px 30px;
         max-width: 700px;
+        min-height: 881px;
         margin: 0 auto;
+        position: relative;
 
         &__actions {
           @include flex-box(row, flex-start, center);
+          position: absolute;
+          bottom: 40px;
+          left: 0;
           width: 100%;
-          max-width: 500px;
           margin: 0px auto;
-          margin-top: 50px;
 
-          .button {
-            @include flex-box(row, center, center);
+          .button-step {
+            @include flex-box(column, center, center);
             $self: &;
-            background-color: var(--link-color);
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            padding: 10px;
-            box-shadow: 5px 5px 15px rgba(0, 0, 0, .1),
-              2px 2px 5px rgba(0, 0, 0, .3);
             opacity: 1;
             transition: opacity 250ms ease-out;
 
+            button {
+              box-shadow: 5px 5px 15px rgba(0, 0, 0, .1),
+                2px 2px 5px rgba(0, 0, 0, .3);
+              background-color: var(--link-color);
+              border: none;
+              border-radius: 50%;
+              width: 50px;
+              height: 50px;
+              padding: 10px;
+              transition: box-shadow 300ms ease-out;
+              cursor: pointer;
+
+              .icon {
+                margin: 0px auto;
+              }
+
+              &:hover,
+              &:focus {
+                box-shadow: 15px 15px 25px rgba(0, 0, 0, .2),
+                  2px 2px 10px rgba(0, 0, 0, .4);
+                & ~ span {
+                  color: var(--link-color);
+                }
+              }
+
+              &:disabled {
+                background-color: rgb(150, 150, 150);
+
+                &:focus,
+                &:hover {
+                  & ~ span {
+                    color: var(--text-color);
+                  }
+                }
+              }
+            }
+
+            span {
+              margin-top: 5px;
+              width: 120px;
+              text-align: center;
+              transition: color 250ms ease-out;
+            }
+
             &--hide {
-              @extend .button;
+              @extend .button-step;
               opacity: 0;
               pointer-events: none;
             }

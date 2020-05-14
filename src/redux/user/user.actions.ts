@@ -2,6 +2,10 @@ import { Post } from './../../@types/post.interfaces';
 import { action, payload } from 'ts-action';
 import { User } from '../../@types/user.interfaces';
 
+export interface ICheckUserPayload {
+  name: 'CHECK_USER';
+}
+
 export interface IFetchUserPayload {
   name: 'USER';
   data: {
@@ -58,7 +62,6 @@ export const UNFOLLOW_USER = 'UNFOLLOW_USER';
 
 export const loadUser = action(LOAD_USER, payload<User>());
 export const login = action(LOGIN, payload<{ user: User; token: string }>());
-export const checkUser = action(CHECK_USER);
 export const loadUserPosts = action(
   LOAD_USER_POSTS,
   payload<{ page: number; self?: boolean; posts: Post[] }>()

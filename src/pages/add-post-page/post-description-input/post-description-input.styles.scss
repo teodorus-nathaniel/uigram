@@ -1,0 +1,38 @@
+@import './../../../shared/scss/shared';
+
+.post-description-input {
+  @include flex-box(column, flex-start, center);
+  padding: 70px 30px;
+  max-width: 500px;
+  margin: 0 auto;
+
+  h1 {
+    text-align: center;
+  }
+
+  &__info {
+    margin: 10px 0 40px 0;
+    color: RGBA(var(--text-color-rgb), 0.5);
+  }
+
+  textarea {
+    width: 100%;
+    border: 2px solid var(--text-color);
+    border-radius: 5px;
+    resize: none;
+    background-color: var(--primary-color);
+    height: 10em;
+    font-family: 'Montserrat';
+    padding: 10px 15px;
+    font-size: 1rem;
+    transition: border 300ms ease-out, box-shadow 300ms ease-out;
+    box-shadow: 3px 5px 5px rgba(0, 0, 0, .15), 5px 8px 7px rgba(0, 0, 0, .1);
+
+    &:focus,
+    &:hover {
+      border: 2px solid var(--link-color);
+      box-shadow: 3px 5px 10px rgba(0, 0, 0, .3), 5px 8px 12px rgba(0, 0, 0, .1);
+      outline: none;
+    }
+  }
+}

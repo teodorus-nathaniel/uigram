@@ -2,9 +2,8 @@ import React, { useState, ChangeEvent } from 'react';
 import InputField from '../../../components/input-field/input-field.component';
 import Button from '../../../components/button/button.component';
 import './post-input.styles.scss';
-import AngleIcon from '../../../components/icons/angle/angle.component';
 import useForm from '../../../effects/useForm.effect';
-import { isEmpty, validateUrl } from '../../../utils/validations';
+import { validateUrl } from '../../../utils/validations';
 import { fetchApi } from '../../../redux/fetch/fetch.actions';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
@@ -22,11 +21,12 @@ function PostInputPlain ({ posts, addUrlPost, addTempPost }: IProps){
       url: {
         value: '',
         error: '',
-        validation: (value: string) => validateUrl(value)
+        validation: validateUrl
       }
     },
     () => {
       addUrlPost(data.url.value);
+      data.url.value = '';
     }
   );
 

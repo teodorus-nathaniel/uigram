@@ -13,27 +13,33 @@ import { connect } from 'react-redux';
 import PostConfirmationOverlay from './post-confirmation-overlay/post-confirmation-overlay.component';
 import { Dispatch } from 'redux';
 import {
-  clearUrlPost,
+  clearTempPost,
   addPost,
-  addTempPost
+  removePost
 } from '../../redux/add-post/add-post.actions';
+import PostDescriptionInput from './post-description-input/post-description-input.component';
+import PostLinkInput from './post-link-input/post-link-input.component';
 
 interface IProps {
   posts: string[];
   tempImage: string;
   error?: string;
   isFetching?: boolean;
-  clearUrlPost: () => void;
+  clearTempPost: () => void;
   addPost: (image: string) => void;
+  removePost: (index: number) => void;
 }
-// TODO: VALIDASI GA BSA KE KANAN KALO GA DA IMAGE
+
+const slides = [ 'Images', 'Descriptions', 'Links' ];
+
 function AddPostPagePlain ({
   posts,
   tempImage,
   isFetching,
   error,
-  clearUrlPost,
-  addPost
+  clearTempPost,
+  addPost,
+  removePost
 }: IProps){
   const [ currentStep, setCurrentStep ] = useState(0);
   const [ slideIndex, setSlideIndex ] = useState(0);
@@ -41,6 +47,7 @@ function AddPostPagePlain ({
 
   const handleButtonClick = (target: number) => () => {
     if (target === currentStep) return;
+    if (currentStep === 0 && posts.length === 0) return;
     setCurrentStep(target);
   };
 
@@ -56,7 +63,7 @@ function AddPostPagePlain ({
   return (
     <div className="add-post-page">
       <PostConfirmationOverlay
-        closeOverlay={clearUrlPost}
+        closeOverlay={clearTempPost}
         image={tempImage}
         confirmImage={addPost}
       />
@@ -65,12 +72,14 @@ function AddPostPagePlain ({
           {posts.length === 0 ? (
             <div className="add-post-page__container__images__plus">
               <PlusIcon color="white" size={5} onClick={scrollToInput} />
+              <h2>Add at least 1 image to your post!</h2>
             </div>
           ) : (
             <ImageCarousel
               images={posts}
               slideIndex={slideIndex}
               setSlideIndex={setSlideIndex}
+              onDeleteClick={removePost}
             />
           )}
         </div>
@@ -95,25 +104,38 @@ function AddPostPagePlain ({
             <SlideBar
               activeSlide={currentStep}
               setActiveSlide={setCurrentStep}
-              slides={[ 'Images', 'Descriptions' ]}
+              slides={slides}
             />
-            <PostInput posts={posts} />
+
+            {currentStep === 0 ? (
+              <PostInput posts={posts} />
+            ) : currentStep === 1 ? (
+              <PostDescriptionInput />
+            ) : (
+              <PostLinkInput />
+            )}
 
             <div className="add-post-page__container__content__content__actions">
-              <button
-                onClick={handleButtonClick(0)}
-                className={`button${currentStep === 0
+              <div
+                className={`button-step${currentStep - 1 < 0
                   ? '--hide'
                   : ''} add-post-page__container__content__content__actions__prev`}>
-                <AngleIcon color="white" />
-              </button>
-              <button
-                onClick={handleButtonClick(1)}
-                className={`button${currentStep === 1
+                <button onClick={handleButtonClick(currentStep - 1)}>
+                  <AngleIcon color="white" />
+                </button>
+                <span>Prev</span>
+              </div>
+              <div
+                className={`button-step${currentStep + 1 >= slides.length
                   ? '--hide'
                   : ''} add-post-page__container__content__content__actions__next`}>
-                <AngleIcon rotate={180} color="white" />
-              </button>
+                <button
+                  disabled={posts.length === 0 && currentStep === 0}
+                  onClick={handleButtonClick(currentStep + 1)}>
+                  <AngleIcon rotate={180} color="white" />
+                </button>
+                <span>Next</span>
+              </div>
             </div>
           </div>
         </div>
@@ -136,8 +158,9 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  clearUrlPost: () => dispatch(clearUrlPost()),
-  addPost: (image: string) => dispatch(addPost({ image }))
+  clearTempPost: () => dispatch(clearTempPost()),
+  addPost: (image: string) => dispatch(addPost({ image })),
+  removePost: (index: number) => dispatch(removePost({ index }))
 });
 
 const AddPostPage = connect(mapStateToProps, mapDispatchToProps)(

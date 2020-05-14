@@ -8,19 +8,17 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { fetchApi } from '../../redux/fetch/fetch.actions';
 import { GlobalState } from '../../redux/root-reducer';
-import { User } from '../../@types/user.interfaces';
 import useGuestOnly from '../../effects/useGuestOnly';
 
 interface IProps {
   isFetching?: boolean;
   error?: string;
-  user: User | null;
+  userChecking?: boolean;
   login: (data: { email: string; password: string }) => void;
 }
 
-function LoginPagePlain ({ login, isFetching, error, user }: IProps){
+function LoginPagePlain ({ login, isFetching, error, userChecking }: IProps){
   useGuestOnly();
-
   const [ data, handleChange, handleSubmit, submitErrors ] = useForm(
     {
       email: {
@@ -40,6 +38,8 @@ function LoginPagePlain ({ login, isFetching, error, user }: IProps){
   );
 
   const { email, password } = data;
+
+  if (userChecking) return null;
 
   return (
     <CardForm
@@ -77,14 +77,13 @@ function LoginPagePlain ({ login, isFetching, error, user }: IProps){
 
 const mapStateToProps = ({
   fetchController: {
-    isFetching: { LOGIN: isFetching },
+    isFetching: { LOGIN: isFetching, CHECK_USER: userChecking },
     errors: { LOGIN: error }
-  },
-  user: { self: { data } }
+  }
 }: GlobalState) => ({
   isFetching,
   error,
-  user: data
+  userChecking
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

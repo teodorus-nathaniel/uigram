@@ -21,6 +21,28 @@
     }
   }
 
+  &:hover,
+  &:focus {
+    .delete-btn {
+      transform: rotate(360deg);
+      opacity: 1;
+    }
+  }
+
+  .delete-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 9;
+    background-color: rgba(255, 0, 36, .7);
+    padding: 5px;
+    box-shadow: 0px 0px 3px rgba(255, 255, 255, .1);
+    border-radius: 0px 0px 0px 3px;
+    opacity: 0;
+    transform: rotate(0);
+    transition: opacity 250ms ease-out, transform 350ms ease-out;
+  }
+
   &:hover .arrow {
     opacity: 1;
     box-shadow: 0px 0px 3px rgba(0, 0, 0, .1);

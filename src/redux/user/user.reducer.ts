@@ -6,7 +6,8 @@ import {
   LOGIN,
   LOAD_USER_POSTS,
   UNFOLLOW_USER,
-  FOLLOW_USER
+  FOLLOW_USER,
+  USER_CHECKED
 } from './user.actions';
 import { getCookie } from '../utils/cookie';
 
@@ -20,12 +21,14 @@ interface IState {
     posts: { data: Post[]; page: number };
   };
   token: string;
+  isChecked: boolean;
 }
 
 const INITIAL_STATE: IState = {
   self: { data: null, posts: { data: [], page: 0 } },
   user: { data: null, posts: { data: [], page: 0 } },
-  token: getCookie('token')
+  token: getCookie('token'),
+  isChecked: false
 };
 
 export default function userReducer (
@@ -38,8 +41,7 @@ export default function userReducer (
 
     if (
       (target === 'self' && !state.self.data) ||
-      (target === 'user' &&
-        (!state.user.data || action.payload !== state.user.data.id))
+      (target === 'user' && (!state.user.data || attrib !== state.user.data.id))
     ) {
       return state[target];
     }
@@ -77,6 +79,12 @@ export default function userReducer (
             page: action.payload.page
           }
         }
+      };
+
+    case USER_CHECKED:
+      return {
+        ...state,
+        isChecked: true
       };
 
     case LOAD_USER:

@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { fetchApi } from '../../redux/fetch/fetch.actions';
 import { GlobalState } from '../../redux/root-reducer';
-import useGuestOnly from '../../effects/useGuestOnly';
 
 interface IProps {
   isFetching?: boolean;
@@ -18,7 +17,6 @@ interface IProps {
 }
 
 function LoginPagePlain ({ login, isFetching, error, userChecking }: IProps){
-  useGuestOnly();
   const [ data, handleChange, handleSubmit, submitErrors ] = useForm(
     {
       email: {

@@ -17,15 +17,15 @@ interface IProps {
   fetchExplorePosts: (sort: string, page: number) => void;
 }
 
-function ExplorePostsPlain({
+function ExplorePostsPlain ({
   explore,
   sortBy,
   page,
   isFetching,
   fetchExplorePosts,
   error
-}: IProps) {
-  const [sort, setSort] = useState(sortBy || 'date');
+}: IProps){
+  const [ sort, setSort ] = useState(sortBy || 'date');
   const prevSort = usePrevious(sort);
 
   useEffect(
@@ -38,7 +38,7 @@ function ExplorePostsPlain({
         fetchExplorePosts(sort, 1);
       }
     },
-    [fetchExplorePosts, sort, explore, prevSort, page, isFetching, error]
+    [ fetchExplorePosts, sort, explore, prevSort, page, isFetching, error ]
   );
 
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect } from 'react';
 import './App.scss';
 import Navbar from './components/navbar/navbar.component';
 import Sidenav from './components/sidenav/sidenav.component';
@@ -7,22 +7,16 @@ import { connect } from 'react-redux';
 import { GlobalState } from './redux/root-reducer';
 import { User } from './@types/user.interfaces';
 import { Dispatch } from 'redux';
-import { useLocation, useHistory } from 'react-router-dom';
-import { setCookie, getCookie } from './redux/utils/cookie';
 import { fetchApi } from './redux/fetch/fetch.actions';
 
 interface IProps {
   inDarkMode: boolean;
   user: User | null;
+  isChecked: boolean;
   checkUser: () => void;
 }
 
-function AppPlain ({ user, inDarkMode, checkUser }: IProps){
-  const location = useLocation();
-  const history = useHistory();
-  const [ hasRedirected, setHasRedirected ] = useState(false);
-  const lastPath = useRef(location.pathname);
-
+function AppPlain ({ user, inDarkMode, checkUser, isChecked }: IProps){
   useEffect(
     () => {
       checkUser();
@@ -30,39 +24,30 @@ function AppPlain ({ user, inDarkMode, checkUser }: IProps){
     [ checkUser ]
   );
 
-  useEffect(
-    () => {
-      if (!hasRedirected && user) {
-        if (lastPath.current !== '' && lastPath.current) {
-          history.push(lastPath.current);
-        }
-        setHasRedirected(true);
-      }
-    },
-    [ user, hasRedirected, history, lastPath ]
-  );
-
   if (inDarkMode) {
     document.body.classList.add('dark');
   }
+
+  console.log(isChecked);
 
   return (
     <div className="App">
       {user ? <Sidenav /> : null}
       <Navbar />
       <main className={!user ? 'no-user' : ''}>
-        <MainRoute />
+        {isChecked ? <MainRoute /> : null}
       </main>
     </div>
   );
 }
 
 const mapStateToProps = ({
-  user: { self: { data } },
+  user: { self: { data }, isChecked },
   colorMode: { inDarkMode }
 }: GlobalState) => ({
   inDarkMode,
-  user: data
+  user: data,
+  isChecked
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

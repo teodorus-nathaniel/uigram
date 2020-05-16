@@ -6,7 +6,6 @@ import { Post } from '../../@types/post.interfaces';
 import './saved-page.styles.scss';
 import { Dispatch } from 'redux';
 import { fetchApi } from '../../redux/fetch/fetch.actions';
-import useUserOnly from '../../effects/useUserOnly';
 
 interface IProps {
   savedPosts: Post[];
@@ -23,8 +22,6 @@ function SavedPagePlain ({
   error,
   page
 }: IProps){
-  useUserOnly();
-
   useEffect(
     () => {
       if (isFetching || error) return;

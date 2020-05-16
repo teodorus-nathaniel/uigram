@@ -8,7 +8,6 @@ import {
   validatePassword
 } from '../../utils/validations';
 import useForm from '../../effects/useForm.effect';
-import useGuestOnly from '../../effects/useGuestOnly';
 import { connect } from 'react-redux';
 import { GlobalState } from '../../redux/root-reducer';
 import { fetchApi } from '../../redux/fetch/fetch.actions';
@@ -24,8 +23,6 @@ interface IProps {
 }
 
 function RegisterPagePlain ({ user, isFetching, error, register }: IProps){
-  useGuestOnly();
-
   const [ data, handleChange, handleSubmit, submitErrors ] = useForm(
     {
       email: {

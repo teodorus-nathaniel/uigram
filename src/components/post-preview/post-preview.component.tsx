@@ -60,7 +60,9 @@ function PostPreviewPlain ({ post, updateSaved, noFollowButton }: IProps){
             <span className="post-preview__title">{title}</span>
             <div className="post-preview__detail">
               <span>by &nbsp;</span>
-              <Link to={`/user/${owner.id}`} className="post-preview__author">
+              <Link
+                to={`/profile/${owner.id}`}
+                className="post-preview__author">
                 {owner.username}
               </Link>
               {noFollowButton ? null : <FollowButton owner={owner} />}

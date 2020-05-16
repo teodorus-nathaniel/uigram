@@ -12,7 +12,8 @@ import {
   IFollowUserPayload,
   IUnfollowUserPayload,
   followUser,
-  unfollowUser
+  unfollowUser,
+  userChecked
 } from './user.actions';
 import createFetchFunction from '../utils/create-fetch-func';
 import { dummyUser } from '../../dummy-datas/dummy-datas';
@@ -81,7 +82,6 @@ function* fetchUserPostsAsync ({
 
   const res = yield getFetchInstance().get(`/users/${id}/posts?page=${page}`);
   const { posts } = getDataFromResponse(res);
-  console.log(posts);
 
   yield put(
     loadUserPosts({
@@ -104,6 +104,8 @@ function* checkUserAsync (){
   } catch (error) {
     yield setCookie('token', '', -10);
     console.log(error);
+  } finally {
+    yield put(userChecked());
   }
 }
 

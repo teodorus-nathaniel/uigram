@@ -9,7 +9,7 @@ import { fetchApi } from '../../redux/fetch/fetch.actions';
 import { User } from '../../@types/user.interfaces';
 
 interface IProps {
-  self: { data: User | null; posts: { page: number; data: Post[] } },
+  self: { data: User | null; posts: { page: number; data: Post[] } };
   feeds: Post[];
   isFetching?: boolean;
   error?: string;
@@ -17,28 +17,28 @@ interface IProps {
   fetchFeedsPosts: (page: number) => void;
 }
 
-function FeedsPostsPlain({
+function FeedsPostsPlain ({
   self,
   feeds,
   isFetching,
   page,
   fetchFeedsPosts,
   error
-}: IProps) {
+}: IProps){
   useEffect(
     () => {
       if (isFetching || error) return;
       if (feeds.length === 0 && page === 0) fetchFeedsPosts(1);
     },
-    [fetchFeedsPosts, feeds, page, isFetching, error]
+    [ fetchFeedsPosts, feeds, page, isFetching, error ]
   );
 
   let name = 'User';
   if (self.data) name = self.data.username;
 
   return (
-    <div className='feeds-posts'>
-      <h2 className='heading'>Welcome, {name}</h2>
+    <div className="feeds-posts">
+      <h2 className="heading">Welcome, {name}</h2>
       <PostPreviewContainer
         posts={feeds}
         isFetching={isFetching}

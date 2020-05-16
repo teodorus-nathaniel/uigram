@@ -12,6 +12,8 @@ import LoginPage from '../../pages/login-page/login-page.component';
 import RegisterPage from '../../pages/register-page/register-page.component';
 import PostPagePlain from '../../pages/post-page/post-page.components';
 import AddPostPage from '../../pages/add-post-page/add-post-page.component';
+import UserOnlyRoute from './UserOnlyRoute';
+import GuestOnlyRoute from './GuestOnlyRoute';
 
 interface IProps {
   user: User | null;
@@ -23,8 +25,19 @@ const routes = [
     component: HomePage
   },
   {
+    path: '/login',
+    component: LoginPage,
+    guestOnly: true
+  },
+  {
+    path: '/register',
+    component: RegisterPage,
+    guestOnly: true
+  },
+  {
     path: '/saved',
-    component: SavedPage
+    component: SavedPage,
+    userOnly: true
   },
   {
     path: '/post-detail/:id',
@@ -35,24 +48,14 @@ const routes = [
     component: ProfilePage
   },
   {
-    path: '/login',
-    component: LoginPage
-  },
-  {
-    path: '/register',
-    component: RegisterPage
-  },
-  {
-    path: '/user/:id',
-    component: ProfilePage
-  },
-  {
     path: '/post',
-    component: PostPagePlain
+    component: PostPagePlain,
+    userOnly: true
   },
   {
     path: '/add-post',
-    component: AddPostPage
+    component: AddPostPage,
+    userOnly: true
   }
 ];
 
@@ -60,9 +63,26 @@ function MainRoutePlain ({ user }: IProps){
   return (
     <div className="main-route">
       <Switch>
-        {routes.map(({ component, path }) => (
-          <Route path={path} exact key={path} component={component} />
-        ))}
+        {routes.map(
+          ({ component, path, userOnly, guestOnly }) =>
+            userOnly ? (
+              <UserOnlyRoute
+                path={path}
+                exact
+                key={path}
+                component={component}
+              />
+            ) : guestOnly ? (
+              <GuestOnlyRoute
+                path={path}
+                exact
+                key={path}
+                component={component}
+              />
+            ) : (
+              <Route path={path} exact key={path} component={component} />
+            )
+        )}
 
         <Route
           path="*"

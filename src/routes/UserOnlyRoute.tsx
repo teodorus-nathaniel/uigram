@@ -1,8 +1,8 @@
 import React, { ReactElement, FunctionComponent } from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { GlobalState } from '../../redux/root-reducer';
-import { User } from '../../@types/user.interfaces';
+import { User } from '../@types/user.interfaces';
+import { GlobalState } from '../redux/root-reducer';
 
 interface Props extends RouteProps {
   component: FunctionComponent<any>;

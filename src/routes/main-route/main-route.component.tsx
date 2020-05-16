@@ -12,8 +12,8 @@ import LoginPage from '../../pages/login-page/login-page.component';
 import RegisterPage from '../../pages/register-page/register-page.component';
 import PostPagePlain from '../../pages/post-page/post-page.components';
 import AddPostPage from '../../pages/add-post-page/add-post-page.component';
-import UserOnlyRoute from './UserOnlyRoute';
-import GuestOnlyRoute from './GuestOnlyRoute';
+import UserOnlyRoute from '../UserOnlyRoute';
+import GuestOnlyRoute from '../GuestOnlyRoute';
 
 interface IProps {
   user: User | null;

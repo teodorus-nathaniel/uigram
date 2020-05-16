@@ -25,7 +25,7 @@ function ExplorePostsPlain ({
   fetchExplorePosts,
   error
 }: IProps){
-  const [ sort, setSort ] = useState(sortBy || 'date');
+  const [ sort, setSort ] = useState(sortBy || 'timestamp');
   const prevSort = usePrevious(sort);
 
   useEffect(
@@ -48,8 +48,8 @@ function ExplorePostsPlain ({
         <select
           onChange={({ target: { value } }) => setSort(value)}
           defaultValue={sort}>
-          <option value="date">Date</option>
-          <option value="like">Most Liked</option>
+          <option value="timestamp">Date</option>
+          <option value="likesCount">Most Liked</option>
         </select>
       </div>
       <PostPreviewContainer

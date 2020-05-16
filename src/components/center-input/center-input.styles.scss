@@ -1,0 +1,108 @@
+@import './../../shared/scss/shared';
+
+.center-input {
+  width: 100%;
+  border-radius: 5px;
+  position: relative;
+  $self: &;
+
+  &--textarea {
+    @extend .center-input;
+    height: 5em;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    box-shadow: 0 0 0px 1000px #ffffff inset !important;
+  }
+
+  textarea,
+  input {
+    border-radius: 5px;
+    padding: 1em;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    resize: none;
+    border: none;
+    font-size: 1rem;
+    border: 2px solid var(--text-color);
+    font-family: 'Montserrat';
+    background-color: var(--profile-background-color);
+    transition: border 300ms ease-out;
+
+    &:focus {
+      border: 2px solid var(--link-color);
+      outline: none;
+    }
+  }
+
+  label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    transition: font-size 250ms ease-out, top 300ms ease-out;
+    z-index: 9;
+  }
+
+  label > div {
+    position: absolute;
+    top: 0;
+    width: calc(100% + 16px);
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    transition: transform 300ms ease-out;
+    background-color: var(--profile-background-color);
+    pointer-events: none;
+  }
+
+  label > span {
+    position: relative;
+    z-index: 9;
+    color: rgb(150, 150, 150);
+  }
+
+  input.filled ~ label,
+  input:focus ~ label,
+  textarea.filled ~ label,
+  textarea:focus ~ label {
+    font-size: .75em;
+    top: 0;
+
+    span {
+      color: black;
+    }
+
+    > div {
+      transform: translateX(-50%) scaleX(1);
+    }
+  }
+
+  &__error {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    text-align: center;
+    padding: 5px 0;
+    font-size: .75em;
+    color: var(--error-color);
+    transform: translateY(100%);
+    $self: &;
+    opacity: 1;
+    transition: opacity 300ms ease-out;
+
+    &--hide {
+      opacity: 0;
+      pointer-events: none;
+      user-select: none;
+    }
+  }
+}

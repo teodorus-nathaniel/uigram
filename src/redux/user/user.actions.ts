@@ -53,6 +53,16 @@ export interface IUnfollowUserPayload {
   };
 }
 
+export interface IUpdateUserPayload {
+  name: 'UPDATE_USER';
+  data: {
+    profilePic?: File;
+    username?: string;
+    fullname?: string;
+    status?: string;
+  };
+}
+
 export const LOAD_USER = 'LOAD_USER';
 export const LOGIN = 'LOGIN';
 export const CHECK_USER = 'CHECK_USER';
@@ -60,6 +70,7 @@ export const LOAD_USER_POSTS = 'LOAD_USER_POSTS';
 export const FOLLOW_USER = 'FOLLOW_USER';
 export const UNFOLLOW_USER = 'UNFOLLOW_USER';
 export const USER_CHECKED = 'USER_CHECKED';
+export const LOGOUT = 'LOGOUT';
 
 export const loadUser = action(LOAD_USER, payload<User>());
 export const login = action(LOGIN, payload<{ user: User; token: string }>());
@@ -70,6 +81,7 @@ export const loadUserPosts = action(
 export const followUser = action(FOLLOW_USER, payload<string>());
 export const unfollowUser = action(UNFOLLOW_USER, payload<string>());
 export const userChecked = action(USER_CHECKED);
+export const logout = action(LOGOUT);
 
 export type UserActionType =
   | ReturnType<typeof loadUser>
@@ -77,4 +89,5 @@ export type UserActionType =
   | ReturnType<typeof loadUserPosts>
   | ReturnType<typeof followUser>
   | ReturnType<typeof unfollowUser>
-  | ReturnType<typeof userChecked>;
+  | ReturnType<typeof userChecked>
+  | ReturnType<typeof logout>;

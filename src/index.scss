@@ -17,6 +17,7 @@
   --text-color-lighten: rgb(37, 37, 37);
   --link-color: #00a3ff;
   --profile-background-color: white;
+  --error-color: #e30000;
 
   --box-shadow-light: white;
   --box-shadow-dark: rgba(0, 0, 0, .2);
@@ -122,27 +123,6 @@ h2.heading {
 
 .cursor {
   cursor: pointer;
-}
-
-.flex-box {
-  width: 100%;
-}
-
-.flex-row {
-  @include flex-box(row, flex-start, center);
-  @extend .flex-box;
-}
-.flex-row-space-between {
-  @include flex-box(row, space-between, center);
-  @extend .flex-box;
-}
-.flex-column {
-  @include flex-box(column, flex-start, flex-start);
-  @extend .flex-box;
-}
-.flex-column-start-end {
-  @include flex-box(column, flex-start, flex-end);
-  @extend .flex-box;
 }
 
 @keyframes rotate {

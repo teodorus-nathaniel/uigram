@@ -16,10 +16,7 @@ interface IState {
 }
 
 const INITIAL_STATE: IState = {
-  images: [
-    'https://www.creativerooms.se/cr12/wp-content/uploads/2018/02/Login3-portrait-kopiera-2.png',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR4qYi-M001tuzYlWoL_6UzOqaUfhV5uk9iBIrcxvZBrmeI75x_&usqp=CAU'
-  ],
+  images: [],
   tempImage: '',
   description: '',
   link: ''

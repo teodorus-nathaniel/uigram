@@ -7,7 +7,8 @@ import {
   LOAD_USER_POSTS,
   UNFOLLOW_USER,
   FOLLOW_USER,
-  USER_CHECKED
+  USER_CHECKED,
+  LOGOUT
 } from './user.actions';
 import { getCookie } from '../utils/cookie';
 
@@ -103,6 +104,16 @@ export default function userReducer (
         self: {
           ...state.self,
           data: action.payload.user
+        }
+      };
+
+    case LOGOUT:
+      return {
+        ...state,
+        token: '',
+        self: {
+          data: null,
+          posts: { data: [], page: 0 }
         }
       };
 

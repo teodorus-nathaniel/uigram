@@ -20,7 +20,14 @@ export default function InputField ({
       className={`input-field ${className || ''} ${errorMessage && value
         ? 'not-valid'
         : ''}`}>
-      <input {...otherProps} id={name} name={name} value={value} required />
+      <input
+        className={value ? 'filled' : ''}
+        {...otherProps}
+        id={name}
+        name={name}
+        value={value}
+        required
+      />
       <label htmlFor={name}>{label}</label>
       {errorMessage && value ? (
         <span className="error-message">{errorMessage}</span>

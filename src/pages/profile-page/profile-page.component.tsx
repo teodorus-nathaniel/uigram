@@ -72,7 +72,7 @@ function ProfilePagePlain ({
               user={displayUser.data}
               page={displayUser.posts.page}
             />
-            <UserContent user={displayUser} />
+            <UserContent user={displayUser} className="scrollbar" />
           </div>
         ) : (
           <ErrorMessage message="User not found" />

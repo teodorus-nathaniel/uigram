@@ -20,9 +20,14 @@
         height: 100%;
         background-color: rgba(100, 100, 100, .7);
 
+        .icon {
+          cursor: initial;
+        }
+
         h2 {
           color: white;
           margin-top: 15px;
+          text-align: center;
         }
       }
     }
@@ -164,6 +169,10 @@
         width: 100%;
         direction: unset;
         height: 50vh;
+
+        &__plus .icon {
+          cursor: pointer;
+        }
       }
 
       &__image-preview {

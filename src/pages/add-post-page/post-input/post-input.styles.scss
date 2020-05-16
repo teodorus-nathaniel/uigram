@@ -34,7 +34,7 @@
     }
 
     &__error {
-      color: red;
+      color: var(--error-color);
       display: block;
       font-weight: bold;
       font-size: .8em;
@@ -45,7 +45,11 @@
 
     &__desc {
       font-size: 0.8em;
-      color: rgba(0, 0, 0, .5);
+      color: rgba(0, 0, 0, .6);
+
+      span:last-child {
+        color: rgb(194, 139, 0);
+      }
     }
   }
 

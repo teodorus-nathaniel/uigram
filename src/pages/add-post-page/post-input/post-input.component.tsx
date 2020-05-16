@@ -65,8 +65,11 @@ function PostInputPlain ({ posts, addUrlPost, addTempPost }: IProps){
           onChange={handleChange}
         />
         <span className="post-input__input-url__desc">
-          Give us your website URL and we will take the screenshot of it for
-          you!
+          <span>
+            Give us your website URL and we will take the screenshot of it for
+            you!
+          </span>
+          <span>&nbsp;(websites with vh units might behave strangely)</span>
         </span>
         <span className="post-input__input-url__error">{submitErrors}</span>
         <Button onClick={handleSubmit}>Take Screenshot</Button>
@@ -81,7 +84,7 @@ function PostInputPlain ({ posts, addUrlPost, addTempPost }: IProps){
           id="file-input"
           onChange={handleFileChange}
         />
-        <Button>
+        <Button full>
           <label htmlFor="file-input">Choose File</label>
         </Button>
       </div>

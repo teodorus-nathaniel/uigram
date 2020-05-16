@@ -5,16 +5,27 @@
 
   .profile-container {
     @include flex-box(row, flex-start, flex-start);
+    height: calc(100vh - 67px);
 
     > *:first-child {
-      position: sticky;
-      top: 0;
       width: 350px;
-      height: 100vh;
+      height: 100%;
+    }
+
+    > *:nth-child(2) {
+      height: 100%;
+      overflow: auto;
     }
 
     @media screen and (max-width: $large-breakpoint) {
       flex-direction: column;
+      height: auto;
+
+      > *:first-child,
+      > *:nth-child(2) {
+        height: auto;
+        overflow: initial;
+      }
 
       > *:first-child {
         position: relative;

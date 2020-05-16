@@ -12,16 +12,43 @@
   transition: background-color 250ms ease-out, color 250ms ease-out,
     border 250ms ease-out;
 
+  &.full {
+    padding: 0;
+    > * {
+      padding: .75em 1.5em;
+      height: 100%;
+      width: 100%;
+      display: block;
+      cursor: pointer;
+    }
+  }
+
   &.alt {
     background-color: transparent;
     color: var(--text-color);
     border: 1px solid var(--text-color);
+
+    &:hover {
+      border: 1px solid var(--link-color);
+    }
   }
 
   &:hover,
   &:focus {
     background-color: transparent;
     color: var(--link-color);
+  }
+
+  &.red {
+    background-color: transparent;
+    color: var(--error-color);
+    border: 1px solid var(--error-color);
+
+    &:hover {
+      border: 1px solid var(--error-color);
+      background-color: var(--error-color);
+      color: white;
+    }
   }
 
   &:disabled {

@@ -10,12 +10,13 @@ import useHash from '../../effects/useHash.effect';
 
 interface IProps {
   user: { data: User | null; posts: { page: number; data: Post[] } };
+  className?: string;
 }
 
 const tabs = [ 'Posts', 'Following', 'Followers' ];
 const components = [ UserPosts, UserFollowing, UserFollowers ];
 
-export default function UserContent ({ user }: IProps){
+export default function UserContent ({ user, className }: IProps){
   const [ hash, setHash ] = useHash();
   const [ activeTab, setActiveTab ] = useState(0);
   const Component = components[activeTab];
@@ -35,7 +36,7 @@ export default function UserContent ({ user }: IProps){
   };
 
   return (
-    <div className="user-content">
+    <div className={`user-content ${className || ''}`}>
       <TabLayout
         tabs={tabs}
         activeTab={activeTab}

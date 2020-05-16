@@ -13,7 +13,8 @@ import {
   IUnfollowUserPayload,
   followUser,
   unfollowUser,
-  userChecked
+  userChecked,
+  LOGOUT
 } from './user.actions';
 import createFetchFunction from '../utils/create-fetch-func';
 import { dummyUser } from '../../dummy-datas/dummy-datas';
@@ -102,7 +103,7 @@ function* checkUserAsync (){
 
     yield loginUserFromResponse(res);
   } catch (error) {
-    yield setCookie('token', '', -10);
+    yield setCookie('token', '', -99999);
     console.log(error);
   } finally {
     yield put(userChecked());
@@ -175,6 +176,14 @@ function* watchUnfollowUser (){
   );
 }
 
+function* logout (){
+  yield setCookie('token', '', -99999);
+}
+
+function* watchLogout (){
+  yield takeLatest(LOGOUT, logout);
+}
+
 export default function* userSagas (){
   yield all([
     call(watchFetchUser),
@@ -183,6 +192,7 @@ export default function* userSagas (){
     call(watchFetchUserPosts),
     call(watchCheckUser),
     call(watchFollowUser),
-    call(watchUnfollowUser)
+    call(watchUnfollowUser),
+    call(watchLogout)
   ]);
 }

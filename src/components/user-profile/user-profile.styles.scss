@@ -2,16 +2,17 @@
 
 .user-profile {
   @include flex-box(column, flex-start, center);
-  padding: 20px 50px;
-
+  padding: 30px 50px;
+  position: relative;
   background-color: var(--profile-background-color);
   box-shadow: 3px 0px 2px rgba(0, 0, 0, .1);
 
   > div {
     @include flex-box(column, flex-start, center);
+    flex: 1;
   }
 
-  img {
+  > img {
     width: 200px;
     height: 200px;
     object-fit: cover;
@@ -21,14 +22,18 @@
 
   &__username {
     font-size: 2.5em;
+    margin-bottom: 5px;
   }
 
   &__fullname {
     margin-bottom: 25px;
+    color: rgb(150, 150, 150);
   }
 
   &__status {
-    margin-bottom: 5px;
+    margin-bottom: 15px;
+    font-size: 1em;
+    text-align: center;
   }
 
   &__follow {
@@ -47,18 +52,48 @@
 
   button {
     width: 100%;
+    max-width: 300px;
+  }
+
+  &__update-info {
+    @include flex-box(column, flex-start, center);
+    padding: 5px 0px;
+    span {
+      text-align: center;
+      font-size: .8em;
+      color: rgb(150, 150, 150);
+    }
+  }
+
+  &__logout {
+    margin-top: auto;
   }
 
   @media screen and (max-width: $large-breakpoint) {
     @include flex-box(row, center, center);
 
+    > div {
+      padding-top: 60px;
+    }
+
     img {
       margin-right: 50px;
+    }
+
+    &__logout {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: max-content !important;
     }
   }
 
   @media screen and (max-width: 600px) {
     @include flex-box(column, center, center);
+
+    > div {
+      padding-top: 0px;
+    }
 
     img {
       margin-right: 0;

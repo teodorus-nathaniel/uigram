@@ -26,9 +26,9 @@
   }
 
   &__input-url {
-    margin-top: 80px;
+    margin-top: 60px;
 
-    .input-field {
+    .center-input {
       font-size: 1.3rem;
       margin-bottom: 5px;
     }
@@ -39,15 +39,18 @@
       font-weight: bold;
       font-size: .8em;
       box-sizing: content-box;
-      padding: 10px 0px 15px 0px;
+      padding: 15px 0px 15px 0px;
       min-height: 1.25em;
+      text-align: center;
     }
 
     &__desc {
       font-size: 0.8em;
-      color: rgba(0, 0, 0, .6);
+      color: RGBA(var(--text-color-rgb), .6);
+      text-align: center;
+      display: block;
 
-      span:last-child {
+      span {
         color: rgb(194, 139, 0);
       }
     }

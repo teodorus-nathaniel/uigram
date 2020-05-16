@@ -64,6 +64,7 @@ export interface IUpdateUserPayload {
 }
 
 export const LOAD_USER = 'LOAD_USER';
+export const LOAD_SELF = 'LOAD_SELF';
 export const LOGIN = 'LOGIN';
 export const CHECK_USER = 'CHECK_USER';
 export const LOAD_USER_POSTS = 'LOAD_USER_POSTS';
@@ -73,6 +74,7 @@ export const USER_CHECKED = 'USER_CHECKED';
 export const LOGOUT = 'LOGOUT';
 
 export const loadUser = action(LOAD_USER, payload<User>());
+export const loadSelf = action(LOAD_SELF, payload<User>());
 export const login = action(LOGIN, payload<{ user: User; token: string }>());
 export const loadUserPosts = action(
   LOAD_USER_POSTS,
@@ -85,6 +87,7 @@ export const logout = action(LOGOUT);
 
 export type UserActionType =
   | ReturnType<typeof loadUser>
+  | ReturnType<typeof loadSelf>
   | ReturnType<typeof login>
   | ReturnType<typeof loadUserPosts>
   | ReturnType<typeof followUser>

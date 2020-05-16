@@ -14,7 +14,9 @@ import {
   followUser,
   unfollowUser,
   userChecked,
-  LOGOUT
+  LOGOUT,
+  IUpdateUserPayload,
+  loadSelf
 } from './user.actions';
 import createFetchFunction from '../utils/create-fetch-func';
 import { dummyUser } from '../../dummy-datas/dummy-datas';
@@ -135,6 +137,32 @@ function* watchFetchUser (){
   );
 }
 
+function* logout (){
+  yield setCookie('token', '', -99999);
+}
+
+function* updateUserAsync ({
+  payload: { data }
+}: {
+  payload: IUpdateUserPayload;
+}){
+  const bodyFormData = new FormData();
+  if (data.fullname) bodyFormData.set('fullname', data.fullname);
+  if (data.username) bodyFormData.set('username', data.username);
+  if (data.status) bodyFormData.set('status', data.status);
+  if (data.profilePic) bodyFormData.set('profilePic', data.profilePic);
+  const res = yield getFetchInstance().patch('/users/self', bodyFormData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  });
+  console.log(res);
+
+  const { user } = getDataFromResponse(res);
+  console.log(user);
+  yield put(loadSelf(user));
+}
+
 function* watchLogin (){
   yield takeLatest(
     createFetchSagaPattern('LOGIN'),
@@ -176,12 +204,15 @@ function* watchUnfollowUser (){
   );
 }
 
-function* logout (){
-  yield setCookie('token', '', -99999);
-}
-
 function* watchLogout (){
   yield takeLatest(LOGOUT, logout);
+}
+
+function* watchUpdateUser (){
+  yield takeLatest(
+    createFetchSagaPattern('UPDATE_USER'),
+    createFetchFunction('UPDATE_USER', updateUserAsync)
+  );
 }
 
 export default function* userSagas (){
@@ -193,6 +224,7 @@ export default function* userSagas (){
     call(watchCheckUser),
     call(watchFollowUser),
     call(watchUnfollowUser),
-    call(watchLogout)
+    call(watchLogout),
+    call(watchUpdateUser)
   ]);
 }

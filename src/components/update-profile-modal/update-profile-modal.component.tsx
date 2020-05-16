@@ -8,17 +8,29 @@ import useForm from '../../effects/useForm.effect';
 import { isEmpty } from '../../utils/validations';
 import CrossIcon from '../icons/cross/cross.compnent';
 import UpdateIcon from '../icons/update/update.component';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { IUpdateUserPayload } from '../../redux/user/user.actions';
+import { fetchApi } from '../../redux/fetch/fetch.actions';
+import { GlobalState } from '../../redux/root-reducer';
+import Loading from '../loading/loading.component';
 
 interface Props {
   user: User;
   isOpen: boolean;
+  isFetching?: boolean;
+  error?: string;
   closeModal: () => void;
+  updateUser: (data: IUpdateUserPayload['data']) => void;
 }
 
-export default function UpdateProfileModal ({
+function UpdateProfileModalPlain ({
   user,
   isOpen,
-  closeModal
+  closeModal,
+  updateUser,
+  isFetching,
+  error
 }: Props): ReactElement{
   const [ image, setImage ] = useState<{
     value: string | undefined;
@@ -45,7 +57,16 @@ export default function UpdateProfileModal ({
         value: user.status
       }
     },
-    () => {}
+    () => {
+      if (!enableUpdate) return;
+      const obj: IUpdateUserPayload['data'] = {};
+      if (image.value !== user.profilePic) obj.profilePic = image.file;
+      if (data.status.value !== user.status) obj.status = status.value;
+      if (data.username.value !== user.username) obj.username = username.value;
+      if (data.fullname.value !== user.fullname) obj.fullname = fullname.value;
+
+      updateUser(obj);
+    }
   );
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -85,6 +106,12 @@ export default function UpdateProfileModal ({
   return (
     <div className={`update-profile-modal-overlay${!isOpen ? '--hide' : ''}`}>
       <form className="update-profile-modal" onSubmit={handleSubmit}>
+        <div
+          className={`update-profile-modal__loading${isFetching
+            ? ''
+            : '--hide'}`}>
+          <Loading />
+        </div>
         <CrossIcon
           className="update-profile-modal__close"
           size={3}
@@ -125,11 +152,30 @@ export default function UpdateProfileModal ({
             useTextarea
           />
           <span className="update-profile-modal__content__error">
-            {submitErrors}
+            {error || submitErrors}
           </span>
-          <Button disabled={!enableUpdate}>Update Profile</Button>
+          <Button type="submit" disabled={!enableUpdate}>
+            Update Profile
+          </Button>
         </div>
       </form>
     </div>
   );
 }
+
+const mapStateToProps = ({
+  fetchController: { isFetching, errors }
+}: GlobalState) => ({
+  isFetching: isFetching.UPDATE_USER,
+  error: errors.UPDATE_USER
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  updateUser: (user: IUpdateUserPayload['data']) =>
+    dispatch(fetchApi({ name: 'UPDATE_USER', data: user }))
+});
+
+const UpdateProfileModal = connect(mapStateToProps, mapDispatchToProps)(
+  UpdateProfileModalPlain
+);
+export default UpdateProfileModal;

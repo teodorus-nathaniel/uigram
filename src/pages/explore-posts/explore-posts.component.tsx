@@ -7,6 +7,7 @@ import { Post } from '../../@types/post.interfaces';
 import './explore-posts.styles.scss';
 import usePrevious from '../../effects/usePrevious.effect';
 import { fetchApi } from '../../redux/fetch/fetch.actions';
+import { clearExplorePosts } from '../../redux/post/post.actions';
 
 interface IProps {
   explore: Post[];
@@ -15,6 +16,7 @@ interface IProps {
   isFetching?: boolean;
   error?: string;
   fetchExplorePosts: (sort: string, page: number) => void;
+  clearExplorePosts: () => void;
 }
 
 function ExplorePostsPlain ({
@@ -23,6 +25,7 @@ function ExplorePostsPlain ({
   page,
   isFetching,
   fetchExplorePosts,
+  clearExplorePosts,
   error
 }: IProps){
   const [ sort, setSort ] = useState(sortBy || 'timestamp');
@@ -46,7 +49,10 @@ function ExplorePostsPlain ({
       <div className="explore-posts__sort-container">
         <span>Sort by: </span>
         <select
-          onChange={({ target: { value } }) => setSort(value)}
+          onChange={({ target: { value } }) => {
+            setSort(value);
+            clearExplorePosts();
+          }}
           defaultValue={sort}>
           <option value="timestamp">Date</option>
           <option value="likesCount">Most Liked</option>
@@ -77,7 +83,8 @@ const mapStateToProps = ({
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   fetchExplorePosts: (sort: string, page: number) => {
     dispatch(fetchApi({ name: 'EXPLORE', data: { sort, page } }));
-  }
+  },
+  clearExplorePosts: () => dispatch(clearExplorePosts())
 });
 
 const ExplorePosts = connect(mapStateToProps, mapDispatchToProps)(

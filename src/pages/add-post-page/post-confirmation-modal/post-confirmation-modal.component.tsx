@@ -1,16 +1,18 @@
 import React from 'react';
 import CrossIcon from '../../../components/icons/cross/cross.compnent';
 import CheckIcon from '../../../components/icons/check/check.component';
-import './post-confirmation-overlay.styles.scss';
+import './post-confirmation-modal.styles.scss';
 
 interface IProps {
   image: string;
+  file?: File;
   closeOverlay: () => void;
-  confirmImage: (image: string) => void;
+  confirmImage: (image: string, file?: File) => void;
 }
 
 export default function PostConfirmationOverlay ({
   image,
+  file,
   closeOverlay,
   confirmImage
 }: IProps){
@@ -31,7 +33,7 @@ export default function PostConfirmationOverlay ({
             </div>
             <div className="post-confirmation-overlay__confirm__content__actions__yes">
               <CheckIcon color="#00a3ff" size={3} />
-              <button onClick={() => confirmImage(image)} />
+              <button onClick={() => confirmImage(image, file)} />
             </div>
           </div>
         </div>

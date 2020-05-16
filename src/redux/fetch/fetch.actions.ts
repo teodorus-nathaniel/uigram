@@ -1,10 +1,12 @@
+import { IPostNewPostPayload } from './../add-post/add-post.actions';
 import {
   ILoginPayload,
   IRegisterPayload,
   IFetchUserPostsPayload,
   IFollowUserPayload,
   IUnfollowUserPayload,
-  ICheckUserPayload
+  ICheckUserPayload,
+  IUpdateUserPayload
 } from './../user/user.actions';
 import {
   IChangeLikesOrDislikesPayload,
@@ -33,7 +35,9 @@ export type IFetchApiPayload =
   | IFollowUserPayload
   | IUnfollowUserPayload
   | IAddPostUsingUrlPayload
-  | ICheckUserPayload;
+  | ICheckUserPayload
+  | IUpdateUserPayload
+  | IPostNewPostPayload;
 
 export type IFetchApiNames =
   | IFetchExplorePayload['name']
@@ -50,7 +54,9 @@ export type IFetchApiNames =
   | IFollowUserPayload['name']
   | IUnfollowUserPayload['name']
   | IAddPostUsingUrlPayload['name']
-  | ICheckUserPayload['name'];
+  | ICheckUserPayload['name']
+  | IUpdateUserPayload['name']
+  | IPostNewPostPayload['name'];
 
 export const FETCH_API = 'FETCH_API';
 export const FETCH_API_FAIL = 'FETCH_API_FAIL';

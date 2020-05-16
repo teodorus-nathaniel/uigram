@@ -1,5 +1,6 @@
 import React, { ReactElement, ChangeEvent } from 'react';
 import './center-input.styles.scss';
+import ErrorIcon from '../icons/error/error.component';
 
 interface Props {
   name: string;
@@ -42,13 +43,16 @@ export default function CenterInput ({
           onChange={onChange}
         />
       )}
-      <label htmlFor={name}>
-        <div className="center-input__label-bg" />
-        <span>{label}</span>
-      </label>
-      <span className={`center-input__error${error ? '' : '--hide'}`}>
-        {error}
-      </span>
+      <label htmlFor={name}>{label}</label>
+      <div className="center-input__rect">{label}</div>
+
+      <ErrorIcon
+        className={`center-input__err-icon${error ? '' : '--hide'} ${useTextarea
+          ? 'textarea'
+          : ''}`}
+        size={1.3}
+      />
+      <div className={`center-input__error`}>{error}</div>
     </div>
   );
 }

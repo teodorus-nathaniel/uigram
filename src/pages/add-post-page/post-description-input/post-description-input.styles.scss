@@ -11,28 +11,33 @@
   }
 
   &__info {
-    margin: 10px 0 40px 0;
+    margin: 10px 0 10px 0;
     color: RGBA(var(--text-color-rgb), 0.5);
   }
 
-  textarea {
-    width: 100%;
-    border: 2px solid var(--text-color);
-    border-radius: 5px;
-    resize: none;
-    background-color: var(--primary-color);
-    height: 10em;
-    font-family: 'Montserrat';
-    padding: 10px 15px;
-    font-size: 1rem;
-    transition: border 300ms ease-out, box-shadow 300ms ease-out;
-    box-shadow: 3px 5px 5px rgba(0, 0, 0, .15), 5px 8px 7px rgba(0, 0, 0, .1);
+  &__title,
+  &__desc {
+    margin: 15px 0px;
+  }
 
-    &:focus,
-    &:hover {
-      border: 2px solid var(--link-color);
-      box-shadow: 3px 5px 10px rgba(0, 0, 0, .3), 5px 8px 12px rgba(0, 0, 0, .1);
-      outline: none;
+  &__title {
+    margin-bottom: 5px;
+  }
+
+  &__title-info {
+    font-size: .75em;
+    color: rgb(150, 150, 150);
+    margin-bottom: 10px;
+
+    span {
+      color: rgb(194, 139, 0);
+    }
+  }
+
+  &__desc {
+    height: 10em;
+    textarea {
+      height: 10em;
     }
   }
 }

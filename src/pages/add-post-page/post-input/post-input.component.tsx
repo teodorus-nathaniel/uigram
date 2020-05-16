@@ -8,11 +8,12 @@ import { fetchApi } from '../../../redux/fetch/fetch.actions';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { addTempPost } from '../../../redux/add-post/add-post.actions';
+import CenterInput from '../../../components/center-input/center-input.component';
 
 interface IProps {
   posts: string[];
   addUrlPost: (url: string) => void;
-  addTempPost: (url: string) => void;
+  addTempPost: (url: string, file: File) => void;
 }
 
 function PostInputPlain ({ posts, addUrlPost, addTempPost }: IProps){
@@ -36,7 +37,7 @@ function PostInputPlain ({ posts, addUrlPost, addTempPost }: IProps){
     if (!file) return;
 
     const tempUrl = URL.createObjectURL(file);
-    addTempPost(tempUrl);
+    addTempPost(tempUrl, file);
   };
 
   const { url } = data;
@@ -57,18 +58,16 @@ function PostInputPlain ({ posts, addUrlPost, addTempPost }: IProps){
         <span>You can add {10 - posts.length} more image(s)</span>
       </div>
       <div className="post-input__input-url">
-        <InputField
+        <CenterInput
           label="Website URL"
           name="url"
           value={url.value}
-          errorMessage={url.error}
+          error={url.error}
           onChange={handleChange}
         />
         <span className="post-input__input-url__desc">
-          <span>
-            Give us your website URL and we will take the screenshot of it for
-            you!
-          </span>
+          Give us your website URL and we will take the screenshot of it for
+          you!
           <span>&nbsp;(websites with vh units might behave strangely)</span>
         </span>
         <span className="post-input__input-url__error">{submitErrors}</span>
@@ -95,7 +94,8 @@ function PostInputPlain ({ posts, addUrlPost, addTempPost }: IProps){
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   addUrlPost: (url: string) =>
     dispatch(fetchApi({ name: 'ADD_URL_POST', data: { url } })),
-  addTempPost: (url: string) => dispatch(addTempPost({ image: url }))
+  addTempPost: (url: string, file?: File) =>
+    dispatch(addTempPost({ image: url, file }))
 });
 
 const PostInput = connect(null, mapDispatchToProps)(PostInputPlain);

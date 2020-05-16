@@ -3,7 +3,8 @@ import { CHANGE_LIKES_OR_DISLIKES } from './../global-post-actions/global-post-a
 import {
   PostActionType,
   LOAD_FEEDS_POSTS,
-  LOAD_EXPLORE_POSTS
+  LOAD_EXPLORE_POSTS,
+  CLEAR_EXPLORE_POSTS
 } from './post.actions';
 import {
   GlobalPostActionType,
@@ -95,6 +96,14 @@ export default function postReducer (
         }
         return item;
       });
+    case CLEAR_EXPLORE_POSTS:
+      return {
+        ...state,
+        explore: {
+          posts: [],
+          page: 0
+        }
+      };
     default:
       return state;
   }

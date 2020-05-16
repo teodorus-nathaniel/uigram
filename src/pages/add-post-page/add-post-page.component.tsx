@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import ImageCarousel from '../../components/image-carousel/image-carousel.component';
 import ImagesPreview from '../../components/images-preview/images-preview.component';
 
@@ -10,7 +10,7 @@ import AngleIcon from '../../components/icons/angle/angle.component';
 import Loading from '../../components/loading/loading.component';
 import { GlobalState } from '../../redux/root-reducer';
 import { connect } from 'react-redux';
-import PostConfirmationOverlay from './post-confirmation-overlay/post-confirmation-overlay.component';
+import PostConfirmationOverlay from './post-confirmation-modal/post-confirmation-modal.component';
 import { Dispatch } from 'redux';
 import {
   clearTempPost,
@@ -19,24 +19,32 @@ import {
 } from '../../redux/add-post/add-post.actions';
 import PostDescriptionInput from './post-description-input/post-description-input.component';
 import PostLinkInput from './post-link-input/post-link-input.component';
+import PostLoadingModal from './post-loading-modal/post-loading-modal.component';
 
 interface IProps {
-  posts: string[];
+  posts: { link: string; file?: File }[];
   tempImage: string;
+  tempFile?: File;
   error?: string;
+  title: string;
+  description: string;
   isFetching?: boolean;
   clearTempPost: () => void;
-  addPost: (image: string) => void;
+  addPost: (image: string, file?: File) => void;
   removePost: (index: number) => void;
 }
 
-const slides = [ 'Images', 'Descriptions', 'Links' ];
+const slides = [ 'Images', 'Details', 'Links' ];
 
 function AddPostPagePlain ({
   posts,
   tempImage,
+  isFetching: isFetchingUrlPost,
   isFetching,
   error,
+  description,
+  title,
+  tempFile,
   clearTempPost,
   addPost,
   removePost
@@ -45,9 +53,26 @@ function AddPostPagePlain ({
   const [ slideIndex, setSlideIndex ] = useState(0);
   const inputRef = useRef<HTMLDivElement>(null);
 
+  const canMoveToNextStep = useCallback(
+    () => {
+      if (currentStep === 0 && posts.length === 0) return false;
+      if (currentStep === 1 && (!title || !description)) return false;
+
+      return true;
+    },
+    [ currentStep, posts, title, description ]
+  );
+
+  useEffect(
+    () => {
+      setSlideIndex(posts.length - 1);
+    },
+    [ posts ]
+  );
+
   const handleButtonClick = (target: number) => () => {
     if (target === currentStep) return;
-    if (currentStep === 0 && posts.length === 0) return;
+    if (target > currentStep && !canMoveToNextStep()) return;
     setCurrentStep(target);
   };
 
@@ -60,13 +85,17 @@ function AddPostPagePlain ({
       });
   };
 
+  const images = posts.map(({ link }) => link);
+
   return (
     <div className="add-post-page">
       <PostConfirmationOverlay
         closeOverlay={clearTempPost}
         image={tempImage}
+        file={tempFile}
         confirmImage={addPost}
       />
+      <PostLoadingModal />
       <div className="add-post-page__container">
         <div className="add-post-page__container__images scrollbar">
           {posts.length === 0 ? (
@@ -76,7 +105,7 @@ function AddPostPagePlain ({
             </div>
           ) : (
             <ImageCarousel
-              images={posts}
+              images={images}
               slideIndex={slideIndex}
               setSlideIndex={setSlideIndex}
               onDeleteClick={removePost}
@@ -85,7 +114,7 @@ function AddPostPagePlain ({
         </div>
         <div className="add-post-page__container__image-preview">
           <ImagesPreview
-            images={posts}
+            images={images}
             onImageClick={setSlideIndex}
             activeImage={slideIndex}
           />
@@ -103,12 +132,15 @@ function AddPostPagePlain ({
           <div className="add-post-page__container__content__content">
             <SlideBar
               activeSlide={currentStep}
-              setActiveSlide={setCurrentStep}
+              setActiveSlide={(idx: number) => {
+                if (!canMoveToNextStep() && idx > currentStep) return;
+                setCurrentStep(idx);
+              }}
               slides={slides}
             />
 
             {currentStep === 0 ? (
-              <PostInput posts={posts} />
+              <PostInput posts={images} />
             ) : currentStep === 1 ? (
               <PostDescriptionInput />
             ) : (
@@ -130,7 +162,7 @@ function AddPostPagePlain ({
                   ? '--hide'
                   : ''} add-post-page__container__content__content__actions__next`}>
                 <button
-                  disabled={posts.length === 0 && currentStep === 0}
+                  disabled={!canMoveToNextStep()}
                   onClick={handleButtonClick(currentStep + 1)}>
                   <AngleIcon rotate={180} color="white" />
                 </button>
@@ -145,7 +177,7 @@ function AddPostPagePlain ({
 }
 
 const mapStateToProps = ({
-  addPost: { images, tempImage },
+  addPost: { images, tempImage, tempFile, title, description },
   fetchController: {
     errors: { ADD_URL_POST: error },
     isFetching: { ADD_URL_POST: isFetching }
@@ -153,13 +185,16 @@ const mapStateToProps = ({
 }: GlobalState) => ({
   posts: images,
   tempImage,
+  tempFile,
   error,
-  isFetching
+  isFetching,
+  title,
+  description
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   clearTempPost: () => dispatch(clearTempPost()),
-  addPost: (image: string) => dispatch(addPost({ image })),
+  addPost: (image: string, file?: File) => dispatch(addPost({ image, file })),
   removePost: (index: number) => dispatch(removePost({ index }))
 });
 

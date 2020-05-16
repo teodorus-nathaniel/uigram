@@ -1,0 +1,41 @@
+@import './../../../shared/scss/shared';
+
+.post-loading-modal {
+  @include flex-box(row, center, center);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .7);
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 300ms ease-out;
+
+  &--hide {
+    @extend .post-loading-modal;
+    user-select: none;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  > div {
+    @include flex-box(column, center, center);
+    color: white;
+    margin-bottom: 50px;
+
+    .finished-icon {
+      width: auto !important;
+      padding: 50px 0px;
+      height: auto !important;
+
+      &.success {
+        color: var(--link-color) !important;
+      }
+
+      &.error {
+        color: rgb(126, 43, 43) !important;
+      }
+    }
+  }
+}

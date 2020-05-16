@@ -17,6 +17,11 @@ export function isEmpty (text: string, value: string){
     : '';
 }
 
+export function validateUrlOrEmpty (url: string){
+  if (url === '') return '';
+  return validateUrl(url);
+}
+
 export function validateUrl (url: string){
   return /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/.test(
     url

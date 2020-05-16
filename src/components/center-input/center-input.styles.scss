@@ -11,16 +11,6 @@
     height: 5em;
   }
 
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus textarea:-webkit-autofill,
-  textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
-  select:-webkit-autofill,
-  select:-webkit-autofill:hover,
-  select:-webkit-autofill:focus {
-    box-shadow: 0 0 0px 1000px #ffffff inset !important;
-  }
-
   textarea,
   input {
     border-radius: 5px;
@@ -30,10 +20,11 @@
     text-align: center;
     resize: none;
     border: none;
-    font-size: 1rem;
+    font-size: 1em;
+    background-color: var(--primary-color);
     border: 2px solid var(--text-color);
+    color: var(--text-color);
     font-family: 'Montserrat';
-    background-color: var(--profile-background-color);
     transition: border 300ms ease-out;
 
     &:focus {
@@ -48,61 +39,97 @@
     left: 50%;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    transition: font-size 250ms ease-out, top 300ms ease-out;
+    transition: font-size 250ms ease-out, top 350ms ease-out;
     z-index: 9;
   }
 
-  label > div {
+  &__rect {
     position: absolute;
     top: 0;
-    width: calc(100% + 16px);
-    height: 100%;
     left: 50%;
-    transform: translateX(-50%) scaleX(0);
-    transition: transform 300ms ease-out;
-    background-color: var(--profile-background-color);
+    padding: 3px;
+    transform: translate(-50%, -50%) scaleX(0);
+    transition: transform 250ms ease-out;
+    background-image: linear-gradient(
+      to bottom,
+      var(--background-color) 0%,
+      var(--background-color) 50%,
+      var(--primary-color) 50%,
+      var(--primary-color) 100%
+    );
     pointer-events: none;
+    color: transparent;
+    border-radius: 5px;
   }
 
-  label > span {
-    position: relative;
+  label {
     z-index: 9;
     color: rgb(150, 150, 150);
   }
 
-  input.filled ~ label,
-  input:focus ~ label,
-  textarea.filled ~ label,
-  textarea:focus ~ label {
-    font-size: .75em;
-    top: 0;
-
-    span {
-      color: black;
+  input.filled,
+  input:focus,
+  textarea.filled,
+  textarea:focus {
+    ~ label {
+      font-size: .75em;
+      top: 0;
+      color: var(--text-color);
     }
 
-    > div {
-      transform: translateX(-50%) scaleX(1);
+    ~ .center-input__rect {
+      transform: translate(-50%, -50%) scaleX(1);
     }
   }
 
   &__error {
     position: absolute;
-    width: 100%;
-    bottom: 0;
-    text-align: center;
-    padding: 5px 0;
+    right: 10px;
+    padding: .5em 1em;
     font-size: .75em;
-    color: var(--error-color);
-    transform: translateY(100%);
+    background-color: var(--error-color);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, .1), 0px 3px 5px rgba(0, 0, 0, .2);
+    border-radius: 5px;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: opacity 250ms ease-out, transform 350ms ease-out;
+    top: calc(50% - 3em);
+    font-weight: bold;
+    color: white;
+    max-width: 20ch;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  &__err-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
     $self: &;
+    color: var(--error-color) !important;
     opacity: 1;
     transition: opacity 300ms ease-out;
 
+    &:hover {
+      ~ .center-input__error {
+        transform: translateY(-50%);
+        opacity: 1;
+        pointer-events: initial;
+        user-select: initial;
+        z-index: 9;
+      }
+    }
+
     &--hide {
-      opacity: 0;
+      @extend #{$self};
       pointer-events: none;
-      user-select: none;
+      opacity: 0;
+    }
+
+    &.textarea {
+      top: 10px;
+      transform: none;
     }
   }
 }

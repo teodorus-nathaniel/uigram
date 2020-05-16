@@ -5,18 +5,22 @@ import AddPostActionType, {
   CLEAR_ALL_STATE,
   REMOVE_POST,
   CHANGE_LINK,
-  CHANGE_DESC
+  CHANGE_DESC,
+  CHANGE_TITLE
 } from './add-post.actions';
 
 interface IState {
-  images: string[];
+  images: { link: string; file?: File }[];
   tempImage: string;
+  title: string;
   description: string;
   link: string;
+  tempFile?: File;
 }
 
 const INITIAL_STATE: IState = {
   images: [],
+  title: '',
   tempImage: '',
   description: '',
   link: ''
@@ -30,12 +34,16 @@ export default function addPostReducer (
     case ADD_POST:
       return {
         ...state,
-        images: [ ...state.images, action.payload.image ]
+        images: [
+          ...state.images,
+          { link: action.payload.image, file: action.payload.file }
+        ]
       };
     case ADD_TEMP_POST:
       return {
         ...state,
-        tempImage: action.payload.image
+        tempImage: action.payload.image,
+        tempFile: action.payload.file
       };
     case CLEAR_TEMP_POST:
       return {
@@ -66,6 +74,11 @@ export default function addPostReducer (
       return {
         ...state,
         description: action.payload
+      };
+    case CHANGE_TITLE:
+      return {
+        ...state,
+        title: action.payload
       };
     default:
       return state;

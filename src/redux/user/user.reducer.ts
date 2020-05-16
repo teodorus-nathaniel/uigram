@@ -8,7 +8,8 @@ import {
   UNFOLLOW_USER,
   FOLLOW_USER,
   USER_CHECKED,
-  LOGOUT
+  LOGOUT,
+  LOAD_SELF
 } from './user.actions';
 import { getCookie } from '../utils/cookie';
 
@@ -92,6 +93,15 @@ export default function userReducer (
       return {
         ...state,
         user: {
+          ...state.user,
+          data: action.payload
+        }
+      };
+
+    case LOAD_SELF:
+      return {
+        ...state,
+        self: {
           ...state.user,
           data: action.payload
         }

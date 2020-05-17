@@ -1,4 +1,10 @@
-import React, { ReactElement, useState, ChangeEvent, useEffect } from 'react';
+import React, {
+  ReactElement,
+  useState,
+  ChangeEvent,
+  useEffect,
+  useRef
+} from 'react';
 import { User } from '../../@types/user.interfaces';
 import ProfilePlaceholder from './../../assets/images/profile-icon.png';
 import Button from '../button/button.component';
@@ -32,6 +38,7 @@ function UpdateProfileModalPlain ({
   isFetching,
   error
 }: Props): ReactElement{
+  const haveUpdated = useRef(false);
   const [ image, setImage ] = useState<{
     value: string | undefined;
     error: string;
@@ -41,9 +48,19 @@ function UpdateProfileModalPlain ({
     error: ''
   });
 
+  useEffect(
+    () => {
+      if (haveUpdated.current && !isFetching && !error) {
+        closeModal();
+        haveUpdated.current = false;
+      }
+    },
+    [ error, isFetching, closeModal ]
+  );
+
   const [ enableUpdate, setEnableUpdate ] = useState(false);
 
-  const [ data, handleChange, handleSubmit, submitErrors ] = useForm(
+  const [ data, handleChange, handleSubmit, submitErrors, setData ] = useForm(
     {
       username: {
         value: user.username,
@@ -66,7 +83,34 @@ function UpdateProfileModalPlain ({
       if (data.fullname.value !== user.fullname) obj.fullname = fullname.value;
 
       updateUser(obj);
+      haveUpdated.current = true;
     }
+  );
+
+  useEffect(
+    () => {
+      setImage({
+        value: user.profilePic,
+        error: ''
+      });
+      setData((prev) => ({
+        ...prev,
+        username: {
+          ...prev.username,
+          value: user.username,
+          error: ''
+        },
+        fullname: {
+          ...prev.fullname,
+          value: user.fullname
+        },
+        status: {
+          ...prev.status,
+          value: user.status
+        }
+      }));
+    },
+    [ user, setData, isOpen ]
   );
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {

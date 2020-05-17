@@ -59,7 +59,6 @@ export default function postDetailReducer (
 
     case FOLLOW_USER:
       const newPostDetailFollow = updatePostDetail((post) => {
-        console.log(post);
         post.owner.followed = true;
         return post;
       }, action.payload);

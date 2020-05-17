@@ -48,7 +48,7 @@ export default function TabLayout ({
     () => {
       return () => {
         if (saveState) {
-          const newState = { ...scrollOffset };
+          const newState = [ ...scrollOffset ];
           newState[activeTab] = window.scrollY;
           saveState({
             activeTab,
@@ -100,7 +100,7 @@ export default function TabLayout ({
   );
 
   return (
-    <div className='tab-layout'>
+    <div className="tab-layout">
       {tabs.map((tab, idx) => (
         <div className={`tab${idx === activeTab ? '-active' : ''}`} key={tab}>
           <span onClick={() => setActiveTabAndSaveOffset(idx)}>{tab}</span>
@@ -111,7 +111,7 @@ export default function TabLayout ({
         style={{
           left: `calc(100% / ${tabs.length * 2} * (${activeTab * 2} + 1))`
         }}
-        className='tab-layout__active-border'
+        className="tab-layout__active-border"
       />
     </div>
   );

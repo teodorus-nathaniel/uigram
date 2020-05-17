@@ -54,7 +54,10 @@ function ProfilePagePlain ({
   );
 
   let displayUser = user;
-  if (match.params.id === 'self') {
+  if (
+    match.params.id === 'self' ||
+    (self.data && self.data.id === match.params.id)
+  ) {
     displayUser = self;
 
     if (displayUser === null) {
@@ -68,7 +71,10 @@ function ProfilePagePlain ({
         {displayUser.data ? (
           <div className="profile-container">
             <UserProfile
-              isSelf={match.params.id === 'self'}
+              isSelf={
+                match.params.id === 'self' ||
+                !!(self.data && self.data.id === match.params.id)
+              }
               user={displayUser.data}
               page={displayUser.posts.page}
             />

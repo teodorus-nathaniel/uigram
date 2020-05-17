@@ -14,7 +14,11 @@ import {
 } from './../global-post-actions/global-post-actions';
 import { action, payload } from 'ts-action';
 import { IFetchExplorePayload, IFetchFeedsPayload } from '../post/post.actions';
-import { IFetchCommentsPayload } from '../comments/comments.actions';
+import {
+  IFetchCommentsPayload,
+  IFetchRepliesPayload,
+  ILikeOrDislikeCommentPayload
+} from '../comments/comments.actions';
 import { IFetchPostDetailPayload } from '../post-detail/post-detail.actions';
 import { IFetchSavedPostsPayload } from '../saved-posts/saved-posts.actions';
 import { IFetchUserPayload } from '../user/user.actions';
@@ -37,7 +41,9 @@ export type IFetchApiPayload =
   | IAddPostUsingUrlPayload
   | ICheckUserPayload
   | IUpdateUserPayload
-  | IPostNewPostPayload;
+  | IPostNewPostPayload
+  | IFetchRepliesPayload
+  | ILikeOrDislikeCommentPayload;
 
 export type IFetchApiNames =
   | IFetchExplorePayload['name']
@@ -56,7 +62,9 @@ export type IFetchApiNames =
   | IAddPostUsingUrlPayload['name']
   | ICheckUserPayload['name']
   | IUpdateUserPayload['name']
-  | IPostNewPostPayload['name'];
+  | IPostNewPostPayload['name']
+  | IFetchRepliesPayload['name']
+  | ILikeOrDislikeCommentPayload['name'];
 
 export const FETCH_API = 'FETCH_API';
 export const FETCH_API_FAIL = 'FETCH_API_FAIL';

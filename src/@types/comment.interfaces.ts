@@ -9,4 +9,8 @@ export interface Comment {
   timestamp: number;
   liked?: boolean;
   disliked?: boolean;
+  replies?: {
+    page: number;
+    data: Comment[];
+  };
 }

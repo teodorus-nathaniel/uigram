@@ -13,7 +13,13 @@ export default function useForm<
 > (
   initialState: T,
   successSubmit: () => void
-): [T, (e: ChangeEvent<HTMLInputElement>) => void, (e: any) => void, string]{
+): [
+  T,
+  (e: ChangeEvent<HTMLInputElement>) => void,
+  (e: any) => void,
+  string,
+  React.Dispatch<React.SetStateAction<T>>
+]{
   const [ data, setData ] = useState(initialState);
   const [ submitErrors, setErrors ] = useState<string[]>([]);
 
@@ -91,5 +97,5 @@ export default function useForm<
     successSubmit();
   };
 
-  return [ data, handleChange, handleSubmit, submitErrors[0] ];
+  return [ data, handleChange, handleSubmit, submitErrors[0], setData ];
 }

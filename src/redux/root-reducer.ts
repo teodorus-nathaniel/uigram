@@ -7,6 +7,7 @@ import commentsReducer from './comments/comments.reducer';
 import userReducer from './user/user.reducer';
 import fetchReducer from './fetch/fetch.reducer';
 import addPostReducer from './add-post/add-post.reducer';
+import { LOGOUT } from './user/user.actions';
 
 const reducers = {
   fetchController: fetchReducer,
@@ -19,7 +20,15 @@ const reducers = {
   addPost: addPostReducer
 };
 
-const rootReducer = combineReducers(reducers);
+const appReducer = combineReducers(reducers);
 
-export type GlobalState = ReturnType<typeof rootReducer>;
+const rootReducer = (state: any, action: any) => {
+  if (action.type === LOGOUT) {
+    state = { user: state.user };
+  }
+
+  return appReducer(state, action);
+};
+
+export type GlobalState = ReturnType<typeof appReducer>;
 export default rootReducer;

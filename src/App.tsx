@@ -28,8 +28,6 @@ function AppPlain ({ user, inDarkMode, checkUser, isChecked }: IProps){
     document.body.classList.add('dark');
   }
 
-  console.log(isChecked);
-
   return (
     <div className="App">
       {user ? <Sidenav /> : null}

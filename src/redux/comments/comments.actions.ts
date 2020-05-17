@@ -10,18 +10,48 @@ export interface IFetchCommentsPayload {
   };
 }
 
-export const LOAD_COMMENTS = 'LOAD_COMMENTS';
+export interface IFetchRepliesPayload {
+  name: 'REPLIES';
+  data: {
+    parentId: string;
+    page: number;
+    limit: number;
+  };
+}
+
+export interface ILikeOrDislikeCommentPayload {
+  name: 'LIKE_DISLIKE_COMMENT';
+  data: {
+    id: string;
+    like?: boolean;
+    dislike?: boolean;
+  };
+}
+
+export const ADD_COMMENTS = 'ADD_COMMENTS';
 export const CLEAR_COMMENTS = 'CLEAR_COMMENTS';
+export const ADD_REPLIES = 'ADD_REPLIES';
+export const UPDATE_COMMENTS = 'UPDATE_COMMENTS';
 
-export const loadComments = action(LOAD_COMMENTS, payload<Comment[]>());
+export const addComments = action(
+  ADD_COMMENTS,
+  payload<{ comments: Comment[]; page: number; postId: string }>()
+);
 export const clearComments = action(CLEAR_COMMENTS);
+export const addReplies = action(
+  ADD_REPLIES,
+  payload<{ replies: Comment[]; page: number; parentId: string }>()
+);
 
-export type CommentsActionType =
-  | ReturnType<typeof loadComments>
-  | ReturnType<typeof clearComments>;
+export const updateComments = action(
+  UPDATE_COMMENTS,
+  payload<{ comment: Comment }>()
+);
 
-const CommentActionAPI = {
-  clearComments
-};
+type CommentsActionType =
+  | ReturnType<typeof addComments>
+  | ReturnType<typeof clearComments>
+  | ReturnType<typeof addReplies>
+  | ReturnType<typeof updateComments>;
 
-export default CommentActionAPI;
+export default CommentsActionType;

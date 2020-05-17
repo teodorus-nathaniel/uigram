@@ -5,10 +5,11 @@
 
   textarea {
     border: none;
-    padding: 5px 10px;
+    padding: 1em 1.5em;
     border-radius: 5px;
     width: 100%;
-    font-family: 'Open Sans';
+    font-family: 'Montserrat';
+    font-size: 1rem;
     resize: none;
     background-color: var(--background-color);
     box-shadow: -3px -3px 2px var(--box-shadow-light) inset,

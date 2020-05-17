@@ -30,13 +30,14 @@ export default function CommentContent ({
 
   return (
     <div className={`comment ${animation ? 'fade-in' : ''}`}>
-      <div className='comment__info'>
+      <div className="comment__info">
         <UserInfo user={owner} />
-        <Timestamp timestamp={timestamp} className='comment__info__timestamp' />
+        <Timestamp timestamp={timestamp} className="comment__info__timestamp" />
       </div>
       <p>{content}</p>
-      <div className='flex-row-space-between comment__additional-data'>
+      <div className="flex-row-space-between comment__additional-data">
         <LikeDislike
+          forComment
           id={id}
           liked={liked}
           disliked={disliked}

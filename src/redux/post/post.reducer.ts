@@ -104,6 +104,7 @@ export default function postReducer (
           page: 0
         }
       };
+
     default:
       return state;
   }

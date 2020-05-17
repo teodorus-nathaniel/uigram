@@ -1,6 +1,8 @@
 .comments-container {
-  > * {
-    padding: 5px 0px;
-    margin: 20px 0px;
+  &__content {
+    > * {
+      padding: 5px 0px;
+      margin: 20px 0px;
+    }
   }
 }

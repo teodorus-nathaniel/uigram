@@ -1,6 +1,10 @@
 import { Post } from './../../@types/post.interfaces';
 import { action, payload } from 'ts-action';
 import { User } from '../../@types/user.interfaces';
+import {
+  changeLikesOrDislikes,
+  changeSaved
+} from '../global-post-actions/global-post-actions';
 
 export interface ICheckUserPayload {
   name: 'CHECK_USER';
@@ -93,4 +97,6 @@ export type UserActionType =
   | ReturnType<typeof followUser>
   | ReturnType<typeof unfollowUser>
   | ReturnType<typeof userChecked>
-  | ReturnType<typeof logout>;
+  | ReturnType<typeof logout>
+  | ReturnType<typeof changeLikesOrDislikes>
+  | ReturnType<typeof changeSaved>;

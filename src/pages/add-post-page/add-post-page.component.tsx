@@ -39,7 +39,6 @@ const slides = [ 'Images', 'Details', 'Links' ];
 function AddPostPagePlain ({
   posts,
   tempImage,
-  isFetching: isFetchingUrlPost,
   isFetching,
   error,
   description,
@@ -140,7 +139,7 @@ function AddPostPagePlain ({
             />
 
             {currentStep === 0 ? (
-              <PostInput posts={images} />
+              <PostInput posts={images} error={error} />
             ) : currentStep === 1 ? (
               <PostDescriptionInput />
             ) : (

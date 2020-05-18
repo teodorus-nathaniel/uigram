@@ -24,7 +24,7 @@ function PostLoadingModalPlain ({ isFetching, error }: Props): ReactElement{
 
   useEffect(
     () => {
-      if (hasUploaded.current && !isFetching) {
+      if (hasUploaded.current && !isFetching && !error) {
         setTimeout(() => {
           history.push('/');
         }, 3000);

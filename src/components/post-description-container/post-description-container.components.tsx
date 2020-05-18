@@ -36,7 +36,6 @@ export default function PostDescriptionContainer ({
         value: '',
         error: error
       }));
-      console.log(title);
       return;
     }
     error = isEmpty('Description', description.value);

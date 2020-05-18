@@ -11,11 +11,12 @@ import CenterInput from '../../../components/center-input/center-input.component
 
 interface IProps {
   posts: string[];
+  error?: string;
   addUrlPost: (url: string) => void;
   addTempPost: (url: string, file: File) => void;
 }
 
-function PostInputPlain ({ posts, addUrlPost, addTempPost }: IProps){
+function PostInputPlain ({ posts, addUrlPost, addTempPost, error }: IProps){
   const [ data, handleChange, handleSubmit, submitErrors ] = useForm(
     {
       url: {
@@ -69,7 +70,9 @@ function PostInputPlain ({ posts, addUrlPost, addTempPost }: IProps){
           you!
           <span>&nbsp;(websites with vh units might behave strangely)</span>
         </span>
-        <span className="post-input__input-url__error">{submitErrors}</span>
+        <span className="post-input__input-url__error">
+          {submitErrors || error}
+        </span>
         <Button onClick={handleSubmit}>Take Screenshot</Button>
       </div>
       <div className="post-input__separator">

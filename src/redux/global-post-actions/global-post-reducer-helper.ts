@@ -22,7 +22,7 @@ export function changePostLikesOrDislikes<T extends Post> (
   post.likeCount += +!!like;
   post.dislikeCount += +!!dislike;
 
-  return post;
+  return { ...post };
 }
 
 export function changePostSaved (
@@ -32,5 +32,5 @@ export function changePostSaved (
   if (post.id === payload.post.id) {
     post.saved = payload.saved;
   }
-  return post;
+  return { ...post };
 }

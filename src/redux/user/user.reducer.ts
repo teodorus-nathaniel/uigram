@@ -12,6 +12,14 @@ import {
   LOAD_SELF
 } from './user.actions';
 import { getCookie } from '../utils/cookie';
+import {
+  CHANGE_LIKES_OR_DISLIKES,
+  CHANGE_SAVED
+} from '../global-post-actions/global-post-actions';
+import {
+  changePostLikesOrDislikes,
+  changePostSaved
+} from '../global-post-actions/global-post-reducer-helper';
 
 interface IState {
   self: {
@@ -63,6 +71,29 @@ export default function userReducer (
     };
   }
 
+  function updateUserAndSelfPosts (cb: (el: Post) => Post){
+    const newUserPosts = state.user.posts.data.map(cb);
+    const newSelfPosts = state.self.posts.data.map(cb);
+
+    return {
+      ...state,
+      self: {
+        ...state.self,
+        posts: {
+          ...state.self.posts,
+          data: newSelfPosts
+        }
+      },
+      user: {
+        ...state.user,
+        posts: {
+          ...state.user.posts,
+          data: newUserPosts
+        }
+      }
+    };
+  }
+
   switch (action.type) {
     case LOAD_USER_POSTS:
       const modify = action.payload.self ? 'self' : 'user';
@@ -106,6 +137,16 @@ export default function userReducer (
           data: action.payload
         }
       };
+
+    case CHANGE_LIKES_OR_DISLIKES:
+      return updateUserAndSelfPosts((el) =>
+        changePostLikesOrDislikes(el, action.payload)
+      );
+
+    case CHANGE_SAVED:
+      return updateUserAndSelfPosts((el) =>
+        changePostSaved(el, action.payload)
+      );
 
     case LOGIN:
       return {

@@ -1,4 +1,3 @@
-import { dummyArrayPost } from './../../dummy-datas/dummy-datas';
 import { loadSavedPosts, IFetchSavedPostsPayload } from './saved-posts.actions';
 import { all, call, takeLatest, put } from 'redux-saga/effects';
 import createFetchFunction from '../utils/create-fetch-func';
@@ -19,14 +18,6 @@ function* fetchSavedPostsAsync ({
       page
     })
   );
-
-  // yield new Promise((resolve) => setTimeout(resolve, 2000));
-  // yield put(
-  //   loadSavedPosts({
-  //     posts: dummyArrayPost(0).filter((post) => post.saved),
-  //     page
-  //   })
-  // );
 }
 
 function* watchFetchSavedPosts (){

@@ -4,8 +4,6 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { User } from '../../@types/user.interfaces';
 import { useHistory } from 'react-router-dom';
-import SlideBar from '../../components/slide-bar/slide-bar.components';
-import postPageStore from '../login-page/post-page.store';
 import PostImage from '../../components/post-image/post-image.components';
 import PostDescriptionContainer from '../../components/post-description-container/post-description-container.components';
 
@@ -13,7 +11,6 @@ interface IProps {
   self: { data: User | null };
 }
 
-const slideNames = [ 'Images', 'Description' ];
 const Components = [ PostImage, PostDescriptionContainer ];
 
 function PostPagePlain ({ self }: IProps){

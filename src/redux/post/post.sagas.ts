@@ -5,7 +5,6 @@ import {
   IFetchExplorePayload,
   IFetchFeedsPayload
 } from './post.actions';
-import { dummyArrayPost } from '../../dummy-datas/dummy-datas';
 import createFetchFunction from '../utils/create-fetch-func';
 import createFetchSagaPattern from '../fetch/fetch-saga-pattern-creator';
 import getFetchInstance from '../utils/fetch';

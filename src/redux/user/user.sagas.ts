@@ -1,4 +1,3 @@
-import { dummyArrayPost } from './../../dummy-datas/dummy-datas';
 import { call, all, takeLatest, put } from 'redux-saga/effects';
 import {
   IFetchUserPayload,
@@ -8,7 +7,6 @@ import {
   IRegisterPayload,
   IFetchUserPostsPayload,
   loadUserPosts,
-  CHECK_USER,
   IFollowUserPayload,
   IUnfollowUserPayload,
   followUser,
@@ -19,7 +17,6 @@ import {
   loadSelf
 } from './user.actions';
 import createFetchFunction from '../utils/create-fetch-func';
-import { dummyUser } from '../../dummy-datas/dummy-datas';
 import createFetchSagaPattern from '../fetch/fetch-saga-pattern-creator';
 import getFetchInstance from './../utils/fetch';
 import getDataFromResponse from '../utils/get-data-from-res';
@@ -43,10 +40,6 @@ function* fetchUserAsync ({
 }: {
   payload: IFetchUserPayload;
 }){
-  // yield new Promise((resolve) => setTimeout(resolve, 2000));
-  // dummyUser.id = id;
-  // yield put(loadUser(dummyUser));
-
   const res = yield getFetchInstance().get(`/users/${id}`);
   const { user } = getDataFromResponse(res);
   yield put(loadUser(user));
@@ -67,14 +60,6 @@ function* fetchUserPostsAsync ({
 }: {
   payload: IFetchUserPostsPayload;
 }){
-  // yield new Promise((resolve) => setTimeout(resolve, 2000));
-  // yield put(
-  //   loadUserPosts({
-  //     page,
-  //     posts: dummyArrayPost(page),
-  //     self
-  //   })
-  // );
   if (self) {
     const { data } = store.getState().user.self;
     if (data) id = data.id;
@@ -106,7 +91,6 @@ function* checkUserAsync (){
     yield loginUserFromResponse(res);
   } catch (error) {
     yield setCookie('token', '', -99999);
-    console.log(error);
   } finally {
     yield put(userChecked());
   }

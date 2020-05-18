@@ -5,12 +5,9 @@ import { connect } from 'react-redux';
 import { Comment } from '../../@types/comment.interfaces';
 import CommentParent from '../comment-parent/comment-parent.component';
 import './comments-container.styles.scss';
-import CommentActionAPI, {
-  clearComments
-} from '../../redux/comments/comments.actions';
+import { clearComments } from '../../redux/comments/comments.actions';
 import { useLocation } from 'react-router-dom';
 import { fetchApi } from '../../redux/fetch/fetch.actions';
-import LoadingError from '../loading-error/loading-error.component';
 import ErrorMessage from '../error-message/error-message.component';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loading from '../loading/loading.component';

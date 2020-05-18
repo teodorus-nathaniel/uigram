@@ -1,5 +1,4 @@
 import { put } from 'redux-saga/effects';
-import { dummyArrayComments } from './../../dummy-datas/dummy-datas';
 import {
   IFetchCommentsPayload,
   addComments,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './image-carousel.styles.scss';
 import AngleIcon from '../icons/angle/angle.component';
 import CrossIcon from '../icons/cross/cross.compnent';

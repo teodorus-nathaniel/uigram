@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, useRef, useEffect } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import './post-link-input.styles.scss';
 import Button from '../../../components/button/button.component';
 import { validateUrlOrEmpty } from '../../../utils/validations';

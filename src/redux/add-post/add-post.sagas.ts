@@ -8,11 +8,7 @@ import {
 } from 'redux-saga/effects';
 import createFetchSagaPattern from '../fetch/fetch-saga-pattern-creator';
 import createFetchFunction from '../utils/create-fetch-func';
-import {
-  IAddPostUsingUrlPayload,
-  addTempPost,
-  addPost
-} from './add-post.actions';
+import { IAddPostUsingUrlPayload, addTempPost } from './add-post.actions';
 import getFetchInstance from '../utils/fetch';
 import getDataFromResponse from '../utils/get-data-from-res';
 import { GlobalState } from '../root-reducer';

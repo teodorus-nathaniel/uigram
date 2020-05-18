@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import './slide-bar.styles.scss';
 
 interface IProps {
@@ -36,4 +36,3 @@ export default function SlideBar ({
     </div>
   );
 }
-// calc((100% - (120px * 3)) / 2)

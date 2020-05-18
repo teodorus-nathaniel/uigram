@@ -88,6 +88,10 @@
   }
 
   .comments {
+    .icon {
+      cursor: initial !important;
+    }
+
     > * {
       margin: 15px 0px;
     }

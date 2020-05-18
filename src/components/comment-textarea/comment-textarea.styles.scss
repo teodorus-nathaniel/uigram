@@ -15,7 +15,16 @@
     box-shadow: -3px -3px 2px var(--box-shadow-light) inset,
       3px 3px 2px var(--box-shadow-dark) inset;
   }
-  button {
+
+  &__action {
+    @include flex-box(row, flex-start, center);
     margin-top: 10px;
+
+    &__error {
+      color: var(--error-color);
+      margin-left: 20px;
+      font-weight: bold;
+      font-size: .75em;
+    }
   }
 }

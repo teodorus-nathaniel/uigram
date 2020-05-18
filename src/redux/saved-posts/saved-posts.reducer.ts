@@ -6,6 +6,7 @@ import {
   CHANGE_LIKES_OR_DISLIKES
 } from '../global-post-actions/global-post-actions';
 import { changePostLikesOrDislikes } from '../global-post-actions/global-post-reducer-helper';
+import { ADD_NEW_COMMENT, ADD_NEW_REPLY } from '../comments/comments.actions';
 
 interface IState {
   savedPosts: {
@@ -51,6 +52,18 @@ export default function savedPostsReducer (
       return {
         ...state,
         savedPosts: { ...state.savedPosts, posts: newPosts }
+      };
+    case ADD_NEW_REPLY:
+    case ADD_NEW_COMMENT:
+      const newPostsComments = state.savedPosts.posts.map((post) => {
+        if (post.id === action.payload.postId)
+          return { ...post, commentsCount: post.commentsCount + 1 };
+        return post;
+      });
+
+      return {
+        ...state,
+        savedPosts: { ...state.savedPosts, posts: newPostsComments }
       };
     default:
       return state;

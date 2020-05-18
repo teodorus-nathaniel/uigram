@@ -98,7 +98,7 @@ function PostDetailsPlain ({ post, updateSaved }: IProps){
           <CommentIcon size={1.4} />
           <span>{commentsCount} comments</span>
         </div>
-        <CommentTextArea />
+        <CommentTextArea postId={id} />
         <CommentsContainer postId={id} />
       </div>
     </div>

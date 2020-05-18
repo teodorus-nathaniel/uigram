@@ -3,7 +3,9 @@ import CommentsActionType, {
   CLEAR_COMMENTS,
   ADD_COMMENTS,
   ADD_REPLIES,
-  UPDATE_COMMENTS
+  UPDATE_COMMENTS,
+  CLEAR_REPLIES,
+  ADD_NEW_REPLY
 } from './comments.actions';
 
 interface IState {
@@ -95,6 +97,31 @@ export default function commentsReducer (
         ...state,
         comments: [],
         page: 0
+      };
+
+    case CLEAR_REPLIES:
+      const newStateComments = [ ...state.comments ];
+      const comment = newStateComments.find(
+        (el) => el.id === action.payload.id
+      );
+      if (comment) {
+        comment.replies = undefined;
+      }
+      return {
+        ...state,
+        comments: newStateComments
+      };
+
+    case ADD_NEW_REPLY:
+      let newUpdatedComments = [ ...state.comments ];
+      let newComment = newUpdatedComments.find(
+        (el) => el.id === action.payload.parent
+      );
+      if (newComment) newComment.repliesCount += 1;
+
+      return {
+        ...state,
+        comments: newUpdatedComments
       };
 
     default:

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import './textbox.styles.scss';
 
 interface IProps {
@@ -6,13 +6,17 @@ interface IProps {
   type?: 'text' | 'password';
   className?: string;
   width?: string;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function Textbox ({
   placeholder,
   type = 'text',
   className,
-  width = '100%'
+  width = '100%',
+  onChange,
+  value
 }: IProps){
   return (
     <input
@@ -20,6 +24,8 @@ export default function Textbox ({
       placeholder={placeholder}
       className={`textbox ${className}`}
       style={{ width: width }}
+      onChange={onChange}
+      value={value}
     />
   );
 }

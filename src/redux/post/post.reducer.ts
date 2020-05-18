@@ -15,6 +15,7 @@ import {
   changePostSaved
 } from '../global-post-actions/global-post-reducer-helper';
 import { FOLLOW_USER, UNFOLLOW_USER } from '../user/user.actions';
+import { ADD_NEW_COMMENT, ADD_NEW_REPLY } from '../comments/comments.actions';
 
 interface IState {
   explore: { posts: Post[]; page: number; sort?: string };
@@ -104,6 +105,13 @@ export default function postReducer (
           page: 0
         }
       };
+
+    case ADD_NEW_REPLY:
+    case ADD_NEW_COMMENT:
+      return updateExploreAndFeeds((item) => {
+        if (item.id === action.payload.id) item.commentsCount += 1;
+        return item;
+      });
 
     default:
       return state;

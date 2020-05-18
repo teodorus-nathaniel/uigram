@@ -1,3 +1,7 @@
+import {
+  IAddNewCommentPayload,
+  IAddNewReplyPayload
+} from './../comments/comments.actions';
 import { IPostNewPostPayload } from './../add-post/add-post.actions';
 import {
   ILoginPayload,
@@ -43,7 +47,9 @@ export type IFetchApiPayload =
   | IUpdateUserPayload
   | IPostNewPostPayload
   | IFetchRepliesPayload
-  | ILikeOrDislikeCommentPayload;
+  | ILikeOrDislikeCommentPayload
+  | IAddNewCommentPayload
+  | IAddNewReplyPayload;
 
 export type IFetchApiNames =
   | IFetchExplorePayload['name']
@@ -64,7 +70,9 @@ export type IFetchApiNames =
   | IUpdateUserPayload['name']
   | IPostNewPostPayload['name']
   | IFetchRepliesPayload['name']
-  | ILikeOrDislikeCommentPayload['name'];
+  | ILikeOrDislikeCommentPayload['name']
+  | IAddNewCommentPayload['name']
+  | IAddNewReplyPayload['name'];
 
 export const FETCH_API = 'FETCH_API';
 export const FETCH_API_FAIL = 'FETCH_API_FAIL';

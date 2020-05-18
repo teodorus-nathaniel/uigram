@@ -1,5 +1,7 @@
+import { addNewReply } from './../comments/comments.actions';
 import { action, payload } from 'ts-action';
 import { Post } from './../../@types/post.interfaces';
+import { addNewComment } from '../comments/comments.actions';
 
 export interface IChangeSavedPayload {
   name: 'CHANGE_SAVED';
@@ -31,4 +33,6 @@ export const changeLikesOrDislikes = action(
 
 export type GlobalPostActionType =
   | ReturnType<typeof changeSaved>
-  | ReturnType<typeof changeLikesOrDislikes>;
+  | ReturnType<typeof changeLikesOrDislikes>
+  | ReturnType<typeof addNewComment>
+  | ReturnType<typeof addNewReply>;

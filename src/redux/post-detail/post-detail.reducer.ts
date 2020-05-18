@@ -1,3 +1,4 @@
+import { ADD_NEW_COMMENT, ADD_NEW_REPLY } from './../comments/comments.actions';
 import { FOLLOW_USER, UNFOLLOW_USER } from './../user/user.actions';
 import { PostDetail } from '../../@types/post.interfaces';
 import { PostDetailActionType, LOAD_POST_DETAIL } from './post-detail.actions';
@@ -75,6 +76,18 @@ export default function postDetailReducer (
       return {
         ...state,
         postDetail: newPostDetailUnfollow
+      };
+
+    case ADD_NEW_REPLY:
+    case ADD_NEW_COMMENT:
+      if (!state.postDetail || action.payload.postId !== state.postDetail.id)
+        return state;
+      return {
+        ...state,
+        postDetail: {
+          ...state.postDetail,
+          commentsCount: state.postDetail.commentsCount + 1
+        }
       };
 
     default:

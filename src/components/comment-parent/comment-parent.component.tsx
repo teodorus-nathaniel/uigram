@@ -6,7 +6,6 @@ import { useInView } from 'react-intersection-observer';
 import AvatarIcon from './../../assets/images/avatar.png';
 import Textbox from '../textbox/textbox.component';
 import Button from '../button/button.component';
-import { dummyArrayComments } from '../../dummy-datas/dummy-datas';
 import CommentContent from '../comment-content/comment-content.component';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
@@ -16,11 +15,13 @@ import Loading from '../loading/loading.component';
 interface IProps {
   comment: Comment;
   fetchReplies: (parentId: string, page: number, limit?: number) => void;
+  postReply: (id: string, content: string, postId: string) => void;
 }
 
-function CommentParentPlain ({ comment, fetchReplies }: IProps){
+function CommentParentPlain ({ comment, fetchReplies, postReply }: IProps){
   const [ showReplies, setShowReplies ] = useState(false);
   const [ showReplyInput, setShowReplyInput ] = useState(false);
+  const [ replyInput, setReplyInput ] = useState('');
   const hasFetch = useRef(false);
 
   const [ ref, , entry ] = useInView({
@@ -52,7 +53,13 @@ function CommentParentPlain ({ comment, fetchReplies }: IProps){
         style={{ display: showReplyInput ? 'flex' : 'none' }}>
         <div className="user-reply-input__user-info">
           <img src={AvatarIcon} alt="" />
-          <Textbox placeholder="add reply..." />
+          <Textbox
+            placeholder="add reply..."
+            value={replyInput}
+            onChange={({ target: { value } }) => {
+              setReplyInput(value);
+            }}
+          />
         </div>
         <div className="user-reply-input__buttons">
           <Button
@@ -60,7 +67,14 @@ function CommentParentPlain ({ comment, fetchReplies }: IProps){
             onClick={() => setShowReplyInput(false)}>
             Cancel
           </Button>
-          <Button className="reply-btn">Reply</Button>
+          <Button
+            className="reply-btn"
+            onClick={() => {
+              postReply(comment.id, replyInput, comment.postId);
+              setReplyInput('');
+            }}>
+            Reply
+          </Button>
         </div>
       </div>
 
@@ -99,7 +113,9 @@ function CommentParentPlain ({ comment, fetchReplies }: IProps){
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   fetchReplies: (parentId: string, page: number, limit = 5) =>
-    dispatch(fetchApi({ name: 'REPLIES', data: { page, limit, parentId } }))
+    dispatch(fetchApi({ name: 'REPLIES', data: { page, limit, parentId } })),
+  postReply: (id: string, content: string, postId: string) =>
+    dispatch(fetchApi({ name: 'ADD_NEW_REPLY', data: { id, content, postId } }))
 });
 
 const CommentParent = connect(null, mapDispatchToProps)(CommentParentPlain);

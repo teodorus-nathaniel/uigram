@@ -64,6 +64,7 @@ export const dummyComment: Comment = {
     'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio lorem ipsum dolor amet sit Lorem ipsum dolor sit amet',
   dislikeCount: 20,
   likeCount: 1,
+  postId: '2',
   owner: {
     id: 'isadjf',
     username: 'Teodorus',

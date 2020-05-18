@@ -37,7 +37,7 @@
     "typescript": "^3.7.5"
   },
   "scripts": {
-    "start": "SET NODE_ENV=production && node server/server.js",
+    "start": "node server/server.js",
     "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

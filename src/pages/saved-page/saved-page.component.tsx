@@ -25,7 +25,6 @@ function SavedPagePlain ({
   useEffect(
     () => {
       if (isFetching || error) return;
-      console.log('object');
       fetchSavedPosts(1);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

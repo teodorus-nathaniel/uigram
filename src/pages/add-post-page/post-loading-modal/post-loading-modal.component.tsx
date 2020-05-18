@@ -33,7 +33,6 @@ function PostLoadingModalPlain ({ isFetching, error }: Props): ReactElement{
     [ isFetching, error, history ]
   );
 
-  console.log(isFetching, hasUploaded.current);
   return (
     <div
       className={`post-loading-modal${isFetching || hasUploaded.current

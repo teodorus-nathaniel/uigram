@@ -44,12 +44,11 @@ function* postNewPostAsync (){
   bodyData.set('title', state.title);
   bodyData.set('description', state.description);
   bodyData.set('link', state.link);
-  const res = yield getFetchInstance().post('/posts', bodyData, {
+  yield getFetchInstance().post('/posts', bodyData, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
   });
-  console.log(res);
 }
 
 function* watchAddUrl (){

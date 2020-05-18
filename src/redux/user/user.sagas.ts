@@ -24,7 +24,6 @@ import store from '../store';
 import { setCookie } from '../utils/cookie';
 
 function* loginUserFromResponse (res: any){
-  console.log(res);
   const { user, token } = getDataFromResponse(res);
   setCookie('token', token, 7);
   yield put(
@@ -140,10 +139,8 @@ function* updateUserAsync ({
       'Content-Type': 'multipart/form-data'
     }
   });
-  console.log(res);
 
   const { user } = getDataFromResponse(res);
-  console.log(user);
   yield put(loadSelf(user));
 }
 

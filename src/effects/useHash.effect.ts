@@ -13,7 +13,6 @@ export default function useHash (): [string, (val: string) => void]{
   );
 
   const handleChange = (val: string) => {
-    console.log(val);
     window.location.hash = val;
   };
 

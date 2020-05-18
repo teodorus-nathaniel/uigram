@@ -15,19 +15,6 @@ function* fetchExplorePosts ({
 }: {
   payload: IFetchExplorePayload;
 }){
-  // console.log({ sort });
-  // yield new Promise((resolve) => setTimeout(resolve, 2000));
-  // const posts = dummyArrayPost(page);
-
-  // yield put(
-  //   loadExplorePosts({
-  //     sort,
-  //     posts: posts,
-  //     page
-  //   })
-  // );
-
-  // TODO: this is api call
   const res = yield getFetchInstance().get(`/posts?sort=${sort}&page=${page}`);
   const { posts } = getDataFromResponse(res);
 
@@ -45,10 +32,6 @@ function* fetchFeedsPosts ({
 }: {
   payload: IFetchFeedsPayload;
 }){
-  // yield new Promise((resolve) => setTimeout(resolve, 2000));
-  // yield put(loadFeedsPosts({ posts: dummyArrayPost(page), page }));
-
-  // TODO: this is api call
   const res = yield getFetchInstance().get(`/posts/self/feeds?page=${page}`);
   const { posts } = getDataFromResponse(res);
 

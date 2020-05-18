@@ -27,7 +27,7 @@ export default function PostDescriptionContainer ({
     error: ''
   });
 
-  //TODO: gabung images sma detail trus post ke backend
+  //gabung images sma detail trus post ke backend
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     error = isEmpty('Title', title.value);

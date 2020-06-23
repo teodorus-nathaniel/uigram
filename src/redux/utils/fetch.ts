@@ -5,7 +5,7 @@ console.log(process.env.NODE_ENV);
 
 const baseURL =
   process.env.NODE_ENV === 'production'
-    ? 'http://uigram-api.herokuapp.com/api/v1'
+    ? 'https://uigram-api.herokuapp.com/api/v1'
     : 'http://localhost:8080/api/v1';
 
 const getFetchInstance = () =>

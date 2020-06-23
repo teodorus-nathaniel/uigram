@@ -34,7 +34,9 @@ function CommentParentPlain ({ comment, fetchReplies, postReply }: IProps){
 
   useEffect(
     () => {
-      if (hasFetch.current === false && showReplies === true) {
+      if (comment.replies) {
+        hasFetch.current = true;
+      } else if (hasFetch.current === false && showReplies === true) {
         fetchReplies(comment.id, 1);
         hasFetch.current = true;
       }
@@ -72,6 +74,7 @@ function CommentParentPlain ({ comment, fetchReplies, postReply }: IProps){
             onClick={() => {
               postReply(comment.id, replyInput, comment.postId);
               setReplyInput('');
+              setShowReplyInput(false);
             }}>
             Reply
           </Button>

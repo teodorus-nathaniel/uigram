@@ -1,3 +1,4 @@
+import { fetchApi } from './../fetch/fetch.actions';
 import { call, all, takeLatest, put } from 'redux-saga/effects';
 import {
   IFetchUserPayload,
@@ -22,6 +23,7 @@ import getFetchInstance from './../utils/fetch';
 import getDataFromResponse from '../utils/get-data-from-res';
 import store from '../store';
 import { setCookie } from '../utils/cookie';
+import { clearFeedsPosts } from '../post/post.actions';
 
 function* loginUserFromResponse (res: any){
   const { user, token } = getDataFromResponse(res);
@@ -102,6 +104,9 @@ function* followUserAsync ({
 }){
   yield getFetchInstance().patch(`/users/${id}/follow`);
   yield put(followUser(id));
+
+  yield put(clearFeedsPosts());
+  yield put(fetchApi({ name: 'FEEDS', data: { page: 1 } }));
 }
 
 function* unfollowUserAsync ({
@@ -111,6 +116,9 @@ function* unfollowUserAsync ({
 }){
   yield getFetchInstance().patch(`/users/${id}/unfollow`);
   yield put(unfollowUser(id));
+
+  yield put(clearFeedsPosts());
+  yield put(fetchApi({ name: 'FEEDS', data: { page: 1 } }));
 }
 
 function* watchFetchUser (){

@@ -44,10 +44,10 @@ function ProfilePagePlain ({
       } else if (id !== 'self') {
         if (!user.data || user.data.id !== id) {
           fetchUser(id);
-          fetchUserPosts(id, user.posts.page + 1);
+          fetchUserPosts(id, 1);
         }
       } else if (self.posts.data.length === 0 && self.posts.page === 0) {
-        fetchUserPosts(id, self.posts.page + 1, true);
+        fetchUserPosts(id, 1, true);
       }
     },
     [ id, fetchUser, user, fetchUserPosts, self, history, isFetching, error ]

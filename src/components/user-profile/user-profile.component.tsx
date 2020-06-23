@@ -67,9 +67,11 @@ function UserProfilePlain ({ user, unfollow, follow, isSelf, logout }: IProps){
             {followed ? 'Unfollow' : 'Follow'}
           </Button>
         )}
-        <Button className="user-profile__logout" red onClick={logout}>
-          Logout
-        </Button>
+        {isSelf ? (
+          <Button className="user-profile__logout" red onClick={logout}>
+            Logout
+          </Button>
+        ) : null}
       </div>
     </div>
   );

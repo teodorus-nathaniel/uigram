@@ -47,7 +47,11 @@ function CommentTextAreaPlain ({
               setLocalError("Comment can't be empty");
               return;
             }
-            if (!isFetching) addNewComment(postId, comment);
+            if (!isFetching) {
+              addNewComment(postId, comment);
+              setLocalError('');
+              setComment('');
+            }
           }}>
           {buttonText || 'Comment'}
         </Button>

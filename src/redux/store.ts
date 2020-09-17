@@ -5,10 +5,15 @@ import createSagaMiddleware from 'redux-saga';
 import rootSaga from './root-saga';
 
 const sagaMiddleware = createSagaMiddleware();
-const middlewares = [ logger, sagaMiddleware ];
+const middlewares: any[] = [sagaMiddleware];
+if (process.env.NODE_ENV === 'development') {
+  middlewares.push(logger);
+}
 
 const composeEnhancers =
-  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  process.env.NODE_ENV === 'development'
+    ? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+    : compose;
 
 const store = createStore(
   rootReducer,
@@ -18,15 +23,3 @@ const store = createStore(
 sagaMiddleware.run(rootSaga);
 
 export default store;
-
-// import { persistStore, persistReducer } from 'redux-persist';
-// import storage from 'redux-persist/lib/storage/session';
-
-// const persistedReducer = persistReducer(
-//   {
-//     key: 'root',
-//     storage,
-//     whitelist: [ 'user', 'colorMode' ]
-//   },
-//   rootReducer
-// );
